@@ -9,16 +9,20 @@ namespace Console_Proj
         public string patronymic;
         public string educationStatus;
         public string eMail;
+        public string login;
+        public string password;
         public int group;
 
         public Student(string firstName, string lastName, string patronymic,
-            string educationStatus, string eMail, int group)
+            string educationStatus, string eMail, string login, string password, int group)
         {
             this.firstName = firstName;
             this.lastName = lastName;
             this.patronymic = patronymic;
             this.educationStatus = educationStatus;
             this.eMail = eMail;
+            this.login = login;
+            this.password = password;
             this.group = group;
         }
     }
@@ -91,8 +95,8 @@ namespace Console_Proj
             while (current != null)
             {
                 Console.WriteLine($"{current.data.firstName}, {current.data.lastName}, " +
-                    $"{current.data.patronymic}, " +
-                    $"{current.data.educationStatus}, {current.data.eMail}, КНТ-{current.data.group}");
+                    $"{current.data.patronymic}, {current.data.educationStatus}, {current.data.eMail}, " +
+                    $"{current.data.login}, {current.data.password}, КНТ-{current.data.group}");
                 current = current.next;
             }
         }
@@ -100,9 +104,9 @@ namespace Console_Proj
         static void Main(string[] args)
         {
             DoublyLinkedList studentList = new DoublyLinkedList();
-            studentList.AddStudent(new Student("Iван", "Iваненко", "Iванович", "Контракт", "ivan@example.com", 122));
-            studentList.AddStudent(new Student("Сергiй", "Сергiєнко", "Сергiйович", "Бюджет", "serhii@example.com", 112));
-            studentList.AddStudent(new Student("Петро", "Петренко", "Петрович", "Бюджет", "petro@example.com", 111));
+            studentList.AddStudent(new Student("Iван", "Iваненко", "Iванович", "Контракт", "ivan@example.com", "username1", "password1", 122));
+            studentList.AddStudent(new Student("Сергiй", "Сергiєнко", "Сергiйович", "Бюджет", "serhii@example.com", "username2", "password2", 112));
+            studentList.AddStudent(new Student("Петро", "Петренко", "Петрович", "Бюджет", "petro@example.com", "username3", "password3", 111));
             Console.WriteLine("List of the Students:");
             studentList.DisplayStudents();
 
