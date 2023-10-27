@@ -41,7 +41,9 @@
             IAdminInfoCMS = new ContextMenuStrip(components);
             deleteToolStripMenuItem = new ToolStripMenuItem();
             cleanToolStripMenuItem = new ToolStripMenuItem();
+            tableLayoutPanel2 = new TableLayoutPanel();
             tabControl1.SuspendLayout();
+            tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             IAdminInfoCMS.SuspendLayout();
@@ -60,6 +62,7 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(tableLayoutPanel2);
             tabPage1.Location = new Point(4, 34);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
@@ -178,6 +181,25 @@
             cleanToolStripMenuItem.Text = "Clean";
             cleanToolStripMenuItem.Click += cleanToolStripMenuItem_Click;
             // 
+            // tableLayoutPanel2
+            // 
+            tableLayoutPanel2.ColumnCount = 5;
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 172F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 171F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 168F));
+            tableLayoutPanel2.Location = new Point(4, 4);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.RowCount = 5;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 110F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 96F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 85F));
+            tableLayoutPanel2.Size = new Size(866, 498);
+            tableLayoutPanel2.TabIndex = 0;
+            // 
             // IAdministratorForm1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -188,6 +210,7 @@
             StartPosition = FormStartPosition.CenterParent;
             Text = "Адміністратор";
             tabControl1.ResumeLayout(false);
+            tabPage1.ResumeLayout(false);
             tabPage2.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
@@ -209,5 +232,6 @@
         private ContextMenuStrip IAdminInfoCMS;
         private ToolStripMenuItem deleteToolStripMenuItem;
         private ToolStripMenuItem cleanToolStripMenuItem;
+        private TableLayoutPanel tableLayoutPanel2;
     }
 }
