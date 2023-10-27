@@ -1,6 +1,6 @@
 ﻿
 
-/*public class FileManager
+public class FileManager
 {
     public static void CreateCsvFiles()
     {
@@ -47,4 +47,3 @@
         File.WriteAllText("professors.json", professorsJson);
     }
 }
-*/
