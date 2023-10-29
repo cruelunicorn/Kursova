@@ -54,7 +54,7 @@ namespace Interface_Proj
                     studentType = fields[4];
                     login = fields[5];
                     password = fields[6];
-                    Methods.AddStudent(new Student { FirstName = firstName, LastName = lastName, Email = email, Group = group }, new LoginInfo { Login = login, Password = password });
+                    Methods.AddStudent(new Student { FirstName = firstName, LastName = lastName, Email = email, Group = group, StudentType = studentType }, new LoginInfo { Login = login, Password = password });
                     IAdminInfoStudLB.Items.Add(newtext);
                     IAdminInfoStudTB.Text = string.Empty;
                     IAdminInfoStudGenTB.Text = string.Empty;
@@ -122,7 +122,7 @@ namespace Interface_Proj
         {
             string password = GeneratePassword();
             string nickname = GenerateUsername();
-            IAdminInfoStudGenTB.Text = $"{nickname}; {password}";
+            IAdminInfoStudGenTB.Text = $"{nickname} {password}";
         }
 
         private static Random random = new Random();
