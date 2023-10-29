@@ -1,0 +1,21 @@
+
+  [
+    {
+      "name": "Professor 1",
+      "course": "Math",
+      "login": "pro1",
+      "password": "pass1"
+    },
+    {
+      "name": "Professor 2",
+      "course": "Physics",
+      "login": "pro2",
+      "password": "pass2"
+    },
+    {
+      "name": "Professor 3",
+      "course": "English",
+      "login": "pro3",
+      "password": "pass3"
+    }
+  ]
