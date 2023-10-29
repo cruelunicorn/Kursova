@@ -1,4 +1,4 @@
-﻿class Program
+﻿/*class Program
 {
     static void Main()
     {
@@ -48,4 +48,4 @@
 
         Console.WriteLine("Program was successfully executed!");
     }
-}
+}*/

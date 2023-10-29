@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -22,28 +23,44 @@ namespace Interface_Proj
             //Перевірка на наявність тексту в IAdminInfoTB,
             //додавання його до IAdminInfoLB
             //(Trim() - щоб не було зайвих прогалин)
-            if (!string.IsNullOrEmpty(IAdminInfoTB.Text))
+            //if (!string.IsNullOrEmpty(IAdminInfoStudTB.Text))
+            //{
+            //    IAdminInfoStudLB.Items.Add(IAdminInfoStudTB.Text.Trim());
+            //   IAdminInfoStudTB.Text = string.Empty;
+            //}
+            string newtext = "";
+            if (IAdminInfoStudTB.Text != "" & IAdminInfoStudGenTB != "")
             {
-                IAdminInfoLB.Items.Add(IAdminInfoTB.Text.Trim());
-                IAdminInfoTB.Text = string.Empty;
+                newtext = IAdminInfoStudTB.Text + IAdminInfoStudGenTB;
             }
+            Methods.AddStudent();
+
         }
 
         private void IAdminInfoDelete_Click(object sender, EventArgs e)
         {
-            //Перевірка на наявність виділеного елемента
-            //в IAdminInfoLB, видалення елемента
-            if (IAdminInfoLB.SelectedItems != null)
+            string text = IAdminInfoStudLB.Text;
+            // string[] words = text.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            // +видалення підстрок
+            string[] words = text.Split(new[] { ' ' });
+            string firstWord = "";
+            string secondWord = "";
+            if (words.Length == 2)
             {
-                IAdminInfoLB.Items.RemoveAt(IAdminInfoLB.SelectedIndex);
+                // firstWord і secondWord містять два слова із вихідного рядка
+
+                firstWord = words[0];
+                secondWord = words[1];
             }
+            Methods.RemoveStudent(firstWord, secondWord);
+
         }
 
         private void IAdminInfoLB_MouseUp(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
             {
-                IAdminInfoCMS.Show(IAdminInfoLB, e.Location);
+                IAdminInfoCMS.Show(IAdminInfoStudLB, e.Location);
             }
         }
 
@@ -54,7 +71,7 @@ namespace Interface_Proj
 
         private void cleanToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            IAdminInfoLB.Items.Clear();
+            IAdminInfoStudLB.Items.Clear();
         }
 
         private void IAdminInfoTB_KeyUp(object sender, KeyEventArgs e)
@@ -63,6 +80,32 @@ namespace Interface_Proj
             {
                 IAdminInfoAddBut_Click(null, null);
             }
+        }
+
+        private void bindingSource1_CurrentChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void IAdminInfoGenerateStudBut_Click(object sender, EventArgs e)
+        {
+            //HashTable passwordGenerator = new HashTable();
+
+            //string username = GenerateUsername();
+            //string password = GeneratePassword();
+
+            // Вивести результат в TextBox
+            //IAdminInfoStudGenTB.Text = $"{username}; {password}";
+        }
+
+        private void IAdminInfoStudLB_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void IAdministratorForm1_Load(object sender, EventArgs e)
+        {
+            //bindingSource1.DataSource = 
         }
     }
 }
