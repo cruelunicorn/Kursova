@@ -96,6 +96,27 @@ public class Methods
         }
         return -1;
     }
+    public static int FindStudentPassword(string Password)
+    {
+        List<LoginInfo> students = ReadStudentsFromJson();
+        var student = students.FirstOrDefault(s => s.Password == Password);
+        if (student != null)
+        {
+            return 1;
+        }
+        return -1;
+    }
+
+    public static int FindStudentLogin(string Login)
+    {
+        List<LoginInfo> students = ReadStudentsFromJson();
+        var student = students.FirstOrDefault(s => s.Login == Login);
+        if (student != null)
+        {
+            return 1;
+        }
+        return -1;
+    }
 
     public static void RemoveStudent(string firstName, string lastName)
     {
