@@ -39,22 +39,16 @@
             IAdminInfoStudGenTB = new TextBox();
             IAdminInfoGenerateStudBut = new Button();
             IAdminInfoStudLB = new ListBox();
-            methodsBindingSource = new BindingSource(components);
             IAdminInfoDeleteStudBut = new Button();
             tabPage3 = new TabPage();
             IAdminInfoCMS = new ContextMenuStrip(components);
             deleteToolStripMenuItem = new ToolStripMenuItem();
             cleanToolStripMenuItem = new ToolStripMenuItem();
-            bindingSource1 = new BindingSource(components);
-            bindingSource2 = new BindingSource(components);
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
             IAdminInfoStudTLP.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)methodsBindingSource).BeginInit();
             IAdminInfoCMS.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)bindingSource1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)bindingSource2).BeginInit();
             SuspendLayout();
             // 
             // tabControl1
@@ -184,7 +178,6 @@
             // IAdminInfoStudLB
             // 
             IAdminInfoStudTLP.SetColumnSpan(IAdminInfoStudLB, 4);
-            IAdminInfoStudLB.DataSource = methodsBindingSource;
             IAdminInfoStudLB.Dock = DockStyle.Fill;
             IAdminInfoStudLB.FormattingEnabled = true;
             IAdminInfoStudLB.ItemHeight = 25;
@@ -195,10 +188,6 @@
             IAdminInfoStudLB.TabIndex = 3;
             IAdminInfoStudLB.SelectedIndexChanged += IAdminInfoStudLB_SelectedIndexChanged;
             IAdminInfoStudLB.MouseUp += IAdminInfoLB_MouseUp;
-            // 
-            // methodsBindingSource
-            // 
-            methodsBindingSource.DataSource = typeof(Methods);
             // 
             // IAdminInfoDeleteStudBut
             // 
@@ -257,10 +246,7 @@
             tabPage2.ResumeLayout(false);
             IAdminInfoStudTLP.ResumeLayout(false);
             IAdminInfoStudTLP.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)methodsBindingSource).EndInit();
             IAdminInfoCMS.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)bindingSource1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)bindingSource2).EndInit();
             ResumeLayout(false);
         }
 
@@ -281,8 +267,5 @@
         private TableLayoutPanel tableLayoutPanel2;
         private Button IAdminInfoGenerateStudBut;
         private TextBox IAdminInfoStudGenTB;
-        private BindingSource methodsBindingSource;
-        private BindingSource bindingSource1;
-        private BindingSource bindingSource2;
     }
 }

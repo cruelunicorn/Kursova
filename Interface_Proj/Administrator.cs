@@ -35,9 +35,9 @@ namespace Interface_Proj
             string newtext = "";
             if (IAdminInfoStudTB.Text != "" && IAdminInfoStudGenTB.Text != "")
             {
-                newtext = IAdminInfoStudTB.Text + IAdminInfoStudGenTB.Text;
+                newtext = IAdminInfoStudTB.Text + " " + IAdminInfoStudGenTB.Text;
                 //string[] fields = newtext.Split(new[] { ' ', ';' });
-                string[] fields = newtext.Split(new[] { ' ', ';' }, StringSplitOptions.RemoveEmptyEntries);
+                string[] fields = newtext.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 string firstName = "";
                 string lastName = "";
                 string email = "";
@@ -47,13 +47,13 @@ namespace Interface_Proj
                 string password = "";
                 if (fields.Length == 7)
                 {
-                    firstName = fields[1];
-                    lastName = fields[2];
-                    email = fields[3];
-                    group = fields[4];
-                    studentType = fields[5];
-                    login = fields[6];
-                    password = fields[7];
+                    firstName = fields[0];
+                    lastName = fields[1];
+                    email = fields[2];
+                    group = fields[3];
+                    studentType = fields[4];
+                    login = fields[5];
+                    password = fields[6];
                     Methods.AddStudent(new Student { FirstName = firstName, LastName = lastName, Email = email, Group = group }, new LoginInfo { Login = login, Password = password });
                     IAdminInfoStudLB.Items.Add(newtext);
                     IAdminInfoStudTB.Text = string.Empty;
@@ -63,8 +63,8 @@ namespace Interface_Proj
                 {
                     MessageBox.Show("Ви повинні заповнити всі поля інформації про студента");
                 }
-                Methods.ReadStudentsFromCsv();
-               // 
+                //Methods.ReadStudentsFromCsv();
+                // 
             }
         }
 
@@ -84,7 +84,7 @@ namespace Interface_Proj
                 secondWord = words[1];
             }
             Methods.RemoveStudent(firstWord, secondWord);
-            Methods.ReadStudentsFromCsv(); /////
+            //Methods.ReadStudentsFromCsv(); /////
         }
 
         private void IAdminInfoLB_MouseUp(object sender, MouseEventArgs e)
@@ -155,7 +155,14 @@ namespace Interface_Proj
 
         private void IAdministratorForm1_Load(object sender, EventArgs e)
         {
-            //bindingSource1.DataSource = 
+            //bindingSource1.DataSource = List<Student>;
+            //List<Student> students = Methods.ReadStudentsFromCsv();
+            //bindingSource1.DataSource = students;
+        }
+
+        private void methodsBindingSource1_CurrentChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
