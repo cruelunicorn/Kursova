@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Program
+namespace PasswordLoginGeneration
 {
     class Student
     {
@@ -152,7 +152,7 @@ namespace Program
             return result;
         }
 
-        static void Main(string[] args)
+       /* static void Main(string[] args)
         {
             HashTable hashtable = new HashTable(30);
             string username1 = GenerateUsername();
@@ -180,6 +180,6 @@ namespace Program
 
             Console.WriteLine("Press Enter to exit...");
             Console.ReadLine();
-        }
+        }*/
     }
 }
