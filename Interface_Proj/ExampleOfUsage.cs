@@ -12,7 +12,7 @@
         Console.WriteLine(Data[0].Login);
         Console.WriteLine(Data[0].Password);
 
-        Methods.RemoveStudent("Mardia", "Tkachenko");
+        Methods.RemoveStudent("Maria", "Tkachenko");
 
         Methods.AddStudent(new Student
         {
