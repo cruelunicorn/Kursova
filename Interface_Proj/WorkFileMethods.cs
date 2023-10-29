@@ -96,7 +96,7 @@ public class Methods
         }
         return -1;
     }
-    public static int FindStudentPassword(string Password)
+    public static int StudentPasswordExist(string Password)
     {
         List<LoginInfo> students = ReadStudentsFromJson();
         var student = students.FirstOrDefault(s => s.Password == Password);
@@ -107,7 +107,7 @@ public class Methods
         return -1;
     }
 
-    public static int FindStudentLogin(string Login)
+    public static int StudentLoginExist(string Login)
     {
         List<LoginInfo> students = ReadStudentsFromJson();
         var student = students.FirstOrDefault(s => s.Login == Login);
