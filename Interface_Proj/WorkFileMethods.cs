@@ -27,11 +27,17 @@ public class LoginInfo
     public string? Password { get; set; }
 }
 
+public class LoginInfoProfessors
+{
+    public string? Login { get; set; }
+    public string? Password { get; set; }
+}
+
+
 public class Methods
 {
     
     //////////////////ReadStudentsFromCsv
-    
     public static List<Student> ReadStudentsFromCsv()
     {
         string csvFileName = "students.csv";
@@ -132,6 +138,64 @@ public class Methods
         {
             return new List<LoginInfo>();
         }
+    }
+
+    //////////////ReadProfessorsFromJson
+    public static List<LoginInfoProfessors> ReadProfessorsFromJson()
+    {
+        string jsonFileName = "professors.json";
+
+        if (!File.Exists(jsonFileName))
+        {
+            File.WriteAllText(jsonFileName, "[]");
+        }
+
+        string json = File.ReadAllText(jsonFileName);
+        List<LoginInfoProfessors>? professorsList = JsonConvert.DeserializeObject<List<LoginInfoProfessors>>(json);
+
+        if (professorsList != null)
+        {
+            return professorsList;
+        }
+        else
+        {
+            return new List<LoginInfoProfessors>();
+        }
+    }
+
+    
+    ///////////////////////////AddProfessor
+    public static void AddProfessor(LoginInfoProfessors newProfessorInfo)
+    {
+        List<LoginInfoProfessors> professors = ReadProfessorsFromJson();
+        professors.Add(newProfessorInfo);
+
+        string json = JsonConvert.SerializeObject(professors, Formatting.Indented);
+        File.WriteAllText("professors.json", json);
+    }
+
+    //ProfessorPasswordExist
+    public static bool ProfessorPasswordExist(string Password)
+    {
+        List<LoginInfoProfessors> professors = ReadProfessorsFromJson();
+        var professor = professors.FirstOrDefault(s => s.Password == Password);
+        if (professor != null)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    //ProfessorLoginExist
+    public static bool ProfessorLoginExist(string Login)
+    {
+        List<LoginInfoProfessors> professors = ReadProfessorsFromJson();
+        var professor = professors.FirstOrDefault(s => s.Login == Login);
+        if (professor != null)
+        {
+            return true;
+        }
+        return false;
     }
 
     public static int FindStudentID(string firstName, string lastName)
