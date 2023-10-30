@@ -28,6 +28,10 @@ namespace Interface_Proj
             }
         }
 
+       // private bool LoginExit()
+       // {
+       //     if(Methods.StudentLoginExist(INameTB1.Text))
+       // }
         private bool CheckNameAndPassword()
         {
             bool status = true;

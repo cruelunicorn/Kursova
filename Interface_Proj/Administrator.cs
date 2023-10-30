@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
+using static System.Windows.Forms.LinkLabel;
 
 namespace Interface_Proj
 {
@@ -20,18 +21,9 @@ namespace Interface_Proj
             InitializeComponent();
         }
 
+        const string csvFilePath = @"C:\Kursova\Interface_Proj\bin\Debug\net6.0-windows\students.csv";
         private void IAdminInfoAddBut_Click(object sender, EventArgs e)
         {
-            //Перевірка на наявність тексту в IAdminInfoTB,
-            //додавання його до IAdminInfoLB
-            //(Trim() - щоб не було зайвих прогалин)
-            //if (!string.IsNullOrEmpty(IAdminInfoStudTB.Text))
-            //{
-            //    IAdminInfoStudLB.Items.Add(IAdminInfoStudTB.Text.Trim());
-            //   IAdminInfoStudTB.Text = string.Empty;
-            //}
-
-
             string newtext = "";
             if (IAdminInfoStudTB.Text != "" && IAdminInfoStudGenTB.Text != "")
             {
@@ -63,28 +55,51 @@ namespace Interface_Proj
                 {
                     MessageBox.Show("Ви повинні заповнити всі поля інформації про студента");
                 }
-                //Methods.ReadStudentsFromCsv();
-                // 
+                IAdminInfoStudLB.Items.Clear();
+                List<string> lines = File.ReadAllLines(csvFilePath).ToList();
+                foreach (string line in lines)
+                {
+                    IAdminInfoStudLB.Items.Add(line);
+                }
+               // DisplayCSVContentsInListBox();
             }
         }
 
         private void IAdminInfoDelete_Click(object sender, EventArgs e)
         {
-            string text = IAdminInfoStudLB.Text;
-            // string[] words = text.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            // +видалення підстрок
-            string[] words = text.Split(new[] { ' ' });
-            string firstWord = "";
-            string secondWord = "";
-            if (words.Length == 2)
-            {
-                // firstWord і secondWord містять два слова із вихідного рядка
+            
+            //string csvFilePath = @"C:\Kursova\Interface_Proj\bin\Debug\net6.0-windows\students.csv";
 
-                firstWord = words[0];
-                secondWord = words[1];
+            if (File.Exists(csvFilePath))
+            {
+                string text = IAdminInfoStudTB.Text; // Замените IAdminInfoStudLB.Text на IAdminInfoStudTB.Text
+                string[] words = text.Split(new[] { ' ' });
+
+                if (words.Length == 2)
+                {
+                    string firstWord = words[0];
+                    string secondWord = words[1];
+
+                    // Вызов функции RemoveStudent для удаления студента
+                    Methods.RemoveStudent(firstWord, secondWord);
+
+                    // Обновление данных в ListBox (или другом контроле, в котором отображаются студенты)
+                    IAdminInfoStudLB.Items.Clear();
+                    List<string> lines = File.ReadAllLines(csvFilePath).ToList();
+                    foreach (string line in lines)
+                    {
+                        IAdminInfoStudLB.Items.Add(line);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Введите ровно два слова в текстовом поле.");
+                }
             }
-            Methods.RemoveStudent(firstWord, secondWord);
-            //Methods.ReadStudentsFromCsv(); /////
+            else
+            {
+                MessageBox.Show("Файл students.csv не найден.");
+            }
         }
 
         private void IAdminInfoLB_MouseUp(object sender, MouseEventArgs e)
@@ -97,12 +112,11 @@ namespace Interface_Proj
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            IAdminInfoDelete_Click(null, null);
+
         }
 
         private void cleanToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            IAdminInfoStudLB.Items.Clear();
         }
 
         private void IAdminInfoTB_KeyUp(object sender, KeyEventArgs e)
