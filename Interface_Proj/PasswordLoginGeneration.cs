@@ -126,10 +126,22 @@ namespace PasswordLoginGeneration
             return new string(username);
         }
 
-        // Password generation.
-        static string GeneratePassword(int length = 8)
+        // Password generation for students.
+        static string GeneratePasswordForStudents(int length = 8)
         {
-            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
+            string chars = "abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
+            char[] password = new char[length];
+            for (int i = 0; i < length; i++)
+            {
+                password[i] = chars[random.Next(chars.Length)];
+            }
+            return new string(password);
+        }
+
+        // Password generation for professors.
+        static string GeneratePasswordForProfessors(int length = 9)
+        {
+            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
             char[] password = new char[length];
             for (int i = 0; i < length; i++)
             {
@@ -152,20 +164,20 @@ namespace PasswordLoginGeneration
             return result;
         }
 
-       /* static void Main(string[] args)
+        /*static void Main(string[] args)
         {
             HashTable hashtable = new HashTable(30);
             string username1 = GenerateUsername();
-            string password1 = GeneratePassword();
+            string password1 = GeneratePasswordForStudents();
             hashtable.AddNewStudent(username1, password1);
             string username2 = GenerateUsername();
-            string password2 = GeneratePassword();
+            string password2 = GeneratePasswordForStudents();
             hashtable.AddNewStudent(username2, password2);
             string username3 = GenerateUsername();
-            string password3 = GeneratePassword();
+            string password3 = GeneratePasswordForStudents();
             hashtable.AddNewStudent(username3, password3);
             string username4 = GenerateUsername();
-            string password4 = GeneratePassword();
+            string password4 = GeneratePasswordForStudents();
             hashtable.AddNewStudent(username4, password4);
             Console.WriteLine(hashtable.ToString());
 
