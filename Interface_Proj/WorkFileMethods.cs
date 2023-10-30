@@ -96,26 +96,26 @@ public class Methods
         }
         return -1;
     }
-    public static int StudentPasswordExist(string Password)
+    public static bool StudentPasswordExist(string Password)
     {
         List<LoginInfo> students = ReadStudentsFromJson();
         var student = students.FirstOrDefault(s => s.Password == Password);
         if (student != null)
         {
-            return 1;
+            return true;
         }
-        return -1;
+        return false;
     }
 
-    public static int StudentLoginExist(string Login)
+    public static bool StudentLoginExist(string Login)
     {
         List<LoginInfo> students = ReadStudentsFromJson();
         var student = students.FirstOrDefault(s => s.Login == Login);
         if (student != null)
         {
-            return 1;
+            return true;
         }
-        return -1;
+        return false;
     }
 
     public static void RemoveStudent(string firstName, string lastName)
