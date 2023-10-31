@@ -115,7 +115,7 @@ namespace PasswordLoginGeneration
         private static Random random = new Random();
 
         // Username generation
-        static string GenerateUsername(int length = 10)
+        public static string GenerateUsername(int length = 10)
         {
             string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789._";
             char[] username = new char[length];
@@ -127,7 +127,7 @@ namespace PasswordLoginGeneration
         }
 
         // Password generation for students.
-        static string GeneratePasswordForStudents(int length = 8)
+        public static string GeneratePasswordForStudents(int length = 8)
         {
             string chars = "abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
             char[] password = new char[length];
@@ -139,7 +139,7 @@ namespace PasswordLoginGeneration
         }
 
         // Password generation for professors.
-        static string GeneratePasswordForProfessors(int length = 9)
+        public static string GeneratePasswordForProfessors(int length = 9)
         {
             string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
             char[] password = new char[length];

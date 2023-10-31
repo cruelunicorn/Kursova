@@ -61,15 +61,11 @@ namespace Interface_Proj
                 {
                     IAdminInfoStudLB.Items.Add(line);
                 }
-               // DisplayCSVContentsInListBox();
             }
         }
 
         private void IAdminInfoDelete_Click(object sender, EventArgs e)
         {
-            
-            //string csvFilePath = @"C:\Kursova\Interface_Proj\bin\Debug\net6.0-windows\students.csv";
-
             if (File.Exists(csvFilePath))
             {
                 string text = IAdminInfoStudTB.Text; // Замените IAdminInfoStudLB.Text на IAdminInfoStudTB.Text
@@ -134,34 +130,11 @@ namespace Interface_Proj
 
         private void IAdminInfoGenerateStudBut_Click(object sender, EventArgs e)
         {
-            string password = GeneratePassword();
-            string nickname = GenerateUsername();
+            string password = HashTable.GeneratePasswordForStudents();
+            string nickname = HashTable.GenerateUsername();
             IAdminInfoStudGenTB.Text = $"{nickname} {password}";
         }
 
-        private static Random random = new Random();
-
-        // Username generation
-        static string GenerateUsername(int length = 10)
-        {
-            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789._";
-            char[] username = new char[length];
-            for (int i = 0; i < length; i++)
-            {
-                username[i] = chars[random.Next(chars.Length)];
-            }
-            return new string(username);
-        }
-        static string GeneratePassword(int length = 8)
-        {
-            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
-            char[] password = new char[length];
-            for (int i = 0; i < length; i++)
-            {
-                password[i] = chars[random.Next(chars.Length)];
-            }
-            return new string(password);
-        }
         private void IAdminInfoStudLB_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -169,9 +142,6 @@ namespace Interface_Proj
 
         private void IAdministratorForm1_Load(object sender, EventArgs e)
         {
-            //bindingSource1.DataSource = List<Student>;
-            //List<Student> students = Methods.ReadStudentsFromCsv();
-            //bindingSource1.DataSource = students;
         }
 
         private void methodsBindingSource1_CurrentChanged(object sender, EventArgs e)

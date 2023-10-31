@@ -20,18 +20,38 @@ namespace Interface_Proj
         private void IComeInBut1_Click(object sender, EventArgs e)
         {
             CleanErrorMessage();
-            if (CheckNameAndPassword())
+            if (CheckNameAndPassword() && LoginExit() && IPasswordTB1.TextLength == 8)
             {
-                IAdministratorForm1 administrator = new IAdministratorForm1();
+                IStudentForm1 student = new IStudentForm1();
                 this.Hide();
-                administrator.Show();
+                student.Show();
+            }
+            else if(CheckNameAndPassword() && LoginExit() && IPasswordTB1.TextLength == 9)
+            {
+                IProfessorForm1 professor = new IProfessorForm1();
+                this.Hide();
+                professor.Show();
             }
         }
 
-       // private bool LoginExit()
-       // {
-       //     if(Methods.StudentLoginExist(INameTB1.Text))
-       // }
+        private bool LoginExit()
+        {
+            bool status = true;
+
+            if (!Methods.StudentLoginExist(INameTB1.Text))
+            {
+                status = false;
+                errorProvider1.SetError(INameTB1, "Ваш логін не знайдено!");
+            }
+            if(!Methods.ProfessorPasswordExist(IPasswordTB1.Text))
+            {
+                status = false;
+                errorProvider1.SetError(IPasswordTB1, "Введіть правильний пароль!");
+            }
+
+            return status;
+        }
+
         private bool CheckNameAndPassword()
         {
             bool status = true;
