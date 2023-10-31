@@ -14,8 +14,8 @@ namespace Interface_Proj
     /// </summary>
     internal class MicrosoftStorageHandler
     {
-        private readonly string accountName = "kursovaoop";
-        private readonly string accessKey = "8kvsIsLRr3EuFsWC1Jp3HOuuZukIpEGmq0EOewzYIlFYurjvQFP+LhoM43cKMrqpMB0Hy2jy+Oy2+AStahGkpA==";
+        private readonly string accountName = "";
+        private readonly string accessKey = "";
         private readonly string documentFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         private readonly BlobServiceClient client;
         private readonly BlobContainerClient container;
