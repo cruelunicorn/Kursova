@@ -15,9 +15,10 @@ public class Student
 
 public class Schedule
 {
-    public string? Date { get; set; }
-    public string? Time { get; set; }
-    public string? Course { get; set; }
+    public string? Day { get; set; }
+    public string? Subject { get; set; }
+    public string? NumeratorDenominator { get; set; }
+    public string? Link { get; set; }
 }
 
 public class LoginInfo
@@ -87,7 +88,7 @@ public class Methods
         {
             using (var writer = new StreamWriter(csvFileName))
             {
-                writer.WriteLine("Date;Time;Course;Group;Professor");
+                writer.WriteLine("Day Of Week;Subject Name;Numerator or Denominator;Subject Link");
             }
         }
 
@@ -105,15 +106,50 @@ public class Methods
                     var values = line.Split(';');
                     schedule.Add(new Schedule
                     {
-                        Date = values[0],
-                        Time = values[1],
-                        Course = values[2]
+                        Day = values[0],
+                        Subject = values[1],
+                        NumeratorDenominator = values[2],
+                        Link = values[3]
                     });
                 }
             }
         }
 
         return schedule;
+    }
+
+    // Add a new Subject.
+    public static void AddSubject(Schedule newSubjects)
+    {
+        List<Schedule> schedule = ReadScheduleFromCsv();
+        schedule.Add(newSubjects);
+        using (var writer = new StreamWriter("schedule.csv"))
+        {
+            writer.WriteLine("Day Of Week;Subject Name;Numerator or Denominator;Subject Link");
+            foreach (var entry in schedule)
+            {
+                writer.WriteLine($"{entry.Day};{entry.Subject};{entry.NumeratorDenominator};{entry.Link}");
+            }
+        }
+    }
+
+    // Remove the Subject.
+    public static void RemoveSubject(string day, string subject)
+    {
+        List<Schedule> schedule = ReadScheduleFromCsv();
+        var scheduleSubject = schedule.FirstOrDefault(entry => entry.Day == day && entry.Subject == subject);
+        if (scheduleSubject != null)
+        {
+            schedule.Remove(scheduleSubject);
+        }
+        using (var writer = new StreamWriter("schedule.csv"))
+        {
+            writer.WriteLine("Day Of Week;Subject Name;Numerator or Denominator;Subject Link");
+            foreach (var entry in schedule)
+            {
+                writer.WriteLine($"{entry.Day};{entry.Subject};{entry.NumeratorDenominator};{entry.Link}");
+            }
+        }
     }
 
 
