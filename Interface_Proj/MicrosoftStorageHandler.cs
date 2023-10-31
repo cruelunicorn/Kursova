@@ -29,7 +29,6 @@ namespace Interface_Proj
             if (!Directory.Exists(Path.Combine(documentFolderPath, "StorageFiles")))
                 Directory.CreateDirectory(Path.Combine(documentFolderPath, "StorageFiles"));
             documentFolderPath = Path.Combine(documentFolderPath, "StorageFiles");
-
         }
 
         /// <summary>Downloads file to C:/Users/User/Documents/StorageFiles </summary>
