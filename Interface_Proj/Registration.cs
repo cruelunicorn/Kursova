@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PasswordLoginGeneration;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,8 +18,48 @@ namespace Interface_Proj
             InitializeComponent();
         }
 
-        private void IComeInBut1_Click(object sender, EventArgs e)
+        private async void IComeInBut1_Click(object sender, EventArgs e)
         {
+
+            CleanErrorMessage();
+
+            MicrosoftStorageHandler handler = new();
+
+            string authorizationResult = await handler.CheckAuthorization(INameTB1.Text, IPasswordTB1.Text);
+            switch (authorizationResult)
+            {
+                case "student authorized":
+                    IStudentForm1 student = new IStudentForm1();
+                    Hide();
+                    student.Show();
+                    break;
+                case "professor authorized":
+                    IProfessorForm1 professor = new IProfessorForm1();
+                    Hide();
+                    professor.Show();
+                    break;
+                case "wrong login":
+                    errorProvider1.SetError(INameTB1, "Невірний логін");
+                    break;
+                case "wrong password":
+                    errorProvider1.SetError(IPasswordTB1, "Невірний пароль");
+                    break;
+                default:
+                    break;
+            }
+
+            //if (await handler.CheckAuthorization(INameTB1.Text, IPasswordTB1.Text) == "student authorized")
+            //{
+            //    IStudentForm1 student = new IStudentForm1();
+            //    Hide();
+            //    student.Show();
+            //}
+            //else
+            //{
+            //    errorProvider1.SetError(INameTB1, "Невірний логін або пароль");
+            //    errorProvider1.SetError(IPasswordTB1, "Невірний логін або пароль");
+            //}
+
             /* CleanErrorMessage();
              if (CheckNameAndPassword() && LoginExit() && PasswordExit() && IPasswordTB1.TextLength == 8)
              {
@@ -33,26 +74,26 @@ namespace Interface_Proj
                  professor.Show();
              }*/
 
-            CleanErrorMessage();
+            //CleanErrorMessage();
 
-            string name = INameTB1.Text;
-            string password = IPasswordTB1.Text;
+            //string name = INameTB1.Text;
+            //string password = IPasswordTB1.Text;
 
-            if (CheckNameAndPassword(name, password))
-            {
-                if (password.Length == 8)
-                {
-                    IStudentForm1 student = new IStudentForm1();
-                    this.Hide();
-                    student.Show();
-                }
-                else if (password.Length == 9)
-                {
-                    IProfessorForm1 professor = new IProfessorForm1();
-                    this.Hide();
-                    professor.Show();
-                }
-            }
+            //if (CheckNameAndPassword(name, password))
+            //{
+            //    if (password.Length == 8)
+            //    {
+            //        IStudentForm1 student = new IStudentForm1();
+            //        this.Hide();
+            //        student.Show();
+            //    }
+            //    else if (password.Length == 9)
+            //    {
+            //        IProfessorForm1 professor = new IProfessorForm1();
+            //        this.Hide();
+            //        professor.Show();
+            //    }
+            //}
 
         }
 
@@ -116,46 +157,46 @@ namespace Interface_Proj
               }*/
 
 
-        private bool CheckNameAndPassword(string name, string password)
-        {
-            bool status = true;
+        //private bool CheckNameAndPassword(string name, string password)
+        //{
+        //    bool status = true;
 
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                status = false;
-                errorProvider1.SetError(INameTB1, "Будь ласка, введіть Ваше ім'я!");
-            }
+        //    if (string.IsNullOrWhiteSpace(name))
+        //    {
+        //        status = false;
+        //        errorProvider1.SetError(INameTB1, "Будь ласка, введіть Ваше ім'я!");
+        //    }
 
-            if (string.IsNullOrWhiteSpace(password))
-            {
-                status = false;
-                errorProvider1.SetError(IPasswordTB1, "Будь ласка, введіть Ваш пароль!");
-            }
+        //    if (string.IsNullOrWhiteSpace(password))
+        //    {
+        //        status = false;
+        //        errorProvider1.SetError(IPasswordTB1, "Будь ласка, введіть Ваш пароль!");
+        //    }
 
-            if (!LoginExist(name))
-            {
-                status = false;
-                errorProvider1.SetError(INameTB1, "Ваш логін не знайдено!");
-            }
+        //    if (!LoginExist(name))
+        //    {
+        //        status = false;
+        //        errorProvider1.SetError(INameTB1, "Ваш логін не знайдено!");
+        //    }
 
-            if (!PasswordExist(name, password))
-            {
-                status = false;
-                errorProvider1.SetError(IPasswordTB1, "Введіть правильний пароль!");
-            }
+        //    if (!PasswordExist(name, password))
+        //    {
+        //        status = false;
+        //        errorProvider1.SetError(IPasswordTB1, "Введіть правильний пароль!");
+        //    }
 
-            return status;
-        }
+        //    return status;
+        //}
 
-        private bool LoginExist(string name)
-        {
-            return Methods.StudentLoginExist(name) || Methods.ProfessorLoginExist(name);
-        }
+        //private bool LoginExist(string name)
+        //{
+        //    return Methods.StudentLoginExist(name) || Methods.ProfessorLoginExist(name);
+        //}
 
-        private bool PasswordExist(string name, string password)
-        {
-            return Methods.StudentPasswordExist(name) || Methods.ProfessorPasswordExist(password);
-        }
+        //private bool PasswordExist(string name, string password)
+        //{
+        //    return Methods.StudentPasswordExist(name) || Methods.ProfessorPasswordExist(password);
+        //}
 
         private void CleanErrorMessage()
         {

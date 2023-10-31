@@ -40,43 +40,48 @@
             // 
             // INameTB1
             // 
-            INameTB1.Location = new Point(284, 121);
+            INameTB1.Location = new Point(227, 97);
+            INameTB1.Margin = new Padding(2);
             INameTB1.Multiline = true;
             INameTB1.Name = "INameTB1";
-            INameTB1.Size = new Size(287, 51);
+            INameTB1.Size = new Size(230, 42);
             INameTB1.TabIndex = 0;
             // 
             // IPasswordTB1
             // 
-            IPasswordTB1.Location = new Point(284, 293);
+            IPasswordTB1.Location = new Point(227, 234);
+            IPasswordTB1.Margin = new Padding(2);
             IPasswordTB1.Multiline = true;
             IPasswordTB1.Name = "IPasswordTB1";
-            IPasswordTB1.Size = new Size(287, 51);
+            IPasswordTB1.Size = new Size(230, 42);
             IPasswordTB1.TabIndex = 1;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(284, 81);
+            label1.Location = new Point(227, 65);
+            label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(43, 25);
+            label1.Size = new Size(35, 20);
             label1.TabIndex = 2;
             label1.Text = "Ім'я";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(284, 253);
+            label2.Location = new Point(227, 202);
+            label2.Margin = new Padding(2, 0, 2, 0);
             label2.Name = "label2";
-            label2.Size = new Size(74, 25);
+            label2.Size = new Size(62, 20);
             label2.TabIndex = 3;
             label2.Text = "Пароль";
             // 
             // IComeInBut1
             // 
-            IComeInBut1.Location = new Point(301, 403);
+            IComeInBut1.Location = new Point(241, 322);
+            IComeInBut1.Margin = new Padding(2);
             IComeInBut1.Name = "IComeInBut1";
-            IComeInBut1.Size = new Size(238, 75);
+            IComeInBut1.Size = new Size(190, 60);
             IComeInBut1.TabIndex = 4;
             IComeInBut1.Text = "Увійти";
             IComeInBut1.UseVisualStyleBackColor = true;
@@ -88,14 +93,15 @@
             // 
             // IRegistrationForm2
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(878, 544);
+            ClientSize = new Size(702, 435);
             Controls.Add(IComeInBut1);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(IPasswordTB1);
             Controls.Add(INameTB1);
+            Margin = new Padding(2);
             Name = "IRegistrationForm2";
             Text = "Вхід";
             ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();

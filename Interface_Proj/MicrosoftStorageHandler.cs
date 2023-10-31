@@ -1,5 +1,6 @@
 ﻿using Azure.Storage;
 using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace Interface_Proj
     /// </summary>
     internal class MicrosoftStorageHandler
     {
+        // З файлу credentials.txt
         private readonly string accountName = "";
         private readonly string accessKey = "";
         private readonly string documentFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
@@ -51,6 +53,33 @@ namespace Interface_Proj
             BlobClient blob = this.container.GetBlobClient($"{folderName}/{uploadFileName}");
             await blob.UploadAsync(uploadFileName, true);
             return "Uploaded successfully";
+        }
+
+        /// <returns>
+        /// <para>"student authorized" when student authorized </para>
+        /// <para>"professor authorized" when professor authorized</para>
+        /// <para>"wrong password" when login found but password not</para>
+        /// <para>"wrong login" when login not found, password is not searched</para>
+        /// </returns>
+        public async Task<string> CheckAuthorization(string login, string password)
+        {
+            if (!IsInternetAvailable()) return "";
+            BlobClient personBlob = container.GetBlobClient($"students/{login}.txt");            
+            if (personBlob.Exists() && personBlob.GetProperties() != null)
+            {
+                BlobProperties bp = await personBlob.GetPropertiesAsync();
+                if (bp.Metadata["password"] == password) return "student authorized";
+                else return "wrong password";
+            }
+            personBlob = container.GetBlobClient($"professors/{login}.txt");
+            
+            if (personBlob.Exists() && personBlob.GetProperties() != null)
+            {
+                BlobProperties bp = await personBlob.GetPropertiesAsync();
+                if (bp.Metadata["password"] == password) return "professor authorized";
+                else return "wrong password";
+            }
+            return "wrong login";
         }
         private static bool IsInternetAvailable()
         {
