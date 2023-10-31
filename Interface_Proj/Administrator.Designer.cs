@@ -41,6 +41,7 @@
             IAdminInfoStudLB = new ListBox();
             IAdminInfoDeleteStudBut = new Button();
             tabPage3 = new TabPage();
+            tableLayoutPanel1 = new TableLayoutPanel();
             IAdminInfoCMS = new ContextMenuStrip(components);
             deleteToolStripMenuItem = new ToolStripMenuItem();
             cleanToolStripMenuItem = new ToolStripMenuItem();
@@ -48,6 +49,7 @@
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
             IAdminInfoStudTLP.SuspendLayout();
+            tabPage3.SuspendLayout();
             IAdminInfoCMS.SuspendLayout();
             SuspendLayout();
             // 
@@ -70,7 +72,7 @@
             tabPage1.Padding = new Padding(3);
             tabPage1.Size = new Size(872, 505);
             tabPage1.TabIndex = 0;
-            tabPage1.Text = "tabPage1";
+            tabPage1.Text = "Розклад";
             tabPage1.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel2
@@ -100,7 +102,7 @@
             tabPage2.Padding = new Padding(3);
             tabPage2.Size = new Size(872, 505);
             tabPage2.TabIndex = 1;
-            tabPage2.Text = "tabPage2";
+            tabPage2.Text = "Студенти";
             tabPage2.UseVisualStyleBackColor = true;
             // 
             // IAdminInfoStudTLP
@@ -202,13 +204,33 @@
             // 
             // tabPage3
             // 
+            tabPage3.Controls.Add(tableLayoutPanel1);
             tabPage3.Location = new Point(4, 34);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new Padding(3);
             tabPage3.Size = new Size(872, 505);
             tabPage3.TabIndex = 2;
-            tabPage3.Text = "tabPage3";
+            tabPage3.Text = "Викладачі";
             tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.ColumnCount = 5;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.Location = new Point(3, 3);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 5;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.Size = new Size(867, 501);
+            tableLayoutPanel1.TabIndex = 0;
             // 
             // IAdminInfoCMS
             // 
@@ -246,6 +268,7 @@
             tabPage2.ResumeLayout(false);
             IAdminInfoStudTLP.ResumeLayout(false);
             IAdminInfoStudTLP.PerformLayout();
+            tabPage3.ResumeLayout(false);
             IAdminInfoCMS.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -267,5 +290,6 @@
         private TableLayoutPanel tableLayoutPanel2;
         private Button IAdminInfoGenerateStudBut;
         private TextBox IAdminInfoStudGenTB;
+        private TableLayoutPanel tableLayoutPanel1;
     }
 }

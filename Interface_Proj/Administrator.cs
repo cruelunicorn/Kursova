@@ -28,8 +28,7 @@ namespace Interface_Proj
             if (IAdminInfoStudTB.Text != "" && IAdminInfoStudGenTB.Text != "")
             {
                 newtext = IAdminInfoStudTB.Text + " " + IAdminInfoStudGenTB.Text;
-                //string[] fields = newtext.Split(new[] { ' ', ';' });
-                string[] fields = newtext.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                string[] fields = newtext.Split(new[] { ' ' }); //StringSplitOptions.RemoveEmptyEntries);
                 string firstName = "";
                 string lastName = "";
                 string email = "";
@@ -68,7 +67,7 @@ namespace Interface_Proj
         {
             if (File.Exists(csvFilePath))
             {
-                string text = IAdminInfoStudTB.Text; // Замените IAdminInfoStudLB.Text на IAdminInfoStudTB.Text
+                string text = IAdminInfoStudTB.Text;
                 string[] words = text.Split(new[] { ' ' });
 
                 if (words.Length == 2)
@@ -76,7 +75,6 @@ namespace Interface_Proj
                     string firstWord = words[0];
                     string secondWord = words[1];
 
-                    // Вызов функции RemoveStudent для удаления студента
                     Methods.RemoveStudent(firstWord, secondWord);
 
                     // Обновление данных в ListBox (или другом контроле, в котором отображаются студенты)
@@ -89,12 +87,12 @@ namespace Interface_Proj
                 }
                 else
                 {
-                    MessageBox.Show("Введите ровно два слова в текстовом поле.");
+                    MessageBox.Show("Введіть ім'я та прізвище студента в текстовому полі!");
                 }
             }
             else
             {
-                MessageBox.Show("Файл students.csv не найден.");
+                MessageBox.Show("Файл students.csv не знайдено.");
             }
         }
 
@@ -108,7 +106,23 @@ namespace Interface_Proj
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (IAdminInfoStudLB.SelectedItem != null)
+            {
+                string selectedText = IAdminInfoStudLB.SelectedItem.ToString();
+                string[] words = selectedText.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
 
+                if (words.Length >= 2)
+                {
+                    string firstWord = words[0];
+                    string secondWord = words[1];
+
+                    Methods.RemoveStudent(firstWord, secondWord);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Ви не обрали студента, якого хочете видалити");
+            }
         }
 
         private void cleanToolStripMenuItem_Click(object sender, EventArgs e)
@@ -137,11 +151,15 @@ namespace Interface_Proj
 
         private void IAdminInfoStudLB_SelectedIndexChanged(object sender, EventArgs e)
         {
-
         }
 
         private void IAdministratorForm1_Load(object sender, EventArgs e)
         {
+            List<string> lines = File.ReadAllLines(csvFilePath).ToList();
+            foreach (string line in lines)
+            {
+                IAdminInfoStudLB.Items.Add(line);
+            }
         }
 
         private void methodsBindingSource1_CurrentChanged(object sender, EventArgs e)
