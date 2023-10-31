@@ -27,63 +27,175 @@ public class LoginInfo
     public string? Password { get; set; }
 }
 
+public class LoginInfoProfessors
+{
+    public string? Login { get; set; }
+    public string? Password { get; set; }
+}
+
+
 public class Methods
 {
+    
+    //////////////////ReadStudentsFromCsv
     public static List<Student> ReadStudentsFromCsv()
     {
+        string csvFileName = "students.csv";
+
+        if (!File.Exists(csvFileName))
+        {
+            using (var writer = new StreamWriter(csvFileName))
+            {
+                writer.WriteLine("First Name;Last Name;Email;Group;StudentType;ID");
+            }
+        }
+
         List<Student> students = new List<Student>();
 
-        using (var reader = new StreamReader("students.csv"))
+        using (var reader = new StreamReader(csvFileName))
         {
             reader.ReadLine();
 
             while (!reader.EndOfStream)
             {
                 var line = reader.ReadLine();
-                var values = line.Split(';');
-                students.Add(new Student
+                if (line != null)
                 {
-                    FirstName = values[0],
-                    LastName = values[1],
-                    Email = values[2],
-                    Group = values[3],
-                    StudentType = values[4],
-                    ID = int.Parse(values[5])
-                });
+                    var values = line.Split(';');
+                    students.Add(new Student
+                    {
+                        FirstName = values[0],
+                        LastName = values[1],
+                        Email = values[2],
+                        Group = values[3],
+                        StudentType = values[4],
+                        ID = int.Parse(values[5])
+                    });
+                }
             }
         }
 
         return students;
     }
 
+    /////////////////////ReadSchedule
     public static List<Schedule> ReadScheduleFromCsv()
     {
+        string csvFileName = "schedule.csv";
+
+        if (!File.Exists(csvFileName))
+        {
+            using (var writer = new StreamWriter(csvFileName))
+            {
+                writer.WriteLine("Date;Time;Course;Group;Professor");
+            }
+        }
+
         List<Schedule> schedule = new List<Schedule>();
 
-        using (var reader = new StreamReader("schedule.csv"))
+        using (var reader = new StreamReader(csvFileName))
         {
             reader.ReadLine();
 
             while (!reader.EndOfStream)
             {
                 var line = reader.ReadLine();
-                var values = line.Split(';');
-                schedule.Add(new Schedule
+                if (line != null)
                 {
-                    Date = values[0],
-                    Time = values[1],
-                    Course = values[2]
-                });
+                    var values = line.Split(';');
+                    schedule.Add(new Schedule
+                    {
+                        Date = values[0],
+                        Time = values[1],
+                        Course = values[2]
+                    });
+                }
             }
         }
 
         return schedule;
     }
 
+
+    //////////////ReadStudentFromJson
     public static List<LoginInfo> ReadStudentsFromJson()
     {
-        string json = File.ReadAllText("students.json");
-        return JsonConvert.DeserializeObject<List<LoginInfo>>(json);
+        string jsonFileName = "students.json";
+
+        if (!File.Exists(jsonFileName))
+        {
+            File.WriteAllText(jsonFileName, "[]");
+        }
+
+        string json = File.ReadAllText(jsonFileName);
+        List<LoginInfo>? studentsList = JsonConvert.DeserializeObject<List<LoginInfo>>(json);
+
+        if (studentsList != null)
+        {
+            return studentsList;
+        }
+        else
+        {
+            return new List<LoginInfo>();
+        }
+    }
+
+    //////////////ReadProfessorsFromJson
+    public static List<LoginInfoProfessors> ReadProfessorsFromJson()
+    {
+        string jsonFileName = "professors.json";
+
+        if (!File.Exists(jsonFileName))
+        {
+            File.WriteAllText(jsonFileName, "[]");
+        }
+
+        string json = File.ReadAllText(jsonFileName);
+        List<LoginInfoProfessors>? professorsList = JsonConvert.DeserializeObject<List<LoginInfoProfessors>>(json);
+
+        if (professorsList != null)
+        {
+            return professorsList;
+        }
+        else
+        {
+            return new List<LoginInfoProfessors>();
+        }
+    }
+
+    
+    ///////////////////////////AddProfessor
+    public static void AddProfessor(LoginInfoProfessors newProfessorInfo)
+    {
+        List<LoginInfoProfessors> professors = ReadProfessorsFromJson();
+        professors.Add(newProfessorInfo);
+
+        string json = JsonConvert.SerializeObject(professors, Formatting.Indented);
+        File.WriteAllText("professors.json", json);
+    }
+
+    //ProfessorPasswordExist
+    public static bool ProfessorPasswordExist(string Password)
+    {
+        List<LoginInfoProfessors> professors = ReadProfessorsFromJson();
+        var professor = professors.FirstOrDefault(s => s.Password == Password);
+        if (professor != null)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    //ProfessorLoginExist
+    public static bool ProfessorLoginExist(string Login)
+    {
+        List<LoginInfoProfessors> professors = ReadProfessorsFromJson();
+        var professor = professors.FirstOrDefault(s => s.Login == Login);
+        if (professor != null)
+        {
+            return true;
+        }
+        return false;
     }
 
     public static int FindStudentID(string firstName, string lastName)
@@ -96,26 +208,26 @@ public class Methods
         }
         return -1;
     }
-    public static int StudentPasswordExist(string Password)
+    public static bool StudentPasswordExist(string Password)
     {
         List<LoginInfo> students = ReadStudentsFromJson();
         var student = students.FirstOrDefault(s => s.Password == Password);
         if (student != null)
         {
-            return 1;
+            return true;
         }
-        return -1;
+        return false;
     }
 
-    public static int StudentLoginExist(string Login)
+    public static bool StudentLoginExist(string Login)
     {
         List<LoginInfo> students = ReadStudentsFromJson();
         var student = students.FirstOrDefault(s => s.Login == Login);
         if (student != null)
         {
-            return 1;
+            return true;
         }
-        return -1;
+        return false;
     }
 
     public static void RemoveStudent(string firstName, string lastName)
