@@ -29,34 +29,23 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IRegistrationForm1));
-            IStudentBut1 = new Button();
-            IProfessorBut1 = new Button();
+            IUserBut1 = new Button();
             IAdministranortBut1 = new Button();
             SuspendLayout();
             // 
-            // IStudentBut1
+            // IUserBut1
             // 
-            IStudentBut1.Location = new Point(284, 76);
-            IStudentBut1.Name = "IStudentBut1";
-            IStudentBut1.Size = new Size(338, 87);
-            IStudentBut1.TabIndex = 0;
-            IStudentBut1.Text = "Студент";
-            IStudentBut1.UseVisualStyleBackColor = true;
-            IStudentBut1.Click += IStudentBut1_Click;
-            // 
-            // IProfessorBut1
-            // 
-            IProfessorBut1.Location = new Point(284, 231);
-            IProfessorBut1.Name = "IProfessorBut1";
-            IProfessorBut1.Size = new Size(338, 87);
-            IProfessorBut1.TabIndex = 1;
-            IProfessorBut1.Text = "Викладач";
-            IProfessorBut1.UseVisualStyleBackColor = true;
-            IProfessorBut1.Click += IProfessorBut1_Click;
+            IUserBut1.Location = new Point(264, 108);
+            IUserBut1.Name = "IUserBut1";
+            IUserBut1.Size = new Size(338, 87);
+            IUserBut1.TabIndex = 1;
+            IUserBut1.Text = "Викладач";
+            IUserBut1.UseVisualStyleBackColor = true;
+            IUserBut1.Click += IProfessorBut1_Click;
             // 
             // IAdministranortBut1
             // 
-            IAdministranortBut1.Location = new Point(284, 384);
+            IAdministranortBut1.Location = new Point(264, 291);
             IAdministranortBut1.Name = "IAdministranortBut1";
             IAdministranortBut1.Size = new Size(338, 87);
             IAdministranortBut1.TabIndex = 2;
@@ -70,8 +59,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(878, 544);
             Controls.Add(IAdministranortBut1);
-            Controls.Add(IProfessorBut1);
-            Controls.Add(IStudentBut1);
+            Controls.Add(IUserBut1);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "IRegistrationForm1";
             StartPosition = FormStartPosition.CenterParent;
@@ -81,9 +69,7 @@
         }
 
         #endregion
-
-        private Button IStudentBut1;
-        private Button IProfessorBut1;
+        private Button IUserBut1;
         private Button IAdministranortBut1;
     }
 }

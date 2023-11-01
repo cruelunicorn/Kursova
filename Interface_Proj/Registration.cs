@@ -56,66 +56,6 @@ namespace Interface_Proj
 
         }
 
-        /*      private bool LoginExit()
-              {
-                  bool status = true;
-
-                  if (!Methods.StudentLoginExist(INameTB1.Text))
-                  {
-                      status = false;
-                      errorProvider1.SetError(INameTB1, "Ваш логін не знайдено!");
-                  }
-                  else if (!Methods.ProfessorLoginExist(INameTB1.Text))
-                  {
-                      status = false;
-                      errorProvider1.SetError(INameTB1, "Ваш логін не знайдено!");
-                  }
-                  return status;
-              }
-
-              private bool PasswordExit()
-              {
-                  bool status = true;
-
-                  if (!Methods.StudentPasswordExist(INameTB1.Text))
-                  {
-                      status = false;
-                      errorProvider1.SetError(IPasswordTB1, "Введіть правильний пароль!");
-                  }
-                  else if(!Methods.ProfessorPasswordExist(IPasswordTB1.Text))
-                  {
-                      status = false;
-                      errorProvider1.SetError(IPasswordTB1, "Введіть правильний пароль!");
-                  }
-
-                  return status;
-              }
-
-              private bool CheckNameAndPassword()
-              {
-                  bool status = true;
-
-                  if (INameTB1.Text == "")
-                  {
-                      status = false;
-                      errorProvider1.SetError(INameTB1, "Будь ласка введіть Ваше ім'я!");
-                  }
-                  else if (IPasswordTB1.Text == "")
-                  {
-                      status = false;
-                      errorProvider1.SetError(IPasswordTB1, "Будь ласка введіть Ваш пароль!");
-                  }
-
-                  return status;
-              }
-
-              private void CleanErrorMessage()
-              {
-                  errorProvider1.SetError(INameTB1, "");
-                  errorProvider1.SetError(IPasswordTB1, "");
-              }*/
-
-
         private bool CheckNameAndPassword(string name, string password)
         {
             bool status = true;
@@ -132,29 +72,7 @@ namespace Interface_Proj
                 errorProvider1.SetError(IPasswordTB1, "Будь ласка, введіть Ваш пароль!");
             }
 
-            if (!LoginExist(name))
-            {
-                status = false;
-                errorProvider1.SetError(INameTB1, "Ваш логін не знайдено!");
-            }
-
-            if (!PasswordExist(name, password))
-            {
-                status = false;
-                errorProvider1.SetError(IPasswordTB1, "Введіть правильний пароль!");
-            }
-
             return status;
-        }
-
-        private bool LoginExist(string name)
-        {
-            return Methods.StudentLoginExist(name) || Methods.ProfessorLoginExist(name);
-        }
-
-        private bool PasswordExist(string name, string password)
-        {
-            return Methods.StudentPasswordExist(name) || Methods.ProfessorPasswordExist(password);
         }
 
         private void CleanErrorMessage()
@@ -166,6 +84,11 @@ namespace Interface_Proj
         private void IRegistrationForm2_FormClosed(object sender, FormClosedEventArgs e)
         {
 
+        }
+
+        private void IRegistrationForm2_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

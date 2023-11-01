@@ -90,7 +90,7 @@ public class Methods
         {
             using (var writer = new StreamWriter(csvFileName))
             {
-                writer.WriteLine("Day Of Week);
+                writer.WriteLine("Day Of Week");
                 writer.WriteLine("ID;Subject Name;Type;Subject Link");
                 writer.WriteLine("ID;Subject Name;Type;Subject Link");
             }
@@ -111,7 +111,7 @@ public class Methods
                     schedule.Add(new Schedule
                     {
                         Day = values[0],
-                        ID = Int.Parse(values[1]),
+                        ID = int.Parse(values[1]),
                         Subject = values[2],
                         Type = values[3],
                         Link = values[4]

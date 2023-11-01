@@ -16,5 +16,20 @@ namespace Interface_Proj
         {
             InitializeComponent();
         }
+
+        private void IProfessorForm1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void IProfessorForm1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+
+        }
+
+        private void IProfessorForm1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
