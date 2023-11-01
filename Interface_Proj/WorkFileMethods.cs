@@ -15,12 +15,13 @@ public class Student
 
 public class Schedule
 {
-    public string? Day { get; set; }
     public int ID { get; set; }
-    public string? Subject { get; set; }
-    public string? Type { get; set; }
-    public string? Link { get; set; }
-    public int Week { get; set; }
+    public string? Monday { get; set; }
+    public string? Tuesday { get; set; }
+    public string? Wednesday { get; set; }
+    public string? Thursday { get; set; }
+    public string? Friday { get; set; }
+    public string? Saturday { get; set; }
 }
 
 public class LoginInfo
@@ -90,9 +91,7 @@ public class Methods
         {
             using (var writer = new StreamWriter(csvFileName))
             {
-                writer.WriteLine("Day Of Week");
-                writer.WriteLine("ID;Subject Name;Type;Subject Link");
-                writer.WriteLine("ID;Subject Name;Type;Subject Link");
+                writer.WriteLine("ID;Monday;Tuesday;Wednesday;Thursday;Friday;Saturday");
             }
         }
 
@@ -110,11 +109,13 @@ public class Methods
                     var values = line.Split(';');
                     schedule.Add(new Schedule
                     {
-                        Day = values[0],
-                        ID = int.Parse(values[1]),
-                        Subject = values[2],
-                        Type = values[3],
-                        Link = values[4]
+                        ID = int.Parse(values[0]),
+                        Monday = values[1],
+                        Tuesday = values[2],
+                        Wednesday = values[3],
+                        Thursday = values[4],
+                        Friday = values[5],
+                        Saturday = values[6]
                     });
                 }
             }
@@ -124,31 +125,17 @@ public class Methods
     }
 
     // Add a new Subject.
-    public static void AddSubject(Schedule newSubjects, int week)
+    public static void AddSubject(Schedule newSubjects)
     {
         List<Schedule> schedule = ReadScheduleFromCsv();
-        newSubjects.Week = week;
         schedule.Add(newSubjects);
+
         using (var writer = new StreamWriter("schedule.csv"))
         {
-            writer.WriteLine("Day Of Week");
-            writer.WriteLine("ID;Subject Name;Type;Subject Link");
+            writer.WriteLine("ID;Monday;Tuesday;Wednesday;Thursday;Friday;Saturday");
             foreach (var entry in schedule)
             {
-                if (entry.Week == 1)
-                {
-                    writer.WriteLine(entry.Day);
-                    writer.WriteLine($"{entry.ID};{entry.Subject};{entry.Type};{entry.Link}");
-                }
-            }
-            writer.WriteLine("ID;Subject Name;Type;Subject Link");
-            foreach (var entry in schedule)
-            {
-                if (entry.Week == 2)
-                {
-                    writer.WriteLine(entry.Day);
-                    writer.WriteLine($"{entry.ID};{entry.Subject};{entry.Type};{entry.Link}");
-                }
+                writer.WriteLine($"{entry.ID};{entry.Monday};{entry.Tuesday};{entry.Wednesday};{entry.Thursday};{entry.Friday};{entry.Saturday}");
             }
         }
     }
@@ -156,22 +143,7 @@ public class Methods
     // Remove the Subject.
     public static void RemoveSubject(string day, string subject, string type)
     {
-        List<Schedule> schedule = ReadScheduleFromCsv();
-        var scheduleSubject = schedule.FirstOrDefault(entry => entry.Day == day && entry.Subject == subject && entry.Type == type);
-        if (scheduleSubject != null)
-        {
-            schedule.Remove(scheduleSubject);
-        }
-        using (var writer = new StreamWriter("schedule.csv"))
-        {
-            writer.WriteLine("Day Of Week");
-            writer.WriteLine("ID;Subject Name;Type;Subject Link");
-            foreach (var entry in schedule)
-            {
-                writer.WriteLine(entry.Day);
-                writer.WriteLine($"{entry.ID};{entry.Subject};{entry.Type};{entry.Link}");
-            }
-        }
+
     }
 
 
