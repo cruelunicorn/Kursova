@@ -46,6 +46,11 @@
             IAdminInfoStudLB = new ListBox();
             tabPage3 = new TabPage();
             tableLayoutPanel1 = new TableLayoutPanel();
+            IAdminProfLB = new ListBox();
+            IAdminProfTB = new TextBox();
+            IAdminProfGenBut = new Button();
+            IAdminProfAddBut = new Button();
+            IAdminProfDeleteBut = new Button();
             IAdminInfoCMS = new ContextMenuStrip(components);
             deleteToolStripMenuItem = new ToolStripMenuItem();
             cleanToolStripMenuItem = new ToolStripMenuItem();
@@ -55,6 +60,7 @@
             tabPage2.SuspendLayout();
             IAdminInfoStudTLP.SuspendLayout();
             tabPage3.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
             IAdminInfoCMS.SuspendLayout();
             SuspendLayout();
             // 
@@ -63,10 +69,11 @@
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
             tabControl1.Controls.Add(tabPage3);
-            tabControl1.Location = new Point(-1, 3);
+            tabControl1.Dock = DockStyle.Bottom;
+            tabControl1.Location = new Point(0, 1);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(880, 543);
+            tabControl1.Size = new Size(878, 543);
             tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -75,7 +82,7 @@
             tabPage1.Location = new Point(4, 34);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(872, 505);
+            tabPage1.Size = new Size(870, 505);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Розклад";
             tabPage1.UseVisualStyleBackColor = true;
@@ -153,7 +160,7 @@
             tabPage2.Location = new Point(4, 34);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(872, 505);
+            tabPage2.Size = new Size(870, 505);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Студенти";
             tabPage2.UseVisualStyleBackColor = true;
@@ -259,29 +266,85 @@
             tabPage3.Location = new Point(4, 34);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new Padding(3);
-            tabPage3.Size = new Size(872, 505);
+            tabPage3.Size = new Size(870, 505);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Викладачі";
             tabPage3.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel1
             // 
-            tableLayoutPanel1.ColumnCount = 5;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.ColumnCount = 4;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 77.42475F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 22.57525F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 135F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 133F));
+            tableLayoutPanel1.Controls.Add(IAdminProfLB, 0, 0);
+            tableLayoutPanel1.Controls.Add(IAdminProfTB, 1, 0);
+            tableLayoutPanel1.Controls.Add(IAdminProfGenBut, 1, 1);
+            tableLayoutPanel1.Controls.Add(IAdminProfAddBut, 2, 1);
+            tableLayoutPanel1.Controls.Add(IAdminProfDeleteBut, 3, 1);
+            tableLayoutPanel1.Dock = DockStyle.Top;
             tableLayoutPanel1.Location = new Point(3, 3);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 5;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.Size = new Size(867, 501);
+            tableLayoutPanel1.RowCount = 3;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 48.0392151F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 51.9607849F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 399F));
+            tableLayoutPanel1.Size = new Size(864, 501);
             tableLayoutPanel1.TabIndex = 0;
+            // 
+            // IAdminProfLB
+            // 
+            IAdminProfLB.Dock = DockStyle.Fill;
+            IAdminProfLB.FormattingEnabled = true;
+            IAdminProfLB.ItemHeight = 25;
+            IAdminProfLB.Location = new Point(3, 3);
+            IAdminProfLB.Name = "IAdminProfLB";
+            tableLayoutPanel1.SetRowSpan(IAdminProfLB, 3);
+            IAdminProfLB.Size = new Size(455, 495);
+            IAdminProfLB.TabIndex = 0;
+            // 
+            // IAdminProfTB
+            // 
+            tableLayoutPanel1.SetColumnSpan(IAdminProfTB, 3);
+            IAdminProfTB.Dock = DockStyle.Fill;
+            IAdminProfTB.Location = new Point(464, 3);
+            IAdminProfTB.Multiline = true;
+            IAdminProfTB.Name = "IAdminProfTB";
+            IAdminProfTB.Size = new Size(397, 43);
+            IAdminProfTB.TabIndex = 1;
+            // 
+            // IAdminProfGenBut
+            // 
+            IAdminProfGenBut.Dock = DockStyle.Fill;
+            IAdminProfGenBut.Location = new Point(464, 52);
+            IAdminProfGenBut.Name = "IAdminProfGenBut";
+            IAdminProfGenBut.Size = new Size(128, 47);
+            IAdminProfGenBut.TabIndex = 2;
+            IAdminProfGenBut.Text = "Сгенерувати";
+            IAdminProfGenBut.UseVisualStyleBackColor = true;
+            IAdminProfGenBut.Click += IAdminProfGenBut_Click;
+            // 
+            // IAdminProfAddBut
+            // 
+            IAdminProfAddBut.Dock = DockStyle.Fill;
+            IAdminProfAddBut.Location = new Point(598, 52);
+            IAdminProfAddBut.Name = "IAdminProfAddBut";
+            IAdminProfAddBut.Size = new Size(129, 47);
+            IAdminProfAddBut.TabIndex = 3;
+            IAdminProfAddBut.Text = "Додоти";
+            IAdminProfAddBut.UseVisualStyleBackColor = true;
+            IAdminProfAddBut.Click += IAdminProfAddBut_Click;
+            // 
+            // IAdminProfDeleteBut
+            // 
+            IAdminProfDeleteBut.Dock = DockStyle.Fill;
+            IAdminProfDeleteBut.Location = new Point(733, 52);
+            IAdminProfDeleteBut.Name = "IAdminProfDeleteBut";
+            IAdminProfDeleteBut.Size = new Size(128, 47);
+            IAdminProfDeleteBut.TabIndex = 4;
+            IAdminProfDeleteBut.Text = "Видалити";
+            IAdminProfDeleteBut.UseVisualStyleBackColor = true;
             // 
             // IAdminInfoCMS
             // 
@@ -322,6 +385,8 @@
             IAdminInfoStudTLP.ResumeLayout(false);
             IAdminInfoStudTLP.PerformLayout();
             tabPage3.ResumeLayout(false);
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
             IAdminInfoCMS.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -348,5 +413,10 @@
         private TextBox IAdminSchedTB;
         private Button IAdminAddSchedBut;
         private Button IAdminDeleteSchedBut;
+        private ListBox IAdminProfLB;
+        private TextBox IAdminProfTB;
+        private Button IAdminProfGenBut;
+        private Button IAdminProfAddBut;
+        private Button IAdminProfDeleteBut;
     }
 }

@@ -23,6 +23,8 @@ namespace Interface_Proj
 
         const string csvFilePathInfo = @"C:\Kursova\Interface_Proj\bin\Debug\net6.0-windows\students.csv";
         const string csvFilePathSched = @"C:\Kursova\Interface_Proj\bin\Debug\net6.0-windows\schedule.csv";
+        const string jsonFilePathProf = @"C:\Kursova\Interface_Proj\bin\Debug\net6.0-windows\professors.json";
+
         private void IAdminInfoAddBut_Click(object sender, EventArgs e)
         {
             string newtext = "";
@@ -156,11 +158,11 @@ namespace Interface_Proj
 
         private void IAdministratorForm1_Load(object sender, EventArgs e)
         {
-            List<string> lines = File.ReadAllLines(csvFilePathInfo).ToList();
-            foreach (string line in lines)
-            {
-                IAdminInfoStudLB.Items.Add(line);
-            }
+           // List<string> lines = File.ReadAllLines(csvFilePathInfo).ToList();
+           // foreach (string line in lines)
+           // {
+           //     IAdminInfoStudLB.Items.Add(line);
+           // }
         }
 
         private void methodsBindingSource1_CurrentChanged(object sender, EventArgs e)
@@ -186,9 +188,8 @@ namespace Interface_Proj
                     numeratorDenominator = fields[2];
                     link = fields[3];
                     Methods.AddSubject(new Schedule { Day = day, Subject = subject, NumeratorDenominator = numeratorDenominator, Link = link });
-                    IAdminInfoStudLB.Items.Add(newtext);
-                    IAdminInfoStudTB.Text = string.Empty;
-                    IAdminInfoStudGenTB.Text = string.Empty;
+                    IAdminSchedLB.Items.Add(newtext);
+                    IAdminSchedTB.Text = string.Empty;
                 }
                 else
                 {
@@ -232,6 +233,39 @@ namespace Interface_Proj
             else
             {
                 MessageBox.Show("Файл schedule.csv не знайдено.");
+            }
+        }
+
+        private void IAdminProfGenBut_Click(object sender, EventArgs e)
+        {
+            string password = HashTable.GeneratePasswordForProfessors();
+            string nickname = HashTable.GenerateUsername();
+            IAdminProfTB.Text = $"{nickname} {password}";
+        }
+
+        private void IAdminProfAddBut_Click(object sender, EventArgs e)
+        {
+            string str = IAdminProfTB.Text;
+            if (str != "")
+            {
+                string[] words = str.Split(new[] { ' ' });
+
+                if (words.Length == 2)
+                {
+                    string firstWord = words[0];
+                    string secondWord = words[1];
+                    Methods.AddProfessor(new LoginInfoProfessors { Login = firstWord, Password = secondWord });
+
+                    IAdminProfLB.Items.Add(str);
+                    IAdminProfTB.Text = string.Empty;
+                }
+
+                IAdminProfLB.Items.Clear();
+                List<string> lines = File.ReadAllLines(jsonFilePathProf).ToList();
+                foreach (string line in lines)
+                {
+                    IAdminProfLB.Items.Add(line);
+                }
             }
         }
     }

@@ -43,13 +43,13 @@ namespace Interface_Proj
                 if (password.Length == 8)
                 {
                     IStudentForm1 student = new IStudentForm1();
-                    this.Close();
+                    this.Hide();
                     student.Show();
                 }
                 else if (password.Length == 9)
                 {
                     IProfessorForm1 professor = new IProfessorForm1();
-                    this.Close();
+                    this.Hide();
                     professor.Show();
                 }
             }
