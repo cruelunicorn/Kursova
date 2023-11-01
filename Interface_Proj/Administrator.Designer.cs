@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IAdministratorForm1));
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
             tableLayoutPanel2 = new TableLayoutPanel();
@@ -373,6 +374,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(878, 544);
             Controls.Add(tabControl1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "IAdministratorForm1";
             StartPosition = FormStartPosition.CenterParent;
             Text = "Адміністратор";

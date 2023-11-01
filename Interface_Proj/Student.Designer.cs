@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IStudentForm1));
             SuspendLayout();
             // 
             // IStudentForm1
@@ -35,6 +36,7 @@
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(878, 544);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "IStudentForm1";
             StartPosition = FormStartPosition.CenterParent;
             Text = "Студент";

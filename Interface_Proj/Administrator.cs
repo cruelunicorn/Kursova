@@ -158,11 +158,11 @@ namespace Interface_Proj
 
         private void IAdministratorForm1_Load(object sender, EventArgs e)
         {
-           // List<string> lines = File.ReadAllLines(csvFilePathInfo).ToList();
-           // foreach (string line in lines)
-           // {
-           //     IAdminInfoStudLB.Items.Add(line);
-           // }
+            // List<string> lines = File.ReadAllLines(csvFilePathInfo).ToList();
+            // foreach (string line in lines)
+            // {
+            //     IAdminInfoStudLB.Items.Add(line);
+            // }
         }
 
         private void methodsBindingSource1_CurrentChanged(object sender, EventArgs e)
