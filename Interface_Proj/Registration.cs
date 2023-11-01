@@ -43,13 +43,13 @@ namespace Interface_Proj
                 if (password.Length == 8)
                 {
                     IStudentForm1 student = new IStudentForm1();
-                    this.Hide();
+                    this.Close();
                     student.Show();
                 }
                 else if (password.Length == 9)
                 {
                     IProfessorForm1 professor = new IProfessorForm1();
-                    this.Hide();
+                    this.Close();
                     professor.Show();
                 }
             }
@@ -161,6 +161,11 @@ namespace Interface_Proj
         {
             errorProvider1.SetError(INameTB1, "");
             errorProvider1.SetError(IPasswordTB1, "");
+        }
+
+        private void IRegistrationForm2_FormClosed(object sender, FormClosedEventArgs e)
+        {
+
         }
     }
 }

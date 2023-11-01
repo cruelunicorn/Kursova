@@ -98,6 +98,7 @@
             Controls.Add(INameTB1);
             Name = "IRegistrationForm2";
             Text = "Вхід";
+            FormClosed += IRegistrationForm2_FormClosed;
             ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);
             PerformLayout();

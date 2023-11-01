@@ -21,7 +21,8 @@ namespace Interface_Proj
             InitializeComponent();
         }
 
-        const string csvFilePath = @"C:\Kursova\Interface_Proj\bin\Debug\net6.0-windows\students.csv";
+        const string csvFilePathInfo = @"C:\Kursova\Interface_Proj\bin\Debug\net6.0-windows\students.csv";
+        const string csvFilePathSched = @"C:\Kursova\Interface_Proj\bin\Debug\net6.0-windows\schedule.csv";
         private void IAdminInfoAddBut_Click(object sender, EventArgs e)
         {
             string newtext = "";
@@ -55,7 +56,7 @@ namespace Interface_Proj
                     MessageBox.Show("Ви повинні заповнити всі поля інформації про студента");
                 }
                 IAdminInfoStudLB.Items.Clear();
-                List<string> lines = File.ReadAllLines(csvFilePath).ToList();
+                List<string> lines = File.ReadAllLines(csvFilePathInfo).ToList();
                 foreach (string line in lines)
                 {
                     IAdminInfoStudLB.Items.Add(line);
@@ -65,7 +66,7 @@ namespace Interface_Proj
 
         private void IAdminInfoDelete_Click(object sender, EventArgs e)
         {
-            if (File.Exists(csvFilePath))
+            if (File.Exists(csvFilePathInfo))
             {
                 string text = IAdminInfoStudTB.Text;
                 string[] words = text.Split(new[] { ' ' });
@@ -79,7 +80,7 @@ namespace Interface_Proj
 
                     // Обновление данных в ListBox (или другом контроле, в котором отображаются студенты)
                     IAdminInfoStudLB.Items.Clear();
-                    List<string> lines = File.ReadAllLines(csvFilePath).ToList();
+                    List<string> lines = File.ReadAllLines(csvFilePathInfo).ToList();
                     foreach (string line in lines)
                     {
                         IAdminInfoStudLB.Items.Add(line);
@@ -155,7 +156,7 @@ namespace Interface_Proj
 
         private void IAdministratorForm1_Load(object sender, EventArgs e)
         {
-            List<string> lines = File.ReadAllLines(csvFilePath).ToList();
+            List<string> lines = File.ReadAllLines(csvFilePathInfo).ToList();
             foreach (string line in lines)
             {
                 IAdminInfoStudLB.Items.Add(line);
@@ -165,6 +166,73 @@ namespace Interface_Proj
         private void methodsBindingSource1_CurrentChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void IAdminAddSchedBut_Click(object sender, EventArgs e)
+        {
+            string newtext = IAdminSchedTB.Text;
+            if (newtext != "")
+            {
+                string[] fields = newtext.Split(new[] { ' ' }); //StringSplitOptions.RemoveEmptyEntries);
+                string day = "";
+                string subject = "";
+                string numeratorDenominator = "";
+                string link = "";
+
+                if (fields.Length == 4)
+                {
+                    day = fields[0];
+                    subject = fields[1];
+                    numeratorDenominator = fields[2];
+                    link = fields[3];
+                    Methods.AddSubject(new Schedule { Day = day, Subject = subject, NumeratorDenominator = numeratorDenominator, Link = link });
+                    IAdminInfoStudLB.Items.Add(newtext);
+                    IAdminInfoStudTB.Text = string.Empty;
+                    IAdminInfoStudGenTB.Text = string.Empty;
+                }
+                else
+                {
+                    MessageBox.Show("Ви повинні заповнити всі поля інформації про студента");
+                }
+                IAdminSchedLB.Items.Clear();
+                List<string> lines = File.ReadAllLines(csvFilePathSched).ToList();
+                foreach (string line in lines)
+                {
+                    IAdminSchedLB.Items.Add(line);
+                }
+            }
+        }
+
+        private void IAdminDeleteSchedBut_Click(object sender, EventArgs e)
+        {
+            if (File.Exists(csvFilePathSched))
+            {
+                string text = IAdminSchedTB.Text;
+                string[] words = text.Split(new[] { ' ' });
+
+                if (words.Length == 2)
+                {
+                    string firstWord = words[0];
+                    string secondWord = words[1];
+
+                    Methods.RemoveSubject(firstWord, secondWord);
+                    // Обновление данных в ListBox (или другом контроле, в котором отображаются студенты)
+                    IAdminSchedLB.Items.Clear();
+                    List<string> lines = File.ReadAllLines(csvFilePathSched).ToList();
+                    foreach (string line in lines)
+                    {
+                        IAdminSchedLB.Items.Add(line);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Введіть день та предмет в текстовому полі!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Файл schedule.csv не знайдено.");
+            }
         }
     }
 }

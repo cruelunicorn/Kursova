@@ -32,14 +32,18 @@
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
             tableLayoutPanel2 = new TableLayoutPanel();
+            IAdminSchedLB = new ListBox();
+            IAdminSchedTB = new TextBox();
+            IAdminAddSchedBut = new Button();
+            IAdminDeleteSchedBut = new Button();
             tabPage2 = new TabPage();
             IAdminInfoStudTLP = new TableLayoutPanel();
             IAdminInfoAddStudBut = new Button();
             IAdminInfoStudTB = new TextBox();
             IAdminInfoStudGenTB = new TextBox();
             IAdminInfoGenerateStudBut = new Button();
-            IAdminInfoStudLB = new ListBox();
             IAdminInfoDeleteStudBut = new Button();
+            IAdminInfoStudLB = new ListBox();
             tabPage3 = new TabPage();
             tableLayoutPanel1 = new TableLayoutPanel();
             IAdminInfoCMS = new ContextMenuStrip(components);
@@ -47,6 +51,7 @@
             cleanToolStripMenuItem = new ToolStripMenuItem();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
+            tableLayoutPanel2.SuspendLayout();
             tabPage2.SuspendLayout();
             IAdminInfoStudTLP.SuspendLayout();
             tabPage3.SuspendLayout();
@@ -77,22 +82,70 @@
             // 
             // tableLayoutPanel2
             // 
-            tableLayoutPanel2.ColumnCount = 5;
+            tableLayoutPanel2.ColumnCount = 4;
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 172F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 171F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 168F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 213F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 130F));
+            tableLayoutPanel2.Controls.Add(IAdminSchedLB, 0, 2);
+            tableLayoutPanel2.Controls.Add(IAdminSchedTB, 0, 0);
+            tableLayoutPanel2.Controls.Add(IAdminAddSchedBut, 3, 0);
+            tableLayoutPanel2.Controls.Add(IAdminDeleteSchedBut, 3, 1);
             tableLayoutPanel2.Location = new Point(4, 4);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 5;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 110F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 215F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 96F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 85F));
-            tableLayoutPanel2.Size = new Size(866, 498);
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel2.Size = new Size(866, 501);
             tableLayoutPanel2.TabIndex = 0;
+            // 
+            // IAdminSchedLB
+            // 
+            tableLayoutPanel2.SetColumnSpan(IAdminSchedLB, 4);
+            IAdminSchedLB.Dock = DockStyle.Fill;
+            IAdminSchedLB.FormattingEnabled = true;
+            IAdminSchedLB.ItemHeight = 25;
+            IAdminSchedLB.Location = new Point(3, 107);
+            IAdminSchedLB.Name = "IAdminSchedLB";
+            tableLayoutPanel2.SetRowSpan(IAdminSchedLB, 3);
+            IAdminSchedLB.Size = new Size(860, 391);
+            IAdminSchedLB.TabIndex = 0;
+            // 
+            // IAdminSchedTB
+            // 
+            tableLayoutPanel2.SetColumnSpan(IAdminSchedTB, 3);
+            IAdminSchedTB.Dock = DockStyle.Fill;
+            IAdminSchedTB.Location = new Point(3, 3);
+            IAdminSchedTB.Multiline = true;
+            IAdminSchedTB.Name = "IAdminSchedTB";
+            IAdminSchedTB.Size = new Size(729, 46);
+            IAdminSchedTB.TabIndex = 1;
+            // 
+            // IAdminAddSchedBut
+            // 
+            IAdminAddSchedBut.Dock = DockStyle.Fill;
+            IAdminAddSchedBut.Location = new Point(738, 3);
+            IAdminAddSchedBut.Name = "IAdminAddSchedBut";
+            IAdminAddSchedBut.Size = new Size(125, 46);
+            IAdminAddSchedBut.TabIndex = 2;
+            IAdminAddSchedBut.Text = "Додати";
+            IAdminAddSchedBut.UseVisualStyleBackColor = true;
+            IAdminAddSchedBut.Click += IAdminAddSchedBut_Click;
+            // 
+            // IAdminDeleteSchedBut
+            // 
+            IAdminDeleteSchedBut.Dock = DockStyle.Fill;
+            IAdminDeleteSchedBut.Location = new Point(738, 55);
+            IAdminDeleteSchedBut.Name = "IAdminDeleteSchedBut";
+            IAdminDeleteSchedBut.Size = new Size(125, 46);
+            IAdminDeleteSchedBut.TabIndex = 3;
+            IAdminDeleteSchedBut.Text = "Видалити";
+            IAdminDeleteSchedBut.UseVisualStyleBackColor = true;
+            IAdminDeleteSchedBut.Click += IAdminDeleteSchedBut_Click;
             // 
             // tabPage2
             // 
@@ -107,28 +160,26 @@
             // 
             // IAdminInfoStudTLP
             // 
-            IAdminInfoStudTLP.ColumnCount = 6;
+            IAdminInfoStudTLP.ColumnCount = 4;
             IAdminInfoStudTLP.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             IAdminInfoStudTLP.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             IAdminInfoStudTLP.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 339F));
             IAdminInfoStudTLP.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 131F));
-            IAdminInfoStudTLP.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            IAdminInfoStudTLP.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             IAdminInfoStudTLP.Controls.Add(IAdminInfoAddStudBut, 3, 1);
             IAdminInfoStudTLP.Controls.Add(IAdminInfoStudTB, 0, 1);
             IAdminInfoStudTLP.Controls.Add(IAdminInfoStudGenTB, 0, 0);
             IAdminInfoStudTLP.Controls.Add(IAdminInfoGenerateStudBut, 3, 0);
-            IAdminInfoStudTLP.Controls.Add(IAdminInfoStudLB, 0, 5);
             IAdminInfoStudTLP.Controls.Add(IAdminInfoDeleteStudBut, 3, 2);
+            IAdminInfoStudTLP.Controls.Add(IAdminInfoStudLB, 0, 3);
             IAdminInfoStudTLP.Location = new Point(3, 2);
             IAdminInfoStudTLP.Name = "IAdminInfoStudTLP";
             IAdminInfoStudTLP.RowCount = 6;
             IAdminInfoStudTLP.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             IAdminInfoStudTLP.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            IAdminInfoStudTLP.RowStyles.Add(new RowStyle(SizeType.Absolute, 48F));
-            IAdminInfoStudTLP.RowStyles.Add(new RowStyle(SizeType.Absolute, 11F));
-            IAdminInfoStudTLP.RowStyles.Add(new RowStyle(SizeType.Absolute, 8F));
-            IAdminInfoStudTLP.RowStyles.Add(new RowStyle(SizeType.Absolute, 299F));
+            IAdminInfoStudTLP.RowStyles.Add(new RowStyle(SizeType.Absolute, 52F));
+            IAdminInfoStudTLP.RowStyles.Add(new RowStyle(SizeType.Absolute, 132F));
+            IAdminInfoStudTLP.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
+            IAdminInfoStudTLP.RowStyles.Add(new RowStyle(SizeType.Absolute, 180F));
             IAdminInfoStudTLP.RowStyles.Add(new RowStyle(SizeType.Absolute, 34F));
             IAdminInfoStudTLP.RowStyles.Add(new RowStyle(SizeType.Absolute, 8F));
             IAdminInfoStudTLP.Size = new Size(866, 501);
@@ -137,9 +188,9 @@
             // IAdminInfoAddStudBut
             // 
             IAdminInfoAddStudBut.Dock = DockStyle.Fill;
-            IAdminInfoAddStudBut.Location = new Point(698, 49);
+            IAdminInfoAddStudBut.Location = new Point(738, 55);
             IAdminInfoAddStudBut.Name = "IAdminInfoAddStudBut";
-            IAdminInfoAddStudBut.Size = new Size(125, 40);
+            IAdminInfoAddStudBut.Size = new Size(125, 46);
             IAdminInfoAddStudBut.TabIndex = 1;
             IAdminInfoAddStudBut.Text = "Додати";
             IAdminInfoAddStudBut.UseVisualStyleBackColor = true;
@@ -149,10 +200,10 @@
             // 
             IAdminInfoStudTLP.SetColumnSpan(IAdminInfoStudTB, 3);
             IAdminInfoStudTB.Dock = DockStyle.Fill;
-            IAdminInfoStudTB.Location = new Point(3, 49);
+            IAdminInfoStudTB.Location = new Point(3, 55);
             IAdminInfoStudTB.Multiline = true;
             IAdminInfoStudTB.Name = "IAdminInfoStudTB";
-            IAdminInfoStudTB.Size = new Size(689, 40);
+            IAdminInfoStudTB.Size = new Size(729, 46);
             IAdminInfoStudTB.TabIndex = 0;
             IAdminInfoStudTB.KeyUp += IAdminInfoTB_KeyUp;
             // 
@@ -163,19 +214,30 @@
             IAdminInfoStudGenTB.Location = new Point(3, 3);
             IAdminInfoStudGenTB.Multiline = true;
             IAdminInfoStudGenTB.Name = "IAdminInfoStudGenTB";
-            IAdminInfoStudGenTB.Size = new Size(689, 40);
+            IAdminInfoStudGenTB.Size = new Size(729, 46);
             IAdminInfoStudGenTB.TabIndex = 5;
             // 
             // IAdminInfoGenerateStudBut
             // 
             IAdminInfoGenerateStudBut.Dock = DockStyle.Fill;
-            IAdminInfoGenerateStudBut.Location = new Point(698, 3);
+            IAdminInfoGenerateStudBut.Location = new Point(738, 3);
             IAdminInfoGenerateStudBut.Name = "IAdminInfoGenerateStudBut";
-            IAdminInfoGenerateStudBut.Size = new Size(125, 40);
+            IAdminInfoGenerateStudBut.Size = new Size(125, 46);
             IAdminInfoGenerateStudBut.TabIndex = 4;
             IAdminInfoGenerateStudBut.Text = "Сгенерувати";
             IAdminInfoGenerateStudBut.UseVisualStyleBackColor = true;
             IAdminInfoGenerateStudBut.Click += IAdminInfoGenerateStudBut_Click;
+            // 
+            // IAdminInfoDeleteStudBut
+            // 
+            IAdminInfoDeleteStudBut.Dock = DockStyle.Fill;
+            IAdminInfoDeleteStudBut.Location = new Point(738, 107);
+            IAdminInfoDeleteStudBut.Name = "IAdminInfoDeleteStudBut";
+            IAdminInfoDeleteStudBut.Size = new Size(125, 46);
+            IAdminInfoDeleteStudBut.TabIndex = 2;
+            IAdminInfoDeleteStudBut.Text = "Видалити";
+            IAdminInfoDeleteStudBut.UseVisualStyleBackColor = true;
+            IAdminInfoDeleteStudBut.Click += IAdminInfoDelete_Click;
             // 
             // IAdminInfoStudLB
             // 
@@ -183,24 +245,13 @@
             IAdminInfoStudLB.Dock = DockStyle.Fill;
             IAdminInfoStudLB.FormattingEnabled = true;
             IAdminInfoStudLB.ItemHeight = 25;
-            IAdminInfoStudLB.Location = new Point(3, 162);
+            IAdminInfoStudLB.Location = new Point(3, 159);
             IAdminInfoStudLB.Name = "IAdminInfoStudLB";
             IAdminInfoStudTLP.SetRowSpan(IAdminInfoStudLB, 3);
-            IAdminInfoStudLB.Size = new Size(820, 336);
+            IAdminInfoStudLB.Size = new Size(860, 339);
             IAdminInfoStudLB.TabIndex = 3;
             IAdminInfoStudLB.SelectedIndexChanged += IAdminInfoStudLB_SelectedIndexChanged;
             IAdminInfoStudLB.MouseUp += IAdminInfoLB_MouseUp;
-            // 
-            // IAdminInfoDeleteStudBut
-            // 
-            IAdminInfoDeleteStudBut.Dock = DockStyle.Fill;
-            IAdminInfoDeleteStudBut.Location = new Point(698, 95);
-            IAdminInfoDeleteStudBut.Name = "IAdminInfoDeleteStudBut";
-            IAdminInfoDeleteStudBut.Size = new Size(125, 42);
-            IAdminInfoDeleteStudBut.TabIndex = 2;
-            IAdminInfoDeleteStudBut.Text = "Видалити";
-            IAdminInfoDeleteStudBut.UseVisualStyleBackColor = true;
-            IAdminInfoDeleteStudBut.Click += IAdminInfoDelete_Click;
             // 
             // tabPage3
             // 
@@ -265,6 +316,8 @@
             Load += IAdministratorForm1_Load;
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
+            tableLayoutPanel2.ResumeLayout(false);
+            tableLayoutPanel2.PerformLayout();
             tabPage2.ResumeLayout(false);
             IAdminInfoStudTLP.ResumeLayout(false);
             IAdminInfoStudTLP.PerformLayout();
@@ -291,5 +344,9 @@
         private Button IAdminInfoGenerateStudBut;
         private TextBox IAdminInfoStudGenTB;
         private TableLayoutPanel tableLayoutPanel1;
+        private ListBox IAdminSchedLB;
+        private TextBox IAdminSchedTB;
+        private Button IAdminAddSchedBut;
+        private Button IAdminDeleteSchedBut;
     }
 }
