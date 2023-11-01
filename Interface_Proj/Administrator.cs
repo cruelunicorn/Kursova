@@ -21,15 +21,17 @@ namespace Interface_Proj
             InitializeComponent();
         }
 
-        const string csvFilePath = @"C:\Kursova\Interface_Proj\bin\Debug\net6.0-windows\students.csv";
+        const string csvFilePathInfo = @"C:\Kursova\Interface_Proj\bin\Debug\net6.0-windows\students.csv";
+        const string csvFilePathSched = @"C:\Kursova\Interface_Proj\bin\Debug\net6.0-windows\schedule.csv";
+        const string jsonFilePathProf = @"C:\Kursova\Interface_Proj\bin\Debug\net6.0-windows\professors.json";
+
         private void IAdminInfoAddBut_Click(object sender, EventArgs e)
         {
             string newtext = "";
             if (IAdminInfoStudTB.Text != "" && IAdminInfoStudGenTB.Text != "")
             {
                 newtext = IAdminInfoStudTB.Text + " " + IAdminInfoStudGenTB.Text;
-                //string[] fields = newtext.Split(new[] { ' ', ';' });
-                string[] fields = newtext.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                string[] fields = newtext.Split(new[] { ' ' }); //StringSplitOptions.RemoveEmptyEntries);
                 string firstName = "";
                 string lastName = "";
                 string email = "";
@@ -56,7 +58,7 @@ namespace Interface_Proj
                     MessageBox.Show("Ви повинні заповнити всі поля інформації про студента");
                 }
                 IAdminInfoStudLB.Items.Clear();
-                List<string> lines = File.ReadAllLines(csvFilePath).ToList();
+                List<string> lines = File.ReadAllLines(csvFilePathInfo).ToList();
                 foreach (string line in lines)
                 {
                     IAdminInfoStudLB.Items.Add(line);
@@ -66,9 +68,9 @@ namespace Interface_Proj
 
         private void IAdminInfoDelete_Click(object sender, EventArgs e)
         {
-            if (File.Exists(csvFilePath))
+            if (File.Exists(csvFilePathInfo))
             {
-                string text = IAdminInfoStudTB.Text; // Замените IAdminInfoStudLB.Text на IAdminInfoStudTB.Text
+                string text = IAdminInfoStudTB.Text;
                 string[] words = text.Split(new[] { ' ' });
 
                 if (words.Length == 2)
@@ -76,12 +78,11 @@ namespace Interface_Proj
                     string firstWord = words[0];
                     string secondWord = words[1];
 
-                    // Вызов функции RemoveStudent для удаления студента
                     Methods.RemoveStudent(firstWord, secondWord);
 
                     // Обновление данных в ListBox (или другом контроле, в котором отображаются студенты)
                     IAdminInfoStudLB.Items.Clear();
-                    List<string> lines = File.ReadAllLines(csvFilePath).ToList();
+                    List<string> lines = File.ReadAllLines(csvFilePathInfo).ToList();
                     foreach (string line in lines)
                     {
                         IAdminInfoStudLB.Items.Add(line);
@@ -89,12 +90,12 @@ namespace Interface_Proj
                 }
                 else
                 {
-                    MessageBox.Show("Введите ровно два слова в текстовом поле.");
+                    MessageBox.Show("Введіть ім'я та прізвище студента в текстовому полі!");
                 }
             }
             else
             {
-                MessageBox.Show("Файл students.csv не найден.");
+                MessageBox.Show("Файл students.csv не знайдено.");
             }
         }
 
@@ -108,7 +109,23 @@ namespace Interface_Proj
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (IAdminInfoStudLB.SelectedItem != null)
+            {
+                string selectedText = IAdminInfoStudLB.SelectedItem.ToString();
+                string[] words = selectedText.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
 
+                if (words.Length >= 2)
+                {
+                    string firstWord = words[0];
+                    string secondWord = words[1];
+
+                    Methods.RemoveStudent(firstWord, secondWord);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Ви не обрали студента, якого хочете видалити");
+            }
         }
 
         private void cleanToolStripMenuItem_Click(object sender, EventArgs e)
@@ -137,16 +154,119 @@ namespace Interface_Proj
 
         private void IAdminInfoStudLB_SelectedIndexChanged(object sender, EventArgs e)
         {
-
         }
 
         private void IAdministratorForm1_Load(object sender, EventArgs e)
         {
+            // List<string> lines = File.ReadAllLines(csvFilePathInfo).ToList();
+            // foreach (string line in lines)
+            // {
+            //     IAdminInfoStudLB.Items.Add(line);
+            // }
         }
 
         private void methodsBindingSource1_CurrentChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void IAdminAddSchedBut_Click(object sender, EventArgs e)
+        {
+            string newtext = IAdminSchedTB.Text;
+            if (newtext != "")
+            {
+                string[] fields = newtext.Split(new[] { ' ' }); //StringSplitOptions.RemoveEmptyEntries);
+                string day = "";
+                string subject = "";
+                string numeratorDenominator = "";
+                string link = "";
+
+                if (fields.Length == 4)
+                {
+                    day = fields[0];
+                    subject = fields[1];
+                    numeratorDenominator = fields[2];
+                    link = fields[3];
+                    Methods.AddSubject(new Schedule { Day = day, Subject = subject, NumeratorDenominator = numeratorDenominator, Link = link });
+                    IAdminSchedLB.Items.Add(newtext);
+                    IAdminSchedTB.Text = string.Empty;
+                }
+                else
+                {
+                    MessageBox.Show("Ви повинні заповнити всі поля інформації про студента");
+                }
+                IAdminSchedLB.Items.Clear();
+                List<string> lines = File.ReadAllLines(csvFilePathSched).ToList();
+                foreach (string line in lines)
+                {
+                    IAdminSchedLB.Items.Add(line);
+                }
+            }
+        }
+
+        private void IAdminDeleteSchedBut_Click(object sender, EventArgs e)
+        {
+            if (File.Exists(csvFilePathSched))
+            {
+                string text = IAdminSchedTB.Text;
+                string[] words = text.Split(new[] { ' ' });
+
+                if (words.Length == 2)
+                {
+                    string firstWord = words[0];
+                    string secondWord = words[1];
+
+                    Methods.RemoveSubject(firstWord, secondWord);
+                    // Обновление данных в ListBox (или другом контроле, в котором отображаются студенты)
+                    IAdminSchedLB.Items.Clear();
+                    List<string> lines = File.ReadAllLines(csvFilePathSched).ToList();
+                    foreach (string line in lines)
+                    {
+                        IAdminSchedLB.Items.Add(line);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Введіть день та предмет в текстовому полі!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Файл schedule.csv не знайдено.");
+            }
+        }
+
+        private void IAdminProfGenBut_Click(object sender, EventArgs e)
+        {
+            string password = HashTable.GeneratePasswordForProfessors();
+            string nickname = HashTable.GenerateUsername();
+            IAdminProfTB.Text = $"{nickname} {password}";
+        }
+
+        private void IAdminProfAddBut_Click(object sender, EventArgs e)
+        {
+            string str = IAdminProfTB.Text;
+            if (str != "")
+            {
+                string[] words = str.Split(new[] { ' ' });
+
+                if (words.Length == 2)
+                {
+                    string firstWord = words[0];
+                    string secondWord = words[1];
+                    Methods.AddProfessor(new LoginInfoProfessors { Login = firstWord, Password = secondWord });
+
+                    IAdminProfLB.Items.Add(str);
+                    IAdminProfTB.Text = string.Empty;
+                }
+
+                IAdminProfLB.Items.Clear();
+                List<string> lines = File.ReadAllLines(jsonFilePathProf).ToList();
+                foreach (string line in lines)
+                {
+                    IAdminProfLB.Items.Add(line);
+                }
+            }
         }
     }
 }

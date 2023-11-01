@@ -256,6 +256,16 @@ public class Methods
         return false;
     }
 
+    /////////////////RemoveProfessor
+    public static void RemoveProfessor(string login)
+    {
+        List<LoginInfoProfessors> loginInfosProf = ReadProfessorsFromJson();
+        loginInfosProf.RemoveAll(loginInfoProfessors => loginInfoProfessors.Login == login);
+
+        string json = JsonConvert.SerializeObject(loginInfosProf, Formatting.Indented);
+        File.WriteAllText("professors.json", json);
+    }
+
     public static int FindStudentID(string firstName, string lastName)
     {
         List<Student> students = ReadStudentsFromCsv();

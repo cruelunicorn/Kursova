@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IRegistrationForm2));
             INameTB1 = new TextBox();
             IPasswordTB1 = new TextBox();
             label1 = new Label();
@@ -96,8 +97,10 @@
             Controls.Add(label1);
             Controls.Add(IPasswordTB1);
             Controls.Add(INameTB1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "IRegistrationForm2";
             Text = "Вхід";
+            FormClosed += IRegistrationForm2_FormClosed;
             ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);
             PerformLayout();

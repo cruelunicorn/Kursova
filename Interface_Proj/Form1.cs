@@ -27,5 +27,10 @@ namespace Interface_Proj
             this.Hide();
             admin.Show();
         }
+
+        private void IRegistrationForm1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+        }
     }
 }

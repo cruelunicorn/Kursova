@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IRegistrationForm1));
             IStudentBut1 = new Button();
             IProfessorBut1 = new Button();
             IAdministranortBut1 = new Button();
@@ -71,9 +72,11 @@
             Controls.Add(IAdministranortBut1);
             Controls.Add(IProfessorBut1);
             Controls.Add(IStudentBut1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "IRegistrationForm1";
             StartPosition = FormStartPosition.CenterParent;
             Text = "Вхід";
+            FormClosing += IRegistrationForm1_FormClosing;
             ResumeLayout(false);
         }
 
