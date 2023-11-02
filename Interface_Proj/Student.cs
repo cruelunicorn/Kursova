@@ -26,5 +26,10 @@ namespace Interface_Proj
         {
 
         }
+
+        private void IStudentForm1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

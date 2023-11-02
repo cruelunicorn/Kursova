@@ -1,4 +1,5 @@
-﻿using PasswordLoginGeneration;
+﻿using Microsoft.VisualBasic;
+using PasswordLoginGeneration;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.LinkLabel;
 
@@ -179,22 +181,15 @@ namespace Interface_Proj
             if (text != "")
             {
                 string[] fields = text.Split(new[] { ' ' }); //StringSplitOptions.RemoveEmptyEntries);
-                string day = "";
-                string id = "";
-                string subject = "";
-                string type = "";
-                string link = "";
-                string week = "";
 
-                if (fields.Length == 6)
+                if (fields.Length == 5)
                 {
-                    day = fields[0];
-                    id = fields[1];
-                    subject = fields[2];
-                    type = fields[3];
-                    link = fields[4];
-                    week = fields[5];
-                    Methods.AddSubject(new Schedule { Day = day, ID = int.Parse(id), Subject = subject, Type = type, Link = link }, int.Parse(week));
+                    string day = fields[0];
+                    string id = fields[1];
+                    string name = fields[2];
+                    string type = fields[3];
+                    string link = fields[4];
+                    Methods.AddSubject(new Schedule { Day = day, ID = id, Name = name, Type = type, Link = link });
                     IAdminSchedLB.Items.Add(text);
                     IAdminSchedTB.Text = string.Empty;
                 }
@@ -218,15 +213,13 @@ namespace Interface_Proj
                 string text = IAdminSchedTB.Text;
                 string[] words = text.Split(new[] { ' ' });
 
-                if (words.Length == 6)
+                if (words.Length == 4)
                 {
                     string day = words[0];
                     string id = words[1];
-                    string subject = words[0];
-                    string type = words[1];
-                    string link = words[0];
-                    string week = words[1];
-                    Methods.RemoveSubject(day, subject, type);
+                    string subject = words[2];
+                    string type = words[3];
+                    Methods.RemoveSubject(day, id, subject, type);
                     // Обновление данных в ListBox
                     IAdminSchedTB.Text = string.Empty;
                     IAdminSchedLB.Items.Clear();

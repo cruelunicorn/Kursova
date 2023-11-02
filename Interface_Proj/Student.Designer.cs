@@ -117,6 +117,7 @@
             StartPosition = FormStartPosition.CenterParent;
             Text = "Студент";
             FormClosing += IStudentForm1_FormClosing;
+            Load += IStudentForm1_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
         }
