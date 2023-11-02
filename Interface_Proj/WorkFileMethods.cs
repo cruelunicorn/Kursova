@@ -90,7 +90,7 @@ public class Methods
         {
             using (var writer = new StreamWriter(csvFileName))
             {
-                writer.WriteLine("ID;Monday;Tuesday;Wednesday;Thursday;Friday;Saturday");
+                writer.WriteLine("Day Of Week;ID;Subject Name;Type;Subject Link");
             }
         }
 
@@ -129,7 +129,7 @@ public class Methods
 
         using (var writer = new StreamWriter("schedule.csv"))
         {
-            writer.WriteLine("ID;Monday;Tuesday;Wednesday;Thursday;Friday;Saturday");
+            writer.WriteLine("Day Of Week;ID;Subject Name;Type;Subject Link");
             foreach (var entry in schedule)
             {
                 writer.WriteLine($"{entry.Day};{entry.ID};{entry.Name};{entry.Type};{entry.Link}");
