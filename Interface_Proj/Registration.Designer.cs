@@ -100,6 +100,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "IRegistrationForm2";
             Text = "Вхід";
+            FormClosing += IRegistrationForm2_FormClosing;
             FormClosed += IRegistrationForm2_FormClosed;
             ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);

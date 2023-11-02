@@ -54,7 +54,6 @@
             IAdminProfDeleteBut = new Button();
             IAdminInfoCMS = new ContextMenuStrip(components);
             deleteToolStripMenuItem = new ToolStripMenuItem();
-            cleanToolStripMenuItem = new ToolStripMenuItem();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
@@ -346,27 +345,21 @@
             IAdminProfDeleteBut.TabIndex = 4;
             IAdminProfDeleteBut.Text = "Видалити";
             IAdminProfDeleteBut.UseVisualStyleBackColor = true;
+            IAdminProfDeleteBut.Click += IAdminProfDeleteBut_Click;
             // 
             // IAdminInfoCMS
             // 
             IAdminInfoCMS.ImageScalingSize = new Size(24, 24);
-            IAdminInfoCMS.Items.AddRange(new ToolStripItem[] { deleteToolStripMenuItem, cleanToolStripMenuItem });
+            IAdminInfoCMS.Items.AddRange(new ToolStripItem[] { deleteToolStripMenuItem });
             IAdminInfoCMS.Name = "IAdminInfoCMS";
-            IAdminInfoCMS.Size = new Size(135, 68);
+            IAdminInfoCMS.Size = new Size(241, 69);
             // 
             // deleteToolStripMenuItem
             // 
             deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            deleteToolStripMenuItem.Size = new Size(134, 32);
+            deleteToolStripMenuItem.Size = new Size(240, 32);
             deleteToolStripMenuItem.Text = "Delete";
             deleteToolStripMenuItem.Click += deleteToolStripMenuItem_Click;
-            // 
-            // cleanToolStripMenuItem
-            // 
-            cleanToolStripMenuItem.Name = "cleanToolStripMenuItem";
-            cleanToolStripMenuItem.Size = new Size(134, 32);
-            cleanToolStripMenuItem.Text = "Clean";
-            cleanToolStripMenuItem.Click += cleanToolStripMenuItem_Click;
             // 
             // IAdministratorForm1
             // 
@@ -378,6 +371,7 @@
             Name = "IAdministratorForm1";
             StartPosition = FormStartPosition.CenterParent;
             Text = "Адміністратор";
+            FormClosing += IAdministratorForm1_FormClosing;
             Load += IAdministratorForm1_Load;
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
@@ -406,7 +400,6 @@
         private ListBox IAdminInfoStudLB;
         private ContextMenuStrip IAdminInfoCMS;
         private ToolStripMenuItem deleteToolStripMenuItem;
-        private ToolStripMenuItem cleanToolStripMenuItem;
         private TableLayoutPanel tableLayoutPanel2;
         private Button IAdminInfoGenerateStudBut;
         private TextBox IAdminInfoStudGenTB;

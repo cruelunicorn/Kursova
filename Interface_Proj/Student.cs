@@ -16,5 +16,15 @@ namespace Interface_Proj
         {
             InitializeComponent();
         }
+
+        private void IStudentForm1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

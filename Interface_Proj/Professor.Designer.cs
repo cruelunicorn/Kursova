@@ -39,6 +39,9 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "IProfessorForm1";
             Text = "Professor";
+            FormClosing += IProfessorForm1_FormClosing;
+            FormClosed += IProfessorForm1_FormClosed;
+            Load += IProfessorForm1_Load;
             ResumeLayout(false);
         }
 
