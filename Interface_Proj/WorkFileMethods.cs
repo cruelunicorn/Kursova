@@ -138,9 +138,25 @@ public class Methods
     }
 
     // Remove the Subject.
-    public static void RemoveSubject()
+    public static void RemoveSubject(string day, string id, string subject, string type)
     {
+        List<Schedule> schedule = ReadScheduleFromCsv();
 
+        Schedule subjectToRemove = schedule.Find(entry => entry.Day == day && entry.ID == id
+        && entry.Name == subject && entry.Type == type);
+
+        if (subjectToRemove != null)
+        {
+            schedule.Remove(subjectToRemove);
+            using (var writer = new StreamWriter("schedule.csv"))
+            {
+                writer.WriteLine("Day Of Week;ID;Subject Name;Type;Subject Link");
+                foreach (var entry in schedule)
+                {
+                    writer.WriteLine($"{entry.Day};{entry.ID};{entry.Name};{entry.Type};{entry.Link}");
+                }
+            }
+        }
     }
 
 
