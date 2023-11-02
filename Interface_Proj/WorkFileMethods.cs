@@ -2,6 +2,7 @@
 using System.IO;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 
 public class Student
 {
@@ -15,13 +16,11 @@ public class Student
 
 public class Schedule
 {
-    public int ID { get; set; }
-    public string? Monday { get; set; }
-    public string? Tuesday { get; set; }
-    public string? Wednesday { get; set; }
-    public string? Thursday { get; set; }
-    public string? Friday { get; set; }
-    public string? Saturday { get; set; }
+    public string? Day { get; set; }
+    public string? ID { get; set; }
+    public string? Name { get; set; }
+    public string? Type { get; set; }
+    public string? Link { get; set; }
 }
 
 public class LoginInfo
@@ -109,13 +108,11 @@ public class Methods
                     var values = line.Split(';');
                     schedule.Add(new Schedule
                     {
-                        ID = int.Parse(values[0]),
-                        Monday = values[1],
-                        Tuesday = values[2],
-                        Wednesday = values[3],
-                        Thursday = values[4],
-                        Friday = values[5],
-                        Saturday = values[6]
+                        Day = values[0],
+                        ID = values[1],
+                        Name = values[2],
+                        Type = values[3],
+                        Link = values[4]
                     });
                 }
             }
@@ -135,13 +132,13 @@ public class Methods
             writer.WriteLine("ID;Monday;Tuesday;Wednesday;Thursday;Friday;Saturday");
             foreach (var entry in schedule)
             {
-                writer.WriteLine($"{entry.ID};{entry.Monday};{entry.Tuesday};{entry.Wednesday};{entry.Thursday};{entry.Friday};{entry.Saturday}");
+                writer.WriteLine($"{entry.Day};{entry.ID};{entry.Name};{entry.Type};{entry.Link}");
             }
         }
     }
 
     // Remove the Subject.
-    public static void RemoveSubject(string day, string subject, string type)
+    public static void RemoveSubject()
     {
 
     }
