@@ -44,6 +44,9 @@ namespace Interface_Proj
                     string login = fields[5];
                     string password = fields[6];
                     Methods.AddStudent(new Student { FirstName = firstName, LastName = lastName, Email = email, Group = group, StudentType = studentType }, new LoginInfo { Login = login, Password = password });
+                    //MicrosoftStorageHandler handler = new() handler.UploadFile("students.csv", "StudentsFolder");
+                    /*MicrosoftStorageHandler handler = new MicrosoftStorageHandler();
+                    await handler.UploadFile("students.csv", "StudentsFolder");*/
                     IAdminInfoStudLB.Items.Add(text);
                     IAdminInfoStudTB.Text = string.Empty;
                     IAdminInfoStudGenTB.Text = string.Empty;
