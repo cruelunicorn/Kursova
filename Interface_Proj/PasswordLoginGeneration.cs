@@ -3,6 +3,7 @@ using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
 
 namespace PasswordLoginGeneration
 {
@@ -114,10 +115,10 @@ namespace PasswordLoginGeneration
 
         private static Random random = new Random();
 
-        // Username generation
-        public static string GenerateUsername(int length = 10)
+        // Username generation for professors.
+        public static string GenerateUsernameForProfessors(int length = 10)
         {
-            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789._";
+            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789._";
             char[] username = new char[length];
             for (int i = 0; i < length; i++)
             {
@@ -126,22 +127,22 @@ namespace PasswordLoginGeneration
             return new string(username);
         }
 
-        // Password generation for students.
-        public static string GeneratePasswordForStudents(int length = 8)
+        // Username generation for students.
+        public static string GenerateUsernameForStudents(int length = 10)
         {
-            string chars = "abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
-            char[] password = new char[length];
+            string chars = "abcdefghijklmnopqrstuvwxyz._";
+            char[] username = new char[length];
             for (int i = 0; i < length; i++)
             {
-                password[i] = chars[random.Next(chars.Length)];
+                username[i] = chars[random.Next(chars.Length)];
             }
-            return new string(password);
+            return new string(username);
         }
 
         // Password generation for professors.
         public static string GeneratePasswordForProfessors(int length = 9)
         {
-            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
+            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!#$%&";
             char[] password = new char[length];
             for (int i = 0; i < length; i++)
             {
@@ -150,48 +151,42 @@ namespace PasswordLoginGeneration
             return new string(password);
         }
 
-        // To display data correctly in the console.
-        public override string ToString()
+        // Password generation for students.
+        public static string GeneratePasswordForStudents(int length = 9)
         {
-            string result = "";
-            for (int i = 0; i < size; i++)
+            string chars = "abcdefghijklmnopqrstuvwxyz0123456789!#$%&";
+            char[] password = new char[length];
+            for (int i = 0; i < length; i++)
             {
-                if (table[i] != null)
-                {
-                    result += $"Index {i}: {table[i].key}; {table[i].value}\n";
-                }
+                password[i] = chars[random.Next(chars.Length)];
             }
-            return result;
+            return new string(password);
         }
 
-        /*static void Main(string[] args)
+        // Salt generation.
+        public static string GenerateSalt()
         {
-            HashTable hashtable = new HashTable(30);
-            string username1 = GenerateUsername();
-            string password1 = GeneratePasswordForStudents();
-            hashtable.AddNewStudent(username1, password1);
-            string username2 = GenerateUsername();
-            string password2 = GeneratePasswordForStudents();
-            hashtable.AddNewStudent(username2, password2);
-            string username3 = GenerateUsername();
-            string password3 = GeneratePasswordForStudents();
-            hashtable.AddNewStudent(username3, password3);
-            string username4 = GenerateUsername();
-            string password4 = GeneratePasswordForStudents();
-            hashtable.AddNewStudent(username4, password4);
-            Console.WriteLine(hashtable.ToString());
+            byte[] saltBytes = new byte[16];
+            using (var rng = new RNGCryptoServiceProvider())
+            {
+                rng.GetBytes(saltBytes);
+            }
+            string salt = Convert.ToBase64String(saltBytes);
+            return salt;
+        }
 
-            string passwordSearch1 = hashtable.SearchPassword(username3);
-            Console.WriteLine(passwordSearch1.ToString());
-            string username5 = GenerateUsername();
-            string passwordSearch2 = hashtable.SearchPassword(username5);
-            Console.WriteLine(passwordSearch2.ToString());
+        // Hash password.
+        public static string HashPassword(string password, string salt)
+        {
+            string combinedPassword = password + salt;
+            byte[] passwordBytes = Encoding.UTF8.GetBytes(combinedPassword);
+            using (var sha256 = new SHA256Managed())
+            {
+                byte[] hashedPasswordBytes = sha256.ComputeHash(passwordBytes);
+                string hashedPassword = Convert.ToBase64String(hashedPasswordBytes);
 
-            hashtable.RemoveStudent(username3);
-            Console.WriteLine(hashtable.ToString());
-
-            Console.WriteLine("Press Enter to exit...");
-            Console.ReadLine();
-        }*/
+                return hashedPassword;
+            }
+        }
     }
 }
