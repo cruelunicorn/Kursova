@@ -87,7 +87,8 @@ namespace Interface_Proj
         public async Task<string> DeleteFile(string fileName, string folderName)
         {
             if (!IsInternetAvailable()) return "No internet access";
-            await container.DeleteBlobIfExistsAsync(fileName);
+            BlobClient fileForDeleting = container.GetBlobClient($"{folderName}/{fileName}");
+            await fileForDeleting.DeleteIfExistsAsync();
             return "Success";
         }
         private static bool IsInternetAvailable()
