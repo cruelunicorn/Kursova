@@ -23,11 +23,11 @@ namespace Interface_Proj
             InitializeComponent();
         }
 
-        const string csvFilePathInfo = @"C:\Kursova\Interface_Proj\bin\Debug\net6.0-windows\students.csv";
-        const string csvFilePathSched = @"C:\Kursova\Interface_Proj\bin\Debug\net6.0-windows\schedule.csv";
-        const string jsonFilePathProf = @"C:\Kursova\Interface_Proj\bin\Debug\net6.0-windows\professors.json";
+        private readonly string csvFilePathInfo = Path.Combine(Directory.GetCurrentDirectory(), "students.csv");
+        private readonly string csvFilePathSched = Path.Combine(Directory.GetCurrentDirectory(), "schedule.csv");
+        private readonly string jsonFilePathProf = Path.Combine(Directory.GetCurrentDirectory(), "professors.json");
 
-        private void IAdminInfoAddBut_Click(object sender, EventArgs e)
+        private async void IAdminInfoAddBut_Click(object sender, EventArgs e)
         {
             string text = "";
             if (IAdminInfoStudTB.Text != "" && IAdminInfoStudGenTB.Text != "")
@@ -45,8 +45,8 @@ namespace Interface_Proj
                     string password = fields[6];
                     Methods.AddStudent(new Student { FirstName = firstName, LastName = lastName, Email = email, Group = group, StudentType = studentType }, new LoginInfo { Login = login, Password = password });
                     //MicrosoftStorageHandler handler = new() handler.UploadFile("students.csv", "StudentsFolder");
-                    /*MicrosoftStorageHandler handler = new MicrosoftStorageHandler();
-                    await handler.UploadFile("students.csv", "StudentsFolder");*/
+                    MicrosoftStorageHandler handler = new MicrosoftStorageHandler();
+                    await handler.UploadFile("students.csv", "StudentsFolder");
                     IAdminInfoStudLB.Items.Add(text);
                     IAdminInfoStudTB.Text = string.Empty;
                     IAdminInfoStudGenTB.Text = string.Empty;
@@ -146,7 +146,7 @@ namespace Interface_Proj
         private void IAdminInfoGenerateStudBut_Click(object sender, EventArgs e)
         {
             string password = HashTable.GeneratePasswordForStudents();
-            string nickname = HashTable.GenerateUsername();
+            string nickname = HashTable.GenerateUsernameForStudents();
             IAdminInfoStudGenTB.Text = $"{nickname} {password}";
         }
 
@@ -246,7 +246,7 @@ namespace Interface_Proj
         private void IAdminProfGenBut_Click(object sender, EventArgs e)
         {
             string password = HashTable.GeneratePasswordForProfessors();
-            string nickname = HashTable.GenerateUsername();
+            string nickname = HashTable.GenerateUsernameForProfessors();
             IAdminProfTB.Text = $"{nickname} {password}";
         }
 

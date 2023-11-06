@@ -37,18 +37,18 @@ namespace Interface_Proj
         /// <returns>Returns status string</returns>
         public async Task<string> DownloadFile(string downloadFileName, string folderName = "students")
         {
-            if (!isInternetAvailable()) return "No internet access";
+            if (!IsInternetAvailable()) return "No internet access";
             BlobClient blob = container.GetBlobClient($"{folderName}/{downloadFileName}");
             if (!await blob.ExistsAsync()) { return "File or folder doesn't exist"; }
             await blob.DownloadToAsync(Path.Combine(documentFolderPath, downloadFileName));
-            return "Downloaded successfully";
+            return "Success";
         }
 
         /// <summary>Uploads file to remoted storage </summary>
         /// <returns>Returns status string</returns>
         public async Task<string> UploadFile(string uploadFileName, string folderName, string fileText = "", params string[] metadata)
         {
-            if (!isInternetAvailable()) return "No internet access";
+            if (!IsInternetAvailable()) return "No internet access";
             if (!uploadFileName.Contains('.')) uploadFileName += ".txt";
             bool exists = File.Exists(uploadFileName);
             File.AppendAllText(Path.Combine(Directory.GetCurrentDirectory(), uploadFileName), fileText);
@@ -61,11 +61,12 @@ namespace Interface_Proj
             }
             await blob.SetMetadataAsync(metadataDictionary);
             if (!exists) File.Delete(Path.Combine(Directory.GetCurrentDirectory(), uploadFileName));
-            return "Uploaded successfully";
+            return "Success";
         }
 
         public async Task<string> CheckAuthorization(string login, string password)
         {
+            if (!IsInternetAvailable()) return "No internet access";
             BlobClient personBlob = container.GetBlobClient($"students/{login}.txt");
             if (personBlob.Exists() && personBlob.GetProperties() != null)
             {
@@ -82,7 +83,14 @@ namespace Interface_Proj
             }
             return "wrong login";
         }
-        private bool isInternetAvailable()
+
+        public async Task<string> DeleteFile(string fileName, string folderName)
+        {
+            if (!IsInternetAvailable()) return "No internet access";
+            await container.DeleteBlobIfExistsAsync(fileName);
+            return "Success";
+        }
+        private static bool IsInternetAvailable()
         {
             using Ping ping = new();
             try
