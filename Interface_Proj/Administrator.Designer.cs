@@ -71,7 +71,7 @@
             tabControl1.Controls.Add(tabPage3);
             tabControl1.Dock = DockStyle.Bottom;
             tabControl1.Location = new Point(0, 1);
-            tabControl1.Margin = new Padding(2, 2, 2, 2);
+            tabControl1.Margin = new Padding(2);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new Size(702, 434);
@@ -81,9 +81,9 @@
             // 
             tabPage1.Controls.Add(tableLayoutPanel2);
             tabPage1.Location = new Point(4, 29);
-            tabPage1.Margin = new Padding(2, 2, 2, 2);
+            tabPage1.Margin = new Padding(2);
             tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new Padding(2, 2, 2, 2);
+            tabPage1.Padding = new Padding(2);
             tabPage1.Size = new Size(694, 401);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Розклад";
@@ -101,7 +101,7 @@
             tableLayoutPanel2.Controls.Add(IAdminAddSchedBut, 3, 0);
             tableLayoutPanel2.Controls.Add(IAdminDeleteSchedBut, 3, 1);
             tableLayoutPanel2.Location = new Point(3, 3);
-            tableLayoutPanel2.Margin = new Padding(2, 2, 2, 2);
+            tableLayoutPanel2.Margin = new Padding(2);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 5;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
@@ -120,18 +120,19 @@
             IAdminSchedLB.FormattingEnabled = true;
             IAdminSchedLB.ItemHeight = 20;
             IAdminSchedLB.Location = new Point(2, 86);
-            IAdminSchedLB.Margin = new Padding(2, 2, 2, 2);
+            IAdminSchedLB.Margin = new Padding(2);
             IAdminSchedLB.Name = "IAdminSchedLB";
             tableLayoutPanel2.SetRowSpan(IAdminSchedLB, 3);
             IAdminSchedLB.Size = new Size(689, 313);
             IAdminSchedLB.TabIndex = 0;
+            IAdminSchedLB.SelectedIndexChanged += IAdminSchedLB_SelectedIndexChanged;
             // 
             // IAdminSchedTB
             // 
             tableLayoutPanel2.SetColumnSpan(IAdminSchedTB, 3);
             IAdminSchedTB.Dock = DockStyle.Fill;
             IAdminSchedTB.Location = new Point(2, 2);
-            IAdminSchedTB.Margin = new Padding(2, 2, 2, 2);
+            IAdminSchedTB.Margin = new Padding(2);
             IAdminSchedTB.Multiline = true;
             IAdminSchedTB.Name = "IAdminSchedTB";
             IAdminSchedTB.Size = new Size(584, 38);
@@ -141,7 +142,7 @@
             // 
             IAdminAddSchedBut.Dock = DockStyle.Fill;
             IAdminAddSchedBut.Location = new Point(590, 2);
-            IAdminAddSchedBut.Margin = new Padding(2, 2, 2, 2);
+            IAdminAddSchedBut.Margin = new Padding(2);
             IAdminAddSchedBut.Name = "IAdminAddSchedBut";
             IAdminAddSchedBut.Size = new Size(101, 38);
             IAdminAddSchedBut.TabIndex = 2;
@@ -153,7 +154,7 @@
             // 
             IAdminDeleteSchedBut.Dock = DockStyle.Fill;
             IAdminDeleteSchedBut.Location = new Point(590, 44);
-            IAdminDeleteSchedBut.Margin = new Padding(2, 2, 2, 2);
+            IAdminDeleteSchedBut.Margin = new Padding(2);
             IAdminDeleteSchedBut.Name = "IAdminDeleteSchedBut";
             IAdminDeleteSchedBut.Size = new Size(101, 38);
             IAdminDeleteSchedBut.TabIndex = 3;
@@ -165,9 +166,9 @@
             // 
             tabPage2.Controls.Add(IAdminInfoStudTLP);
             tabPage2.Location = new Point(4, 29);
-            tabPage2.Margin = new Padding(2, 2, 2, 2);
+            tabPage2.Margin = new Padding(2);
             tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(2, 2, 2, 2);
+            tabPage2.Padding = new Padding(2);
             tabPage2.Size = new Size(694, 401);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Студенти";
@@ -187,7 +188,7 @@
             IAdminInfoStudTLP.Controls.Add(IAdminInfoDeleteStudBut, 3, 2);
             IAdminInfoStudTLP.Controls.Add(IAdminInfoStudLB, 0, 3);
             IAdminInfoStudTLP.Location = new Point(2, 2);
-            IAdminInfoStudTLP.Margin = new Padding(2, 2, 2, 2);
+            IAdminInfoStudTLP.Margin = new Padding(2);
             IAdminInfoStudTLP.Name = "IAdminInfoStudTLP";
             IAdminInfoStudTLP.RowCount = 6;
             IAdminInfoStudTLP.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
@@ -205,7 +206,7 @@
             // 
             IAdminInfoAddStudBut.Dock = DockStyle.Fill;
             IAdminInfoAddStudBut.Location = new Point(589, 43);
-            IAdminInfoAddStudBut.Margin = new Padding(2, 2, 2, 2);
+            IAdminInfoAddStudBut.Margin = new Padding(2);
             IAdminInfoAddStudBut.Name = "IAdminInfoAddStudBut";
             IAdminInfoAddStudBut.Size = new Size(102, 37);
             IAdminInfoAddStudBut.TabIndex = 1;
@@ -218,7 +219,7 @@
             IAdminInfoStudTLP.SetColumnSpan(IAdminInfoStudTB, 3);
             IAdminInfoStudTB.Dock = DockStyle.Fill;
             IAdminInfoStudTB.Location = new Point(2, 43);
-            IAdminInfoStudTB.Margin = new Padding(2, 2, 2, 2);
+            IAdminInfoStudTB.Margin = new Padding(2);
             IAdminInfoStudTB.Multiline = true;
             IAdminInfoStudTB.Name = "IAdminInfoStudTB";
             IAdminInfoStudTB.Size = new Size(583, 37);
@@ -230,7 +231,7 @@
             IAdminInfoStudTLP.SetColumnSpan(IAdminInfoStudGenTB, 3);
             IAdminInfoStudGenTB.Dock = DockStyle.Fill;
             IAdminInfoStudGenTB.Location = new Point(2, 2);
-            IAdminInfoStudGenTB.Margin = new Padding(2, 2, 2, 2);
+            IAdminInfoStudGenTB.Margin = new Padding(2);
             IAdminInfoStudGenTB.Multiline = true;
             IAdminInfoStudGenTB.Name = "IAdminInfoStudGenTB";
             IAdminInfoStudGenTB.Size = new Size(583, 37);
@@ -240,7 +241,7 @@
             // 
             IAdminInfoGenerateStudBut.Dock = DockStyle.Fill;
             IAdminInfoGenerateStudBut.Location = new Point(589, 2);
-            IAdminInfoGenerateStudBut.Margin = new Padding(2, 2, 2, 2);
+            IAdminInfoGenerateStudBut.Margin = new Padding(2);
             IAdminInfoGenerateStudBut.Name = "IAdminInfoGenerateStudBut";
             IAdminInfoGenerateStudBut.Size = new Size(102, 37);
             IAdminInfoGenerateStudBut.TabIndex = 4;
@@ -252,7 +253,7 @@
             // 
             IAdminInfoDeleteStudBut.Dock = DockStyle.Fill;
             IAdminInfoDeleteStudBut.Location = new Point(589, 84);
-            IAdminInfoDeleteStudBut.Margin = new Padding(2, 2, 2, 2);
+            IAdminInfoDeleteStudBut.Margin = new Padding(2);
             IAdminInfoDeleteStudBut.Name = "IAdminInfoDeleteStudBut";
             IAdminInfoDeleteStudBut.Size = new Size(102, 38);
             IAdminInfoDeleteStudBut.TabIndex = 2;
@@ -267,7 +268,7 @@
             IAdminInfoStudLB.FormattingEnabled = true;
             IAdminInfoStudLB.ItemHeight = 20;
             IAdminInfoStudLB.Location = new Point(2, 126);
-            IAdminInfoStudLB.Margin = new Padding(2, 2, 2, 2);
+            IAdminInfoStudLB.Margin = new Padding(2);
             IAdminInfoStudLB.Name = "IAdminInfoStudLB";
             IAdminInfoStudTLP.SetRowSpan(IAdminInfoStudLB, 3);
             IAdminInfoStudLB.Size = new Size(689, 273);
@@ -279,9 +280,9 @@
             // 
             tabPage3.Controls.Add(tableLayoutPanel1);
             tabPage3.Location = new Point(4, 29);
-            tabPage3.Margin = new Padding(2, 2, 2, 2);
+            tabPage3.Margin = new Padding(2);
             tabPage3.Name = "tabPage3";
-            tabPage3.Padding = new Padding(2, 2, 2, 2);
+            tabPage3.Padding = new Padding(2);
             tabPage3.Size = new Size(694, 401);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Викладачі";
@@ -301,7 +302,7 @@
             tableLayoutPanel1.Controls.Add(IAdminProfDeleteBut, 3, 1);
             tableLayoutPanel1.Dock = DockStyle.Top;
             tableLayoutPanel1.Location = new Point(2, 2);
-            tableLayoutPanel1.Margin = new Padding(2, 2, 2, 2);
+            tableLayoutPanel1.Margin = new Padding(2);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 3;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 48.0392151F));
@@ -316,7 +317,7 @@
             IAdminProfLB.FormattingEnabled = true;
             IAdminProfLB.ItemHeight = 20;
             IAdminProfLB.Location = new Point(2, 2);
-            IAdminProfLB.Margin = new Padding(2, 2, 2, 2);
+            IAdminProfLB.Margin = new Padding(2);
             IAdminProfLB.Name = "IAdminProfLB";
             tableLayoutPanel1.SetRowSpan(IAdminProfLB, 3);
             IAdminProfLB.Size = new Size(363, 397);
@@ -327,7 +328,7 @@
             tableLayoutPanel1.SetColumnSpan(IAdminProfTB, 3);
             IAdminProfTB.Dock = DockStyle.Fill;
             IAdminProfTB.Location = new Point(369, 2);
-            IAdminProfTB.Margin = new Padding(2, 2, 2, 2);
+            IAdminProfTB.Margin = new Padding(2);
             IAdminProfTB.Multiline = true;
             IAdminProfTB.Name = "IAdminProfTB";
             IAdminProfTB.Size = new Size(319, 35);
@@ -337,7 +338,7 @@
             // 
             IAdminProfGenBut.Dock = DockStyle.Fill;
             IAdminProfGenBut.Location = new Point(369, 41);
-            IAdminProfGenBut.Margin = new Padding(2, 2, 2, 2);
+            IAdminProfGenBut.Margin = new Padding(2);
             IAdminProfGenBut.Name = "IAdminProfGenBut";
             IAdminProfGenBut.Size = new Size(103, 38);
             IAdminProfGenBut.TabIndex = 2;
@@ -349,7 +350,7 @@
             // 
             IAdminProfAddBut.Dock = DockStyle.Fill;
             IAdminProfAddBut.Location = new Point(476, 41);
-            IAdminProfAddBut.Margin = new Padding(2, 2, 2, 2);
+            IAdminProfAddBut.Margin = new Padding(2);
             IAdminProfAddBut.Name = "IAdminProfAddBut";
             IAdminProfAddBut.Size = new Size(104, 38);
             IAdminProfAddBut.TabIndex = 3;
@@ -361,7 +362,7 @@
             // 
             IAdminProfDeleteBut.Dock = DockStyle.Fill;
             IAdminProfDeleteBut.Location = new Point(584, 41);
-            IAdminProfDeleteBut.Margin = new Padding(2, 2, 2, 2);
+            IAdminProfDeleteBut.Margin = new Padding(2);
             IAdminProfDeleteBut.Name = "IAdminProfDeleteBut";
             IAdminProfDeleteBut.Size = new Size(104, 38);
             IAdminProfDeleteBut.TabIndex = 4;
@@ -390,7 +391,7 @@
             ClientSize = new Size(702, 435);
             Controls.Add(tabControl1);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2);
             Name = "IAdministratorForm1";
             StartPosition = FormStartPosition.CenterParent;
             Text = "Адміністратор";
