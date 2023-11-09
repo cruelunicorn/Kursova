@@ -127,6 +127,8 @@ public class Methods
         List<Schedule> schedule = ReadScheduleFromCsv();
         schedule.Add(newSubjects);
 
+        schedule = schedule.OrderBy(s => s.Day).ThenBy(s => s.ID).ToList();
+
         using (var writer = new StreamWriter("schedule.csv"))
         {
             writer.WriteLine("Day Of Week;ID;Subject Name;Type;Subject Link");
