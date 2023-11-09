@@ -23,13 +23,14 @@ namespace Interface_Proj
             InitializeComponent();
         }
 
-        const string csvFilePathInfo = @"C:\Kursova\Interface_Proj\bin\Debug\net6.0-windows\students.csv";
-        const string csvFilePathSched = @"C:\Kursova\Interface_Proj\bin\Debug\net6.0-windows\schedule.csv";
-        const string jsonFilePathProf = @"C:\Kursova\Interface_Proj\bin\Debug\net6.0-windows\professors.json";
+        private readonly string csvFilePathInfo = Path.Combine(Directory.GetCurrentDirectory(), "students.csv");
+        private readonly string csvFilePathSched = Path.Combine(Directory.GetCurrentDirectory(), "schedule.csv");
+        private readonly string jsonFilePathProf = Path.Combine(Directory.GetCurrentDirectory(), "professors.json");
 
-        private void IAdminInfoAddBut_Click(object sender, EventArgs e)
+        private async void IAdminInfoAddBut_Click(object sender, EventArgs e)
         {
             string text = "";
+            MicrosoftStorageHandler handler = new MicrosoftStorageHandler();
             if (IAdminInfoStudTB.Text != "" && IAdminInfoStudGenTB.Text != "")
             {
                 text = IAdminInfoStudTB.Text + " " + IAdminInfoStudGenTB.Text;
@@ -44,6 +45,10 @@ namespace Interface_Proj
                     string login = fields[5];
                     string password = fields[6];
                     Methods.AddStudent(new Student { FirstName = firstName, LastName = lastName, Email = email, Group = group, StudentType = studentType }, new LoginInfo { Login = login, Password = password });
+
+                    //server students upload
+                    await handler.UploadFile("students.csv", "StudentsFolder");
+
                     IAdminInfoStudLB.Items.Add(text);
                     IAdminInfoStudTB.Text = string.Empty;
                     IAdminInfoStudGenTB.Text = string.Empty;
@@ -53,6 +58,10 @@ namespace Interface_Proj
                     MessageBox.Show("Ви повинні заповнити всі поля інформації про студента");
                 }
                 IAdminInfoStudLB.Items.Clear();
+
+                //server students download
+                await handler.DownloadFile("students.csv", "StudentsFolder");
+
                 List<string> lines = File.ReadAllLines(csvFilePathInfo).ToList();
                 foreach (string line in lines)
                 {
@@ -61,10 +70,11 @@ namespace Interface_Proj
             }
         }
 
-        private void IAdminInfoDelete_Click(object sender, EventArgs e)
+        private async void IAdminInfoDelete_Click(object sender, EventArgs e)
         {
             if (File.Exists(csvFilePathInfo))
             {
+                MicrosoftStorageHandler handler = new MicrosoftStorageHandler();
                 string text = IAdminInfoStudTB.Text;
                 string[] words = text.Split(new[] { ' ' });
 
@@ -74,9 +84,17 @@ namespace Interface_Proj
                     string secondWord = words[1];
 
                     Methods.RemoveStudent(firstWord, secondWord);
+
+                    //to server students upload
+                    await handler.UploadFile("students.csv", "StudentsFolder");
+
                     IAdminInfoStudTB.Text = string.Empty;
                     // Обновление данных в ListBox 
                     IAdminInfoStudLB.Items.Clear();
+
+                    //from server students download
+                    await handler.DownloadFile("students.csv", "StudentsFolder");
+
                     List<string> lines = File.ReadAllLines(csvFilePathInfo).ToList();
                     foreach (string line in lines)
                     {
@@ -143,7 +161,7 @@ namespace Interface_Proj
         private void IAdminInfoGenerateStudBut_Click(object sender, EventArgs e)
         {
             string password = HashTable.GeneratePasswordForStudents();
-            string nickname = HashTable.GenerateUsername();
+            string nickname = HashTable.GenerateUsernameForStudents();
             IAdminInfoStudGenTB.Text = $"{nickname} {password}";
         }
 
@@ -151,8 +169,14 @@ namespace Interface_Proj
         {
         }
 
-        private void IAdministratorForm1_Load(object sender, EventArgs e)
+        private async void IAdministratorForm1_Load(object sender, EventArgs e)
         {
+            //from server files download
+            MicrosoftStorageHandler handler = new MicrosoftStorageHandler();
+            await handler.DownloadFile("schedule.csv", "ScheduleFolder");
+            await handler.DownloadFile("professors.json", "ProfessorsFolder");
+            await handler.DownloadFile("students.csv", "StudentsFolder");
+
             List<string> lines = File.ReadAllLines(csvFilePathInfo).ToList();
             foreach (string line in lines)
             {
@@ -175,8 +199,9 @@ namespace Interface_Proj
 
         }
 
-        private void IAdminAddSchedBut_Click(object sender, EventArgs e)
+        private async void IAdminAddSchedBut_Click(object sender, EventArgs e)
         {
+            MicrosoftStorageHandler handler = new MicrosoftStorageHandler();
             string text = IAdminSchedTB.Text;
             if (text != "")
             {
@@ -190,6 +215,10 @@ namespace Interface_Proj
                     string type = fields[3];
                     string link = fields[4];
                     Methods.AddSubject(new Schedule { Day = day, ID = id, Name = name, Type = type, Link = link });
+
+                    //server schedule upload
+                    await handler.UploadFile("schedule.csv", "ScheduleFolder");
+
                     IAdminSchedLB.Items.Add(text);
                     IAdminSchedTB.Text = string.Empty;
                 }
@@ -198,6 +227,10 @@ namespace Interface_Proj
                     MessageBox.Show("Ви повинні заповнити всі поля розкладу");
                 }
                 IAdminSchedLB.Items.Clear();
+
+                //from server schedule download
+                await handler.DownloadFile("schedule.csv", "ScheduleFolder");
+
                 List<string> lines = File.ReadAllLines(csvFilePathSched).ToList();
                 foreach (string line in lines)
                 {
@@ -206,10 +239,11 @@ namespace Interface_Proj
             }
         }
 
-        private void IAdminDeleteSchedBut_Click(object sender, EventArgs e)
+        private async void IAdminDeleteSchedBut_Click(object sender, EventArgs e)
         {
             if (File.Exists(csvFilePathSched))
             {
+                MicrosoftStorageHandler handler = new MicrosoftStorageHandler();
                 string text = IAdminSchedTB.Text;
                 string[] words = text.Split(new[] { ' ' });
 
@@ -220,9 +254,18 @@ namespace Interface_Proj
                     string subject = words[2];
                     string type = words[3];
                     Methods.RemoveSubject(day, id, subject, type);
+
+
+                    //to server schedule upload
+                    await handler.UploadFile("schedule.csv", "ScheduleFolder");
+
                     // Обновление данных в ListBox
                     IAdminSchedTB.Text = string.Empty;
                     IAdminSchedLB.Items.Clear();
+
+                    //from server schedule download
+                    await handler.DownloadFile("shedule.csv", "ProfessorsFolder");
+
                     List<string> lines = File.ReadAllLines(csvFilePathSched).ToList();
                     foreach (string line in lines)
                     {
@@ -243,12 +286,13 @@ namespace Interface_Proj
         private void IAdminProfGenBut_Click(object sender, EventArgs e)
         {
             string password = HashTable.GeneratePasswordForProfessors();
-            string nickname = HashTable.GenerateUsername();
+            string nickname = HashTable.GenerateUsernameForProfessors();
             IAdminProfTB.Text = $"{nickname} {password}";
         }
 
-        private void IAdminProfAddBut_Click(object sender, EventArgs e)
+        private async void IAdminProfAddBut_Click(object sender, EventArgs e)
         {
+            MicrosoftStorageHandler handler = new MicrosoftStorageHandler();
             string str = IAdminProfTB.Text;
             if (str != "")
             {
@@ -260,11 +304,18 @@ namespace Interface_Proj
                     string secondWord = words[1];
                     Methods.AddProfessor(new LoginInfoProfessors { Login = firstWord, Password = secondWord });
 
+                    //to server professors upload
+                    await handler.UploadFile("professors.json", "ProfessorsFolder");
+
                     IAdminProfLB.Items.Add(str);
                     IAdminProfTB.Text = string.Empty;
                 }
 
                 IAdminProfLB.Items.Clear();
+
+                //from server professors download
+                await handler.DownloadFile("professors.json", "ProfessorsFolder");
+
                 List<string> lines = File.ReadAllLines(jsonFilePathProf).ToList();
                 foreach (string line in lines)
                 {
@@ -273,12 +324,22 @@ namespace Interface_Proj
             }
         }
 
-        private void IAdminProfDeleteBut_Click(object sender, EventArgs e)
+        private async void IAdminProfDeleteBut_Click(object sender, EventArgs e)
         {
+
+            MicrosoftStorageHandler handler = new MicrosoftStorageHandler();
             string firstWord = IAdminProfTB.Text;
             Methods.RemoveProfessor(firstWord);
+
+            //to server professors upload
+            await handler.UploadFile("professors.json", "ProfessorsFolder");
+
             IAdminProfTB.Text = string.Empty;
             IAdminProfLB.Items.Clear();
+
+            //from server professors download
+            await handler.DownloadFile("professors.json", "ProfessorsFolder");
+
             List<string> lines = File.ReadAllLines(jsonFilePathProf).ToList();
             foreach (string line in lines)
             {
@@ -290,6 +351,11 @@ namespace Interface_Proj
         private void IAdministratorForm1_FormClosing(object sender, FormClosingEventArgs e)
         {
             System.Windows.Forms.Application.Exit();
+        }
+
+        private void IAdminSchedLB_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

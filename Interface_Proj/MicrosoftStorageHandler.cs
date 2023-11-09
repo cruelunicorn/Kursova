@@ -1,5 +1,6 @@
 ﻿using Azure.Storage;
 using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,8 @@ namespace Interface_Proj
     /// </summary>
     internal class MicrosoftStorageHandler
     {
-        private readonly string accountName = "";
-        private readonly string accessKey = "";
+        private readonly string accountName = "kursovaoop";
+        private readonly string accessKey = "iTyPAiN1hZeTu1jHgs7ebHPN4n0/OB+rKMsHposb0rKcHfEqyeIbQWix3PWeLefAbQzDgCA/Z6/D+AStrdbjmg==";
         private readonly string documentFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         private readonly BlobServiceClient client;
         private readonly BlobContainerClient container;
@@ -29,6 +30,7 @@ namespace Interface_Proj
             if (!Directory.Exists(Path.Combine(documentFolderPath, "StorageFiles")))
                 Directory.CreateDirectory(Path.Combine(documentFolderPath, "StorageFiles"));
             documentFolderPath = Path.Combine(documentFolderPath, "StorageFiles");
+
         }
 
         /// <summary>Downloads file to C:/Users/User/Documents/StorageFiles </summary>
@@ -36,21 +38,58 @@ namespace Interface_Proj
         public async Task<string> DownloadFile(string downloadFileName, string folderName = "students")
         {
             if (!IsInternetAvailable()) return "No internet access";
-            BlobClient blob = this.container.GetBlobClient($"{folderName}/{downloadFileName}");
+            BlobClient blob = container.GetBlobClient($"{folderName}/{downloadFileName}");
             if (!await blob.ExistsAsync()) { return "File or folder doesn't exist"; }
             await blob.DownloadToAsync(Path.Combine(documentFolderPath, downloadFileName));
-            return "Downloaded successfully";
+            return "Success";
         }
 
         /// <summary>Uploads file to remoted storage </summary>
         /// <returns>Returns status string</returns>
-        public async Task<string> UploadFile(string uploadFileName, string folderName = "students")
+        public async Task<string> UploadFile(string uploadFileName, string folderName, string fileText = "", params string[] metadata)
         {
             if (!IsInternetAvailable()) return "No internet access";
-            if (!File.Exists(uploadFileName)) { return "File doesn't exist"; }
-            BlobClient blob = this.container.GetBlobClient($"{folderName}/{uploadFileName}");
+            if (!uploadFileName.Contains('.')) uploadFileName += ".txt";
+            bool exists = File.Exists(uploadFileName);
+            File.AppendAllText(Path.Combine(Directory.GetCurrentDirectory(), uploadFileName), fileText);
+            BlobClient blob = container.GetBlobClient($"{folderName}/{uploadFileName}");
             await blob.UploadAsync(uploadFileName, true);
-            return "Uploaded successfully";
+            Dictionary<string, string> metadataDictionary = new();
+            foreach (var item in metadata)
+            {
+                metadataDictionary.Add(item.Split(":")[0], item.Split(":")[1]);
+            }
+            await blob.SetMetadataAsync(metadataDictionary);
+            if (!exists) File.Delete(Path.Combine(Directory.GetCurrentDirectory(), uploadFileName));
+            return "Success";
+        }
+
+        public async Task<string> CheckAuthorization(string login, string password)
+        {
+            if (!IsInternetAvailable()) return "No internet access";
+            BlobClient personBlob = container.GetBlobClient($"students/{login}.txt");
+            if (personBlob.Exists() && personBlob.GetProperties() != null)
+            {
+                BlobProperties bp = await personBlob.GetPropertiesAsync();
+                if (bp.Metadata["password"] == password) return "student authorized";
+                else return "wrong password";
+            }
+            personBlob = container.GetBlobClient($"professors/{login}.txt");
+            if (personBlob.Exists() && personBlob.GetProperties() != null)
+            {
+                BlobProperties bp = await personBlob.GetPropertiesAsync();
+                if (bp.Metadata["password"] == password) return "professor authorized";
+                else return "wrong password";
+            }
+            return "wrong login";
+        }
+
+        public async Task<string> DeleteFile(string fileName, string folderName)
+        {
+            if (!IsInternetAvailable()) return "No internet access";
+            BlobClient fileForDeleting = container.GetBlobClient($"{folderName}/{fileName}");
+            await fileForDeleting.DeleteIfExistsAsync();
+            return "Success";
         }
         private static bool IsInternetAvailable()
         {
