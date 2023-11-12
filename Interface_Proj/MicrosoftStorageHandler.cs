@@ -18,6 +18,7 @@ namespace Interface_Proj
         private readonly string accountName = "kursovaoop";
         private readonly string accessKey = "iTyPAiN1hZeTu1jHgs7ebHPN4n0/OB+rKMsHposb0rKcHfEqyeIbQWix3PWeLefAbQzDgCA/Z6/D+AStrdbjmg==";
         private readonly string documentFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        private readonly string debugFolderPath = Directory.GetCurrentDirectory();
         private readonly BlobServiceClient client;
         private readonly BlobContainerClient container;
 
@@ -33,18 +34,18 @@ namespace Interface_Proj
 
         }
 
-        /// <summary>Downloads file to C:/Users/User/Documents/StorageFiles </summary>
+        /// <summary>Downloads file to debug folder</summary>
         /// <returns>Returns status string</returns>
         public async Task<string> DownloadFile(string downloadFileName, string folderName = "students")
         {
             if (!IsInternetAvailable()) return "No internet access";
             BlobClient blob = container.GetBlobClient($"{folderName}/{downloadFileName}");
             if (!await blob.ExistsAsync()) { return "File or folder doesn't exist"; }
-            await blob.DownloadToAsync(Path.Combine(documentFolderPath, downloadFileName));
+            await blob.DownloadToAsync(Path.Combine(debugFolderPath, downloadFileName));
             return "Success";
         }
 
-        /// <summary>Uploads file to remoted storage </summary>
+        /// <summary>Uploads file to remoted storage</summary>
         /// <returns>Returns status string</returns>
         public async Task<string> UploadFile(string uploadFileName, string folderName, string fileText = "", params string[] metadata)
         {
