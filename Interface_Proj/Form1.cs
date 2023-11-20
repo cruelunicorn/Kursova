@@ -7,10 +7,6 @@ namespace Interface_Proj
             InitializeComponent();
         }
 
-        private void IStudentBut1_Click(object sender, EventArgs e)
-        {
-        }
-
         private void IProfessorBut1_Click(object sender, EventArgs e)
         {
             IRegistrationForm2 registration = new IRegistrationForm2();

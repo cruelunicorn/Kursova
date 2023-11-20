@@ -152,7 +152,7 @@ namespace PasswordLoginGeneration
         }
 
         // Password generation for students.
-        public static string GeneratePasswordForStudents(int length = 9)
+        public static string GeneratePasswordForStudents(int length = 8)
         {
             string chars = "abcdefghijklmnopqrstuvwxyz0123456789!#$%&";
             char[] password = new char[length];
