@@ -17,6 +17,11 @@ namespace Interface_Proj
             InitializeComponent();
         }
 
+        private async void GetStudents()
+        {
+
+        }
+
         private void IProfessorForm1_Load(object sender, EventArgs e)
         {
 

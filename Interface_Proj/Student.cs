@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,21 +15,25 @@ namespace Interface_Proj
     public partial class IStudentForm1 : Form
     {
         private readonly string csvFilePathSched = Path.Combine(Directory.GetCurrentDirectory(), "schedule.csv");
-        public IStudentForm1()
+        private string nameAndLastName;
+        public IStudentForm1(string nameAndLastName)
         {
             InitializeComponent();
+            Text = $"Студент - {nameAndLastName}";
+            this.nameAndLastName = nameAndLastName;
             listView1.View = View.Details;
 
             listView1.Clear();
 
             // Завантаження даних з CSV файлу
             LoadDataFromCSV(csvFilePathSched);
+            File.Delete(csvFilePathSched);
 
             listView1.FullRowSelect = true;
             listView1.MultiSelect = true;
 
             // Обробник події до listView1
-            listView1.MouseDoubleClick += listView1_MouseDoubleClick;
+            listView1.MouseDoubleClick += listView1_MouseDoubleClick!;
         }
 
         private void LoadDataFromCSV(string filePath)
@@ -38,7 +43,7 @@ namespace Interface_Proj
                 using (var reader = new StreamReader(filePath))
                 {
                     // Прочитати заголовок (першу строку) і розділити її на стовпці
-                    string[] headers = reader.ReadLine().Split(';');
+                    string[] headers = reader.ReadLine()!.Split(';');
 
                     // Додати стовпці до ListView з автоматичним розміром
                     foreach (var header in headers)
@@ -49,7 +54,7 @@ namespace Interface_Proj
                     // Додавання решти рядків
                     while (!reader.EndOfStream)
                     {
-                        string[] fields = reader.ReadLine().Split(';');
+                        string[] fields = reader.ReadLine()!.Split(';');
 
                         ListViewItem item = new ListViewItem(fields);
                         listView1.Items.Add(item);
@@ -58,17 +63,17 @@ namespace Interface_Proj
             }
             else
             {
-                MessageBox.Show("Файл не найден: " + filePath);
+                MessageBox.Show("Файл не знайдено: " + filePath);
             }
         }
 
-        private void listView1_MouseDoubleClick(object sender, MouseEventArgs e)
+        private async void listView1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             ListViewHitTestInfo test = listView1.HitTest(e.Location);
 
             if (test.Item != null)
             {
-                string link = test.Item.SubItems[test.Item.SubItems.Count - 1].Text;
+                string link = test.Item.SubItems[^1].Text;
 
                 // Відкрити посилання у браузері
                 System.Diagnostics.Process.Start(new ProcessStartInfo
@@ -76,6 +81,22 @@ namespace Interface_Proj
                     FileName = link,
                     UseShellExecute = true
                 });
+
+                string subject = test.Item.SubItems[2].Text;
+                MicrosoftStorageHandler handler = new();
+                if (await handler.DownloadFile($"{subject}.json", "AttendanceFolder") != "Success") return;
+                var jsonObj = JObject.Parse(File.ReadAllText($"{subject}.json"));
+                if (jsonObj[nameAndLastName] != null)
+                {
+                    jsonObj[nameAndLastName] = (int)jsonObj[nameAndLastName]! + 1;
+                }
+                else
+                {
+                    jsonObj[nameAndLastName] = 1;
+                }
+                File.WriteAllText($"{subject}.json", jsonObj.ToString());
+                await handler.UploadFile($"{subject}.json", "AttendanceFolder");
+                File.Delete($"{subject}.json");
             }
         }
 
@@ -86,7 +107,7 @@ namespace Interface_Proj
 
         private void IStudentForm1_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)

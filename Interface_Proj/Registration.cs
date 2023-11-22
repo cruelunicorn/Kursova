@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PasswordLoginGeneration;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,13 +13,26 @@ namespace Interface_Proj
 {
     public partial class IRegistrationForm2 : Form
     {
+        private static string fileData = "";
+        MicrosoftStorageHandler handler = new();
         public IRegistrationForm2()
         {
             InitializeComponent();
         }
 
-        private void IComeInBut1_Click(object sender, EventArgs e)
+        private async Task SetFileData(string login)
         {
+            await handler.DownloadFile($"{login}.txt");
+            using (StreamReader file = new($"{login}.txt"))
+            {
+                fileData = file.ReadLine()!;
+            }
+            File.Delete($"{login}.txt");
+        }     
+
+        private async void IComeInBut1_Click(object sender, EventArgs e)
+        {           
+            await handler.DownloadFile("schedule.csv", "ScheduleFolder");
             /* CleanErrorMessage();
              if (CheckNameAndPassword() && LoginExit() && PasswordExit() && IPasswordTB1.TextLength == 8)
              {
@@ -40,17 +54,22 @@ namespace Interface_Proj
 
             if (CheckNameAndPassword(name, password))
             {
-                if (password.Length == 8)
+                string authorizationResult = await handler.CheckAuthorization(name, password);
+                switch (authorizationResult)
                 {
-                    IStudentForm1 student = new IStudentForm1();
-                    this.Hide();
-                    student.Show();
-                }
-                else if (password.Length == 9)
-                {
-                    IProfessorForm1 professor = new IProfessorForm1();
-                    this.Hide();
-                    professor.Show();
+                    case "student authorized":
+                        await SetFileData(name);
+                        IStudentForm1 student = new(fileData);
+                        Hide();
+                        student.Show();
+                        break;
+                    case "professor authorized":
+                        IProfessorForm1 professor = new();
+                        Hide();
+                        professor.Show();
+                        break;
+                    default:
+                        break;
                 }
             }
 

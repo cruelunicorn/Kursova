@@ -48,6 +48,8 @@ namespace Interface_Proj
 
                     //server students upload
                     await handler.UploadFile("students.csv", "StudentsFolder");
+                    await handler.UploadFile(login, "students", $"{firstName} {lastName}", $"password:{password}");
+                    
 
                     IAdminInfoStudLB.Items.Add(text);
                     IAdminInfoStudTB.Text = string.Empty;
