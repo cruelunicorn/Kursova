@@ -19,20 +19,6 @@ namespace Interface_Proj
 
         private void IComeInBut1_Click(object sender, EventArgs e)
         {
-            /* CleanErrorMessage();
-             if (CheckNameAndPassword() && LoginExit() && PasswordExit() && IPasswordTB1.TextLength == 8)
-             {
-                 IStudentForm1 student = new IStudentForm1();
-                 this.Hide();
-                 student.Show();
-             }
-             else if(CheckNameAndPassword() && LoginExit() && PasswordExit() && IPasswordTB1.TextLength == 9)
-             {
-                 IProfessorForm1 professor = new IProfessorForm1();
-                 this.Hide();
-                 professor.Show();
-             }*/
-
             CleanErrorMessage();
 
             string name = INameTB1.Text;
@@ -89,6 +75,36 @@ namespace Interface_Proj
         private void IRegistrationForm2_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void IRegistrationForm2_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void INameTB1_Click(object sender, EventArgs e)
+        {
+            INameTB1.Clear();
+            pictureBox1.BackgroundImage = Properties.Resources.user2;
+            panelN.BackColor = Color.Sienna;
+            INameTB1.ForeColor = Color.Sienna;
+
+            pictureBox2.BackgroundImage = Properties.Resources.pass;
+            panelP.BackColor = Color.Black;
+            IPasswordTB1.ForeColor = Color.Black;
+        }
+
+        private void IPasswordTB1_Click(object sender, EventArgs e)
+        {
+            IPasswordTB1.Clear();
+            IPasswordTB1.PasswordChar = '*';
+            pictureBox2.BackgroundImage = Properties.Resources.pass2;
+            panelP.BackColor = Color.Sienna;
+            IPasswordTB1.ForeColor = Color.Sienna;
+
+            pictureBox1.BackgroundImage = Properties.Resources.user;
+            panelN.BackColor = Color.Black;
+            INameTB1.ForeColor = Color.Black;
         }
     }
 }
