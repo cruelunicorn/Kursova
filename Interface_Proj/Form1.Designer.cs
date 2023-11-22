@@ -35,35 +35,52 @@
             // 
             // IUserBut1
             // 
-            IUserBut1.Location = new Point(264, 108);
+            IUserBut1.BackColor = Color.AntiqueWhite;
+            IUserBut1.FlatAppearance.BorderColor = SystemColors.ActiveCaptionText;
+            IUserBut1.FlatAppearance.BorderSize = 0;
+            IUserBut1.FlatAppearance.MouseDownBackColor = Color.SandyBrown;
+            IUserBut1.FlatAppearance.MouseOverBackColor = Color.NavajoWhite;
+            IUserBut1.FlatStyle = FlatStyle.Flat;
+            IUserBut1.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point);
+            IUserBut1.ForeColor = Color.Black;
+            IUserBut1.Location = new Point(258, 141);
             IUserBut1.Name = "IUserBut1";
-            IUserBut1.Size = new Size(338, 87);
+            IUserBut1.Size = new Size(340, 80);
             IUserBut1.TabIndex = 1;
             IUserBut1.Text = "Викладач";
-            IUserBut1.UseVisualStyleBackColor = true;
+            IUserBut1.UseVisualStyleBackColor = false;
             IUserBut1.Click += IProfessorBut1_Click;
             // 
             // IAdministranortBut1
             // 
-            IAdministranortBut1.Location = new Point(264, 291);
+            IAdministranortBut1.BackColor = Color.AntiqueWhite;
+            IAdministranortBut1.FlatAppearance.BorderSize = 0;
+            IAdministranortBut1.FlatAppearance.MouseDownBackColor = Color.SandyBrown;
+            IAdministranortBut1.FlatAppearance.MouseOverBackColor = Color.NavajoWhite;
+            IAdministranortBut1.FlatStyle = FlatStyle.Flat;
+            IAdministranortBut1.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point);
+            IAdministranortBut1.ForeColor = Color.Black;
+            IAdministranortBut1.Location = new Point(258, 301);
             IAdministranortBut1.Name = "IAdministranortBut1";
-            IAdministranortBut1.Size = new Size(338, 87);
+            IAdministranortBut1.Size = new Size(340, 80);
             IAdministranortBut1.TabIndex = 2;
             IAdministranortBut1.Text = "Адміністратор";
-            IAdministranortBut1.UseVisualStyleBackColor = true;
+            IAdministranortBut1.UseVisualStyleBackColor = false;
             IAdministranortBut1.Click += button3_Click;
             // 
             // IRegistrationForm1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             ClientSize = new Size(878, 544);
-            Controls.Add(IAdministranortBut1);
             Controls.Add(IUserBut1);
+            Controls.Add(IAdministranortBut1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "IRegistrationForm1";
-            StartPosition = FormStartPosition.CenterParent;
-            Text = "Вхід";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Visit Control";
             FormClosing += IRegistrationForm1_FormClosing;
             ResumeLayout(false);
         }

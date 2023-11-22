@@ -109,5 +109,35 @@ namespace Interface_Proj
         {
             Application.Exit();
         }
+
+        private void IRegistrationForm2_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void INameTB1_Click(object sender, EventArgs e)
+        {
+            INameTB1.Clear();
+            pictureBox1.BackgroundImage = Properties.Resources.user2;
+            panelN.BackColor = Color.Sienna;
+            INameTB1.ForeColor = Color.Sienna;
+
+            pictureBox2.BackgroundImage = Properties.Resources.pass;
+            panelP.BackColor = Color.Black;
+            IPasswordTB1.ForeColor = Color.Black;
+        }
+
+        private void IPasswordTB1_Click(object sender, EventArgs e)
+        {
+            IPasswordTB1.Clear();
+            IPasswordTB1.PasswordChar = '*';
+            pictureBox2.BackgroundImage = Properties.Resources.pass2;
+            panelP.BackColor = Color.Sienna;
+            IPasswordTB1.ForeColor = Color.Sienna;
+
+            pictureBox1.BackgroundImage = Properties.Resources.user;
+            panelN.BackColor = Color.Black;
+            INameTB1.ForeColor = Color.Black;
+        }
     }
 }
