@@ -142,7 +142,7 @@ namespace PasswordLoginGeneration
         // Password generation for professors.
         public static string GeneratePasswordForProfessors(int length = 9)
         {
-            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!#$%&";
+            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!#$&";
             char[] password = new char[length];
             for (int i = 0; i < length; i++)
             {

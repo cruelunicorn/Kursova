@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -82,21 +83,19 @@ namespace Interface_Proj
                     UseShellExecute = true
                 });
 
-                string subject = test.Item.SubItems[2].Text;
-                MicrosoftStorageHandler handler = new();
-                if (await handler.DownloadFile($"{subject}.json", "AttendanceFolder") != "Success") return;
-                var jsonObj = JObject.Parse(File.ReadAllText($"{subject}.json"));
-                if (jsonObj[nameAndLastName] != null)
-                {
-                    jsonObj[nameAndLastName] = (int)jsonObj[nameAndLastName]! + 1;
+                if (DateTime.Now.ToString("dddd", new CultureInfo("uk-UA")) == test.Item.SubItems[0].Text.ToLower()) { 
+                    string subject = test.Item.SubItems[2].Text;
+                    MicrosoftStorageHandler handler = new();
+                    if (await handler.DownloadFile($"{subject}.json", "AttendanceFolder") != "Success") return;
+                    var jsonObj = JObject.Parse(File.ReadAllText($"{subject}.json"));
+                    if (jsonObj[nameAndLastName] != null)
+                        jsonObj[nameAndLastName] = (int)jsonObj[nameAndLastName]! + 1;
+                    else
+                        jsonObj[nameAndLastName] = 1;
+                    File.WriteAllText($"{subject}.json", jsonObj.ToString());
+                    await handler.UploadFile($"{subject}.json", "AttendanceFolder");
+                    File.Delete($"{subject}.json");
                 }
-                else
-                {
-                    jsonObj[nameAndLastName] = 1;
-                }
-                File.WriteAllText($"{subject}.json", jsonObj.ToString());
-                await handler.UploadFile($"{subject}.json", "AttendanceFolder");
-                File.Delete($"{subject}.json");
             }
         }
 

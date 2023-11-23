@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -220,6 +221,7 @@ namespace Interface_Proj
 
                     //server schedule upload
                     await handler.UploadFile("schedule.csv", "ScheduleFolder");
+                    _ = handler.UploadFile($"{name}.json", "AttendanceFolder", "{}");
 
                     IAdminSchedLB.Items.Add(text);
                     IAdminSchedTB.Text = string.Empty;
@@ -260,6 +262,7 @@ namespace Interface_Proj
 
                     //to server schedule upload
                     await handler.UploadFile("schedule.csv", "ScheduleFolder");
+                    _ = handler.DeleteFile($"{subject}.json", "AttendanceFolder");
 
                     // Обновление данных в ListBox
                     IAdminSchedTB.Text = string.Empty;
@@ -306,8 +309,10 @@ namespace Interface_Proj
                     string secondWord = words[1];
                     Methods.AddProfessor(new LoginInfoProfessors { Login = firstWord, Password = secondWord });
 
+                    _ = handler.UploadFile($"{firstWord}.txt", "professors", fileText: "", $"password:{secondWord}");
+
                     //to server professors upload
-                    await handler.UploadFile("professors.json", "ProfessorsFolder");
+                    _ = handler.UploadFile("professors.json", "ProfessorsFolder");
 
                     IAdminProfLB.Items.Add(str);
                     IAdminProfTB.Text = string.Empty;
@@ -326,7 +331,7 @@ namespace Interface_Proj
             }
         }
 
-        private async void IAdminProfDeleteBut_Click(object sender, EventArgs e)
+        private void IAdminProfDeleteBut_Click(object sender, EventArgs e)
         {
 
             MicrosoftStorageHandler handler = new MicrosoftStorageHandler();
@@ -334,13 +339,14 @@ namespace Interface_Proj
             Methods.RemoveProfessor(firstWord);
 
             //to server professors upload
-            await handler.UploadFile("professors.json", "ProfessorsFolder");
+            _ = handler.UploadFile("professors.json", "ProfessorsFolder");
+            _ = handler.DeleteFile($"{firstWord}.txt", "professors");
 
             IAdminProfTB.Text = string.Empty;
             IAdminProfLB.Items.Clear();
 
             //from server professors download
-            await handler.DownloadFile("professors.json", "ProfessorsFolder");
+//            await handler.DownloadFile("professors.json", "ProfessorsFolder");
 
             List<string> lines = File.ReadAllLines(jsonFilePathProf).ToList();
             foreach (string line in lines)
@@ -352,6 +358,9 @@ namespace Interface_Proj
 
         private void IAdministratorForm1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            File.Delete("schedule.csv");
+            File.Delete("professors.json");
+            File.Delete("students.csv");
             System.Windows.Forms.Application.Exit();
         }
 
