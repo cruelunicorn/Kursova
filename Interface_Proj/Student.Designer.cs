@@ -29,26 +29,26 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IStudentForm1));
-            listView1 = new ListView();
+            IStudLV = new ListView();
             SuspendLayout();
             // 
-            // listView1
+            // IStudLV
             // 
-            listView1.Dock = DockStyle.Fill;
-            listView1.Location = new Point(0, 0);
-            listView1.Name = "listView1";
-            listView1.Size = new Size(878, 544);
-            listView1.TabIndex = 0;
-            listView1.UseCompatibleStateImageBehavior = false;
-            listView1.ItemActivate += listView1_ItemActivate;
-            listView1.SelectedIndexChanged += listView1_SelectedIndexChanged;
+            IStudLV.Dock = DockStyle.Fill;
+            IStudLV.Location = new Point(0, 0);
+            IStudLV.Name = "IStudLV";
+            IStudLV.Size = new Size(878, 544);
+            IStudLV.TabIndex = 0;
+            IStudLV.UseCompatibleStateImageBehavior = false;
+            IStudLV.ItemActivate += listView1_ItemActivate;
+            IStudLV.SelectedIndexChanged += listView1_SelectedIndexChanged;
             // 
             // IStudentForm1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(878, 544);
-            Controls.Add(listView1);
+            Controls.Add(IStudLV);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "IStudentForm1";
             StartPosition = FormStartPosition.CenterParent;
@@ -60,6 +60,6 @@
 
         #endregion
 
-        private ListView listView1;
+        private ListView IStudLV;
     }
 }

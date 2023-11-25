@@ -29,13 +29,34 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IProfessorForm1));
+            IProfLV = new ListView();
+            ISubjCB = new ComboBox();
             SuspendLayout();
+            // 
+            // IProfLV
+            // 
+            IProfLV.Location = new Point(0, 40);
+            IProfLV.Name = "IProfLV";
+            IProfLV.Size = new Size(878, 504);
+            IProfLV.TabIndex = 0;
+            IProfLV.UseCompatibleStateImageBehavior = false;
+            // 
+            // ISubjCB
+            // 
+            ISubjCB.DropDownStyle = ComboBoxStyle.DropDownList;
+            ISubjCB.FormattingEnabled = true;
+            ISubjCB.Location = new Point(2, 2);
+            ISubjCB.Name = "ISubjCB";
+            ISubjCB.Size = new Size(211, 33);
+            ISubjCB.TabIndex = 1;
             // 
             // IProfessorForm1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(878, 544);
+            Controls.Add(ISubjCB);
+            Controls.Add(IProfLV);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "IProfessorForm1";
             Text = "Professor";
@@ -46,5 +67,8 @@
         }
 
         #endregion
+
+        private ListView IProfLV;
+        private ComboBox ISubjCB;
     }
 }

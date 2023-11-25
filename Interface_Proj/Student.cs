@@ -11,6 +11,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
+//arigajslsr cm5lnag8
+
+
 namespace Interface_Proj
 {
     public partial class IStudentForm1 : Form
@@ -22,19 +26,24 @@ namespace Interface_Proj
             InitializeComponent();
             Text = $"Студент - {nameAndLastName}";
             this.nameAndLastName = nameAndLastName;
-            listView1.View = View.Details;
+            IStudLV.View = View.Details;
 
-            listView1.Clear();
+            IStudLV.Clear();
 
             // Завантаження даних з CSV файлу
             LoadDataFromCSV(csvFilePathSched);
             File.Delete(csvFilePathSched);
 
-            listView1.FullRowSelect = true;
-            listView1.MultiSelect = true;
+            IStudLV.FullRowSelect = true;
+            IStudLV.MultiSelect = true;
 
             // Обробник події до listView1
-            listView1.MouseDoubleClick += listView1_MouseDoubleClick!;
+            IStudLV.MouseDoubleClick += listView1_MouseDoubleClick!;
+
+            // Установка цвета фона и цвета текста для ListView
+            IStudLV.BackColor = Color.White;
+            IStudLV.ForeColor = Color.Black;
+
         }
 
         private void LoadDataFromCSV(string filePath)
@@ -49,7 +58,7 @@ namespace Interface_Proj
                     // Додати стовпці до ListView з автоматичним розміром
                     foreach (var header in headers)
                     {
-                        listView1.Columns.Add(header, -2);
+                        IStudLV.Columns.Add(header, -2);
                     }
 
                     // Додавання решти рядків
@@ -58,7 +67,7 @@ namespace Interface_Proj
                         string[] fields = reader.ReadLine()!.Split(';');
 
                         ListViewItem item = new ListViewItem(fields);
-                        listView1.Items.Add(item);
+                        IStudLV.Items.Add(item);
                     }
                 }
             }
@@ -70,7 +79,7 @@ namespace Interface_Proj
 
         private async void listView1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            ListViewHitTestInfo test = listView1.HitTest(e.Location);
+            ListViewHitTestInfo test = IStudLV.HitTest(e.Location);
 
             if (test.Item != null)
             {
@@ -83,7 +92,8 @@ namespace Interface_Proj
                     UseShellExecute = true
                 });
 
-                if (DateTime.Now.ToString("dddd", new CultureInfo("uk-UA")) == test.Item.SubItems[0].Text.ToLower()) { 
+                if (DateTime.Now.ToString("dddd", new CultureInfo("uk-UA")) == test.Item.SubItems[0].Text.ToLower())
+                {
                     string subject = test.Item.SubItems[2].Text;
                     MicrosoftStorageHandler handler = new();
                     if (await handler.DownloadFile($"{subject}.json", "AttendanceFolder") != "Success") return;
@@ -106,7 +116,7 @@ namespace Interface_Proj
 
         private void IStudentForm1_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
