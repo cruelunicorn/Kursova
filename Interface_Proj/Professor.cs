@@ -70,18 +70,21 @@ namespace Interface_Proj
             }
         }
 
-        private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private async void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Отримуємо вибраний предмет з ComboBox
             string selectedSubject = ISubjCB.SelectedItem as string;
+            MicrosoftStorageHandler handler = new();
+            await handler.DownloadFile($"{selectedSubject}.json", folderPath);
 
             if (selectedSubject != null)
             {
+
                 // Формуємо шлях до файлу
-                string filePath = Path.Combine(folderPath, $"{selectedSubject}.json");
+//                string filePath = Path.Combine(folderPath, $"{selectedSubject}.json");
 
                 // Викликаємо метод для завантаження та виведення вмісту файла
-                DisplayFileContent(filePath);
+                DisplayFileContent($"{selectedSubject}.json");
             }
         }
 

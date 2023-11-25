@@ -176,7 +176,7 @@ namespace Interface_Proj
         {
             //from server files download
             MicrosoftStorageHandler handler = new MicrosoftStorageHandler();
-            await handler.DownloadFile("schedule.csv", "ScheduleFolder");
+//            await handler.DownloadFile("schedule.csv", "ScheduleFolder");
             await handler.DownloadFile("professors.json", "ProfessorsFolder");
             await handler.DownloadFile("students.csv", "StudentsFolder");
 
