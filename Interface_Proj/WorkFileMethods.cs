@@ -3,6 +3,8 @@ using System.IO;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
+using Newtonsoft.Json.Linq;
+using System.Text.Json.Nodes;
 
 
 public class Student
@@ -35,6 +37,12 @@ public class LoginInfoProfessors
 {
     public string? Login { get; set; }
     public string? Password { get; set; }
+}
+
+public struct AttendanceInfo
+{
+    public string NameLastName;
+    public string Attendance;
 }
 
 
@@ -120,6 +128,23 @@ public class Methods
         }
 
         return schedule;
+    }
+
+    /////////////////////ReadAttendance
+    public static List<AttendanceInfo> ReadAttendance(string fileName)
+    {
+        List <AttendanceInfo> result = new();
+        if (!File.Exists(fileName)) { return result; }
+        JObject jsonObj = JObject.Parse(File.ReadAllText(fileName));
+        AttendanceInfo attPair = new();
+
+        foreach (var pair in jsonObj)
+        {
+            attPair.nameLastName = pair.Key;
+            attPair.Attendance = pair.Value!.ToString();
+            result.Add(attPair);
+        }
+        return result;
     }
 
     // Add a new Subject.
