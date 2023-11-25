@@ -140,7 +140,7 @@ public class Methods
 
         foreach (var pair in jsonObj)
         {
-            attPair.nameLastName = pair.Key;
+            attPair.NameLastName = pair.Key;
             attPair.Attendance = pair.Value!.ToString();
             result.Add(attPair);
         }
