@@ -1,10 +1,12 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -20,16 +22,19 @@ namespace Interface_Proj
     public partial class IProfessorForm1 : Form
     {
         private readonly string csvFilePathSched = Path.Combine(Directory.GetCurrentDirectory(), "schedule.csv");
+        private readonly string csvFilePathInfo = Path.Combine(Directory.GetCurrentDirectory(), "students.csv");
         private readonly string folderPath = "AttendanceFolder";
         public IProfessorForm1()
         {
             InitializeComponent();
 
-            CBSubj(csvFilePathSched);
-            //AddWordsFromJson(jsonFilePathSubj);
+            IProfDGV.ReadOnly = true;
+            IProfDGV.AllowUserToAddRows = false;
+            IProfDGV.AllowUserToDeleteRows = false;
 
-            ISubjCB.SelectedIndexChanged += ComboBox1_SelectedIndexChanged;
+            ISubjCB.SelectedIndexChanged += ComboBox1_SelectedIndex;
         }
+
 
         private void CBSubj(string filePath)
         {
@@ -70,7 +75,23 @@ namespace Interface_Proj
             }
         }
 
-        private async void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private async void IProfessorForm1_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                MicrosoftStorageHandler handl = new MicrosoftStorageHandler();
+                await handl.DownloadFile("schedule.csv", "ScheduleFolder");
+
+                // После успешной загрузки файла, вызываем метод CBSubj
+                CBSubj(csvFilePathSched);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Помилка при завантаженні файлу: {ex.Message}", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private async void ComboBox1_SelectedIndex(object sender, EventArgs e)
         {
             // Отримуємо вибраний предмет з ComboBox
             string selectedSubject = ISubjCB.SelectedItem as string;
@@ -79,53 +100,109 @@ namespace Interface_Proj
 
             if (selectedSubject != null)
             {
-
-                // Формуємо шлях до файлу
-//                string filePath = Path.Combine(folderPath, $"{selectedSubject}.json");
-
                 // Викликаємо метод для завантаження та виведення вмісту файла
-                DisplayFileContent($"{selectedSubject}.json");
+                DisplayJson($"{selectedSubject}.json", csvFilePathInfo);
             }
         }
 
-        private void DisplayFileContent(string filePath)
+        private void DisplayJson(string filePath, string filePath1)
         {
-            // Перевіряємо, чи файл існує
             if (File.Exists(filePath))
             {
-                try
+                // Читання JSON файлу та виведення його в DataGridView
+                string fileContent = File.ReadAllText(filePath);
+                JObject jsonObj = JObject.Parse(fileContent);
+
+                // Очищення вмісту DataGridView перед заповненням
+                IProfDGV.Rows.Clear();
+                IProfDGV.Columns.Clear();
+
+                // Додавання заголовків до DataGridView
+                IProfDGV.Columns.Add("NameLastName", "NameLastName");
+                IProfDGV.Columns.Add("Attendance", "Attendance");
+
+                // Додаємо вміст файла JSON до DataGridView
+                foreach (var pair in jsonObj)
                 {
-                    // Читаємо вміст файла
-                    string fileContent = File.ReadAllText(filePath);
-
-                    // Розбираємо JSON-рядок у об'єкт JObject
-                    JObject jsonObj = JObject.Parse(fileContent);
-
-                    // Очищаємо вміст ListView
-                    IProfLV.Items.Clear();
-
-                    // Додаємо вміст файла до ListView
-                    foreach (var property in jsonObj)
+                    AttendanceInfo attPair = new AttendanceInfo
                     {
-                        ListViewItem item = new ListViewItem(property.Key);
-                        item.SubItems.Add(property.Value.ToString());
-                        IProfLV.Items.Add(item);
-                    }
+                        NameLastName = pair.Key,
+                        Attendance = pair.Value.ToString()
+                    };
+
+                    // Додаємо дані в DataGridView
+                    IProfDGV.Rows.Add(attPair.NameLastName, attPair.Attendance);
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Помилка при читанні та виведенні файла: {ex.Message}", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                IProfDGV.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+                
             }
             else
             {
-                MessageBox.Show($"Файл {Path.GetFileName(filePath)} не знайдено", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Файл не знайдено: {filePath}", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
 
-        private void IProfessorForm1_Load(object sender, EventArgs e)
-        {
+            // Перевіряємо наявність файлу CSV
+            if (File.Exists(filePath1))
+            {
+                // Зчитуємо дані з файлу CSV та зберігаємо їх у словник для подальшого використання
+                Dictionary<string, List<string>> csvData = new Dictionary<string, List<string>>();
 
+                using (var reader = new StreamReader(filePath1))
+                {
+                    // Читаємо заголовок (першу строку) і розділити її на стовпці
+                    string[] headers = reader.ReadLine()!.Split(';');
+
+                    // Додаємо стовпці до DataGridView з автоматичним розміром
+                    foreach (var header in headers.Skip(2)) // Пропускаємо перші два поля
+                    {
+                        IProfDGV.Columns.Add(header, header);
+                    }
+
+                    if (IProfDGV.Columns.Count > 0)
+                    {
+                        // Видалити останній стовпець (останній заголовок)
+                        IProfDGV.Columns.RemoveAt(IProfDGV.Columns.Count - 1);
+                    }
+
+                    // Додаємо дані з CSV файлу до словника
+                    while (!reader.EndOfStream)
+                    {
+                        string[] fields = reader.ReadLine()!.Split(';');
+
+                        // Перевірка, чи є достатньо полів
+                        if (fields.Length >= 3)
+                        {
+                            string nameLastName = $"{fields[0]} {fields[1]}";
+                            List<string> data = fields.Skip(2).Take(fields.Length - 3).ToList();
+                            csvData[nameLastName] = data;
+                        }
+                    }
+                }
+
+                // Оновлюємо інформацію в DataGridView на основі словника
+                foreach (DataGridViewRow row in IProfDGV.Rows)
+                {
+                    string nameLastName = row.Cells["NameLastName"].Value.ToString();
+
+                    if (csvData.TryGetValue(nameLastName, out List<string> dataFromCsv))
+                    {
+                        // Додаємо дані з файлу CSV в поточний рядок у DataGridView
+                        for (int i = 0; i < dataFromCsv.Count; i++)
+                        {
+                            row.Cells[i + 2].Value = dataFromCsv[i];
+                        }
+                    }
+                }
+                IProfDGV.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+
+                int lastColumnIndex = IProfDGV.Columns.Count - 1;
+                // AutoSizeMode останнього стовпця на Fill
+                IProfDGV.Columns[lastColumnIndex].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            }
+            else
+            {
+                MessageBox.Show($"Файл не знайдено: {filePath1}", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void IProfessorForm1_FormClosed(object sender, FormClosedEventArgs e)

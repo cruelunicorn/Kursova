@@ -29,17 +29,10 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IProfessorForm1));
-            IProfLV = new ListView();
             ISubjCB = new ComboBox();
+            IProfDGV = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)IProfDGV).BeginInit();
             SuspendLayout();
-            // 
-            // IProfLV
-            // 
-            IProfLV.Location = new Point(0, 40);
-            IProfLV.Name = "IProfLV";
-            IProfLV.Size = new Size(878, 504);
-            IProfLV.TabIndex = 0;
-            IProfLV.UseCompatibleStateImageBehavior = false;
             // 
             // ISubjCB
             // 
@@ -50,25 +43,35 @@
             ISubjCB.Size = new Size(211, 33);
             ISubjCB.TabIndex = 1;
             // 
+            // IProfDGV
+            // 
+            IProfDGV.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            IProfDGV.Location = new Point(7, 43);
+            IProfDGV.Name = "IProfDGV";
+            IProfDGV.RowHeadersWidth = 62;
+            IProfDGV.RowTemplate.Height = 33;
+            IProfDGV.Size = new Size(864, 496);
+            IProfDGV.TabIndex = 2;
+            // 
             // IProfessorForm1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(878, 544);
+            Controls.Add(IProfDGV);
             Controls.Add(ISubjCB);
-            Controls.Add(IProfLV);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "IProfessorForm1";
             Text = "Professor";
             FormClosing += IProfessorForm1_FormClosing;
             FormClosed += IProfessorForm1_FormClosed;
             Load += IProfessorForm1_Load;
+            ((System.ComponentModel.ISupportInitialize)IProfDGV).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
-
-        private ListView IProfLV;
         private ComboBox ISubjCB;
+        private DataGridView IProfDGV;
     }
 }
