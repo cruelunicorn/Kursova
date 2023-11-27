@@ -1,6 +1,7 @@
 ﻿using Azure.Storage;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
+using Errors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +39,7 @@ namespace Interface_Proj
         /// <returns>Returns status string</returns>
         public async Task<string> DownloadFile(string downloadFileName, string folderName = "students")
         {
-            if (!IsInternetAvailable()) return "No internet access";
+            if (!IsInternetAvailable()) throw new InternetConectionException();
             BlobClient blob = container.GetBlobClient($"{folderName}/{downloadFileName}");
             if (!await blob.ExistsAsync()) { return "File or folder doesn't exist"; }
             await blob.DownloadToAsync(Path.Combine(debugFolderPath, downloadFileName));
@@ -49,7 +50,7 @@ namespace Interface_Proj
         /// <returns>Returns status string</returns>
         public async Task<string> UploadFile(string uploadFileName, string folderName, string fileText = "", params string[] metadata)
         {
-            if (!IsInternetAvailable()) return "No internet access";
+            if (!IsInternetAvailable()) throw new InternetConectionException();
             if (!uploadFileName.Contains('.')) uploadFileName += ".txt";
             bool exists = File.Exists(uploadFileName);
             File.AppendAllText(Path.Combine(Directory.GetCurrentDirectory(), uploadFileName), fileText);

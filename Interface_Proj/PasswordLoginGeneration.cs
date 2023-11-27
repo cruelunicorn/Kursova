@@ -105,12 +105,12 @@ namespace PasswordLoginGeneration
         // and dividing by the size of the array.
         private int GetIndex(string key)
         {
-            int index = 0;
-            for (int i = 0; i < key.Length; i++)
-            {
-                index += (key[i]);
-            }
-            return index % size;
+                int index = 0;
+                for (int i = 0; i < key.Length; i++)
+                {
+                    index += (key[i]);
+                }
+                return index % size;
         }
 
         private static Random random = new Random();

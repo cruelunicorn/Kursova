@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualBasic;
 using PasswordLoginGeneration;
+using Errors;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,6 +15,15 @@ using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.LinkLabel;
+using static Errors.InternetConectionException;
+using static Errors.DataHasNotBeenUpdated;
+using static Errors.NameTooLong;
+using static Errors.PasswordTooLong;
+using static Errors.HashPasswordNotFound;
+using static Errors.FailedToDownloadFile;
+using static Errors.StudentsNotUpLoaded;
+using static Errors.CharacterConversion;
+using static Errors.Removing;
 
 namespace Interface_Proj
 {
@@ -48,9 +58,22 @@ namespace Interface_Proj
                     Methods.AddStudent(new Student { FirstName = firstName, LastName = lastName, Email = email, Group = group, StudentType = studentType }, new LoginInfo { Login = login, Password = password });
 
                     //server students upload
-                    await handler.UploadFile("students.csv", "StudentsFolder");
-                    await handler.UploadFile(login, "students", $"{firstName} {lastName}", $"password:{password}");
-                    
+                    try
+                    {
+                        await handler.UploadFile("students.csv", "StudentsFolder");
+                        await handler.UploadFile(login, "students", $"{firstName} {lastName}", $"password:{password}");
+                    }
+                    catch (StudentsNotUpLoaded ex)
+                    {
+                        MessageBox.Show($"Students not uploaded: {ex.Message}");
+                        return;
+                    }
+                    catch (InternetConectionException ex)
+                    {
+                        MessageBox.Show($"Ooops, problem with Inet: {ex.Message}");
+                        return;
+                    }
+
 
                     IAdminInfoStudLB.Items.Add(text);
                     IAdminInfoStudTB.Text = string.Empty;
@@ -63,12 +86,33 @@ namespace Interface_Proj
                 IAdminInfoStudLB.Items.Clear();
 
                 //server students download
-                await handler.DownloadFile("students.csv", "StudentsFolder");
-
-                List<string> lines = File.ReadAllLines(csvFilePathInfo).ToList();
-                foreach (string line in lines)
+                try
                 {
-                    IAdminInfoStudLB.Items.Add(line);
+                    await handler.DownloadFile("students.csv", "StudentsFolder");
+                }
+                catch (FailedToDownloadFile ex)
+                {
+                    MessageBox.Show($"Failed to download server students: {ex.Message}");
+                    return;
+                }
+                catch (InternetConectionException ex)
+                {
+                    MessageBox.Show($"Ooops, problem with Inet: {ex.Message}");
+                    return;
+                }
+
+                try
+                {
+                        List<string> lines = File.ReadAllLines(csvFilePathInfo).ToList();
+                        foreach (string line in lines)
+                        {
+                            IAdminInfoStudLB.Items.Add(line);
+                        }
+                }
+                catch (FileNotFoundException ex)
+                {
+                    MessageBox.Show($"List<string> lines не знайдений: {ex.Message}");
+                    return;
                 }
             }
         }
@@ -92,16 +136,37 @@ namespace Interface_Proj
                     await handler.UploadFile("students.csv", "StudentsFolder");
 
                     IAdminInfoStudTB.Text = string.Empty;
-                    // Обновление данных в ListBox 
-                    IAdminInfoStudLB.Items.Clear();
+                    // Обновление данных в ListBox
+                        IAdminInfoStudLB.Items.Clear();
 
                     //from server students download
-                    await handler.DownloadFile("students.csv", "StudentsFolder");
-
-                    List<string> lines = File.ReadAllLines(csvFilePathInfo).ToList();
-                    foreach (string line in lines)
+                    try
                     {
-                        IAdminInfoStudLB.Items.Add(line);
+                        await handler.DownloadFile("students.csv", "StudentsFolder");
+                    }
+                    catch (FailedToDownloadFile ex)
+                    {
+                        MessageBox.Show($"Failed to download from server students: {ex.Message}");
+                        return;
+                    }
+                    catch (InternetConectionException ex)
+                    {
+                        MessageBox.Show($"Ooops, problem with Inet: {ex.Message}");
+                        return;
+                    }
+
+                    try
+                    {
+                        List<string> lines = File.ReadAllLines(csvFilePathInfo).ToList();
+                        foreach (string line in lines)
+                        {
+                            IAdminInfoStudLB.Items.Add(line);
+                        }
+                    }
+                    catch (FileNotFoundException ex)
+                    {
+                        MessageBox.Show($"List<string> lines не знайдений: {ex.Message}");
+                        return;
                     }
                 }
                 else
@@ -180,20 +245,44 @@ namespace Interface_Proj
             await handler.DownloadFile("professors.json", "ProfessorsFolder");
             await handler.DownloadFile("students.csv", "StudentsFolder");
 
-            List<string> lines = File.ReadAllLines(csvFilePathInfo).ToList();
-            foreach (string line in lines)
+            try
             {
-                IAdminInfoStudLB.Items.Add(line);
+                List<string> lines = File.ReadAllLines(csvFilePathInfo).ToList();
+                foreach (string line in lines)
+                {
+                    IAdminInfoStudLB.Items.Add(line);
+                }
             }
-            List<string> lines1 = File.ReadAllLines(csvFilePathSched).ToList();
-            foreach (string line in lines1)
+            catch (FileNotFoundException ex)
             {
-                IAdminSchedLB.Items.Add(line);
+                MessageBox.Show($"List<string> lines не знайдений: {ex.Message}");
+                return;
             }
-            List<string> lines2 = File.ReadAllLines(jsonFilePathProf).ToList();
-            foreach (string line in lines2)
+            try
             {
-                IAdminProfLB.Items.Add(line);
+                List<string> lines1 = File.ReadAllLines(csvFilePathSched).ToList();
+                foreach (string line in lines1)
+                {
+                    IAdminSchedLB.Items.Add(line);
+                }
+            }
+            catch (FileNotFoundException ex)
+            {
+                MessageBox.Show($"List<string> lines1 не знайдений: {ex.Message}");
+                return;
+            }
+            try
+            {
+                List<string> lines2 = File.ReadAllLines(jsonFilePathProf).ToList();
+                foreach (string line in lines2)
+                {
+                    IAdminProfLB.Items.Add(line);
+                }
+            }
+            catch (FileNotFoundException ex)
+            {
+                MessageBox.Show($"List<string> lines2 не знайдений: {ex.Message}");
+                return;
             }
         }
 
@@ -233,12 +322,33 @@ namespace Interface_Proj
                 IAdminSchedLB.Items.Clear();
 
                 //from server schedule download
-                await handler.DownloadFile("schedule.csv", "ScheduleFolder");
-
-                List<string> lines = File.ReadAllLines(csvFilePathSched).ToList();
-                foreach (string line in lines)
+                try
                 {
-                    IAdminSchedLB.Items.Add(line);
+                    await handler.DownloadFile("schedule.csv", "ScheduleFolder");
+                }
+                catch (FailedToDownloadFile ex)
+                {
+                    MessageBox.Show($"Failed to download from server schedule: {ex.Message}");
+                    return;
+                }
+                catch (InternetConectionException ex)
+                {
+                    MessageBox.Show($"Ooops, problem with Inet: {ex.Message}");
+                    return;
+                }
+
+                try
+                {
+                    List<string> lines = File.ReadAllLines(csvFilePathSched).ToList();
+                    foreach (string line in lines)
+                    {
+                        IAdminSchedLB.Items.Add(line);
+                    }
+                }
+                catch (FileNotFoundException ex)
+                {
+                    MessageBox.Show($"List<string> lines не знайдений: {ex.Message}");
+                    return;
                 }
             }
         }
@@ -266,7 +376,15 @@ namespace Interface_Proj
 
                     // Обновление данных в ListBox
                     IAdminSchedTB.Text = string.Empty;
-                    IAdminSchedLB.Items.Clear();
+                    try
+                    {
+                        IAdminSchedLB.Items.Clear();
+                    }
+                    catch (DataHasNotBeenUpdated ex)
+                    {
+                        MessageBox.Show($"Данні в ListBox не оновилися: {ex.Message}");
+                        return;
+                    }
 
                     //from server schedule download
                     await handler.DownloadFile("shedule.csv", "ProfessorsFolder");
@@ -321,12 +439,28 @@ namespace Interface_Proj
                 IAdminProfLB.Items.Clear();
 
                 //from server professors download
-                await handler.DownloadFile("professors.json", "ProfessorsFolder");
-
-                List<string> lines = File.ReadAllLines(jsonFilePathProf).ToList();
-                foreach (string line in lines)
+                try
                 {
-                    IAdminProfLB.Items.Add(line);
+                    await handler.DownloadFile("professors.json", "ProfessorsFolder");
+                }
+                catch (InternetConectionException ex)
+                {
+                    MessageBox.Show($"Ooops, problem with Inet: {ex.Message}");
+                    return;
+                }
+
+                try
+                {
+                    List<string> lines = File.ReadAllLines(jsonFilePathProf).ToList();
+                    foreach (string line in lines)
+                    {
+                        IAdminProfLB.Items.Add(line);
+                    }
+                }
+                catch (FileNotFoundException ex)
+                {
+                    MessageBox.Show($"List<string> lines не знайдений: {ex.Message}");
+                    return;
                 }
             }
         }
@@ -346,21 +480,52 @@ namespace Interface_Proj
             IAdminProfLB.Items.Clear();
 
             //from server professors download
-//            await handler.DownloadFile("professors.json", "ProfessorsFolder");
-
-            List<string> lines = File.ReadAllLines(jsonFilePathProf).ToList();
-            foreach (string line in lines)
+            //            await handler.DownloadFile("professors.json", "ProfessorsFolder");
+            try
             {
-                IAdminProfLB.Items.Add(line);
+                List<string> lines = File.ReadAllLines(jsonFilePathProf).ToList();
+                foreach (string line in lines)
+                {
+                    IAdminProfLB.Items.Add(line);
+                }
+            }
+            catch (FileNotFoundException ex)
+            {
+                MessageBox.Show($"List<string> lines не знайдений: {ex.Message}");
+                return;
             }
 
         }
 
         private void IAdministratorForm1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            File.Delete("schedule.csv");
-            File.Delete("professors.json");
-            File.Delete("students.csv");
+            try
+            {
+                File.Delete("schedule.csv");
+            }
+            catch (Removing ex)
+            {
+                MessageBox.Show($"schedule.csv не видалевся: {ex.Message}");
+                return;
+            }
+            try
+            {
+                File.Delete("professors.json");
+            }
+            catch (Removing ex)
+            {
+                MessageBox.Show($"professors.json не видалевся: {ex.Message}");
+                return;
+            }
+            try
+            {
+                File.Delete("students.csv");
+            }
+            catch (Removing ex)
+            {
+                MessageBox.Show($"students.csv не видалевся: {ex.Message}");
+                return;
+            }
             System.Windows.Forms.Application.Exit();
         }
 
