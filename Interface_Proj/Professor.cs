@@ -21,9 +21,6 @@ namespace Interface_Proj
 {
     public partial class IProfessorForm1 : Form
     {
-        private readonly string csvFilePathSched = Path.Combine(Directory.GetCurrentDirectory(), "schedule.csv");
-        private readonly string csvFilePathInfo = Path.Combine(Directory.GetCurrentDirectory(), "students.csv");
-        private readonly string folderPath = "AttendanceFolder";
         public IProfessorForm1()
         {
             InitializeComponent();
@@ -83,7 +80,7 @@ namespace Interface_Proj
                 await handl.DownloadFile("schedule.csv", "ScheduleFolder");
 
                 // После успешной загрузки файла, вызываем метод CBSubj
-                CBSubj(csvFilePathSched);
+                CBSubj("schedule.csv");
             }
             catch (Exception ex)
             {
@@ -96,12 +93,13 @@ namespace Interface_Proj
             // Отримуємо вибраний предмет з ComboBox
             string selectedSubject = ISubjCB.SelectedItem as string;
             MicrosoftStorageHandler handler = new();
-            await handler.DownloadFile($"{selectedSubject}.json", folderPath);
-
+            await handler.DownloadFile($"{selectedSubject}.json", "AttendanceFolder");
+            await handler.DownloadFile("students.csv", "StudentsFolder");
+            
             if (selectedSubject != null)
             {
                 // Викликаємо метод для завантаження та виведення вмісту файла
-                DisplayJson($"{selectedSubject}.json", csvFilePathInfo);
+                DisplayJson($"{selectedSubject}.json", "students.csv");
             }
         }
 
