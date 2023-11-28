@@ -100,6 +100,7 @@ namespace Interface_Proj
                 // Викликаємо метод для завантаження та виведення вмісту файла
                 DisplayJson($"{selectedSubject}.json", "students.csv");
             }
+            File.Delete($"{selectedSubject}.json");
         }
 
         private void DisplayJson(string filePath, string filePath1)

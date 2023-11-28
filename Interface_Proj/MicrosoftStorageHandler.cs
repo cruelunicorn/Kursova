@@ -2,11 +2,13 @@
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using Errors;
+using Microsoft.VisualBasic.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Interface_Proj
@@ -51,7 +53,7 @@ namespace Interface_Proj
         public async Task<string> UploadFile(string uploadFileName, string folderName, string fileText = "", params string[] metadata)
         {
             if (!IsInternetAvailable()) throw new InternetConectionException();
-            if (!uploadFileName.Contains('.')) uploadFileName += ".txt";
+            //if (!uploadFileName.Contains('.')) uploadFileName += ".txt";
             bool exists = File.Exists(uploadFileName);
             File.AppendAllText(Path.Combine(Directory.GetCurrentDirectory(), uploadFileName), fileText);
             BlobClient blob = container.GetBlobClient($"{folderName}/{uploadFileName}");
@@ -59,7 +61,13 @@ namespace Interface_Proj
             Dictionary<string, string> metadataDictionary = new();
             foreach (var item in metadata)
             {
-                metadataDictionary.Add(item.Split(":")[0], item.Split(":")[1]);
+                if (Regex.IsMatch(item.Split(":")[1], @"\p{IsCyrillic}"))
+                {
+                    metadataDictionary.Add(item.Split(":")[0],
+                        Convert.ToBase64String(Encoding.UTF8.GetBytes(item.Split(":")[1])));                       
+                }                   
+                else
+                    metadataDictionary.Add(item.Split(":")[0], item.Split(":")[1]);
             }
             await blob.SetMetadataAsync(metadataDictionary);
             if (!exists) File.Delete(Path.Combine(Directory.GetCurrentDirectory(), uploadFileName));
@@ -69,14 +77,14 @@ namespace Interface_Proj
         public async Task<string> CheckAuthorization(string login, string password)
         {
             if (!IsInternetAvailable()) return "No internet access";
-            BlobClient personBlob = container.GetBlobClient($"students/{login}.txt");
+            BlobClient personBlob = container.GetBlobClient($"students/{login}");
             if (personBlob.Exists() && personBlob.GetProperties() != null)
             {
                 BlobProperties bp = await personBlob.GetPropertiesAsync();
                 if (bp.Metadata["password"] == password) return "student authorized";
                 else return "wrong password";
             }
-            personBlob = container.GetBlobClient($"professors/{login}.txt");
+            personBlob = container.GetBlobClient($"professors/{login}");
             if (personBlob.Exists() && personBlob.GetProperties() != null)
             {
                 BlobProperties bp = await personBlob.GetPropertiesAsync();
@@ -86,6 +94,21 @@ namespace Interface_Proj
             return "wrong login";
         }
 
+        public async Task<string> GetNameAndLastName(string login)
+        {
+            if (!IsInternetAvailable()) throw new InternetConectionException();
+            BlobClient personBlob = container.GetBlobClient($"students/{login}");
+            if (personBlob.Exists() && personBlob.GetProperties() != null)
+            {
+                BlobProperties bp = await personBlob.GetPropertiesAsync();
+                string name = Encoding.UTF8.GetString(Convert.FromBase64String(bp.Metadata["name"]));
+                string lastname = Encoding.UTF8.GetString(Convert.FromBase64String(bp.Metadata["lastname"]));
+                return $"{name} {lastname}";
+            }
+            else
+                return "not found";
+        }
+
         public async Task<string> DeleteFile(string fileName, string folderName)
         {
             if (!IsInternetAvailable()) return "No internet access";
@@ -93,6 +116,26 @@ namespace Interface_Proj
             await fileForDeleting.DeleteIfExistsAsync();
             return "Success";
         }
+
+        public async Task<string> DeleteStudent(string name, string lastname)
+        {
+            if (!IsInternetAvailable()) throw new InternetConectionException();
+            var blobs = container.GetBlobs(prefix: "students/");
+            string encodedName = Convert.ToBase64String(Encoding.UTF8.GetBytes(name));
+            string encodedLastName = Convert.ToBase64String(Encoding.UTF8.GetBytes(lastname));
+            foreach (var blob in blobs)
+            {
+                BlobClient blobToDelete = container.GetBlobClient(blob.Name);
+                BlobProperties bp = await blobToDelete.GetPropertiesAsync();
+                if (bp.Metadata.ContainsKey("name") && bp.Metadata["name"] == encodedName && bp.Metadata["lastname"] == encodedLastName)
+                {
+                    await blobToDelete.DeleteAsync();
+                    return "Success";
+                }                
+            }
+            return "not found";
+        }
+
         private static bool IsInternetAvailable()
         {
             using Ping ping = new();
