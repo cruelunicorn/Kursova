@@ -41,7 +41,7 @@ namespace Interface_Proj
             IStudLV.MouseDoubleClick += listView1_MouseDoubleClick!;
 
             // Установка цвета фона и цвета текста для ListView
-            IStudLV.BackColor = Color.White;
+            IStudLV.BackColor = Color.AliceBlue;
             IStudLV.ForeColor = Color.Black;
 
         }
@@ -52,20 +52,21 @@ namespace Interface_Proj
             {
                 using (var reader = new StreamReader(filePath))
                 {
-                    // Прочитати заголовок (першу строку) і розділити її на стовпці
+                    // Прочитать заголовок (первую строку) и разделить ее на столбцы
                     string[] headers = reader.ReadLine()!.Split(';');
 
-                    // Додати стовпці до ListView з автоматичним розміром
+                    // Добавить столбцы в ListView с автоматическим размером
                     foreach (var header in headers)
                     {
                         IStudLV.Columns.Add(header, -2);
                     }
 
-                    // Додавання решти рядків
+                    // Добавление остальных строк
                     while (!reader.EndOfStream)
                     {
                         string[] fields = reader.ReadLine()!.Split(';');
 
+                        // Создание ListViewItem и добавление его в IStudLV
                         ListViewItem item = new ListViewItem(fields);
                         IStudLV.Items.Add(item);
                     }
@@ -73,7 +74,7 @@ namespace Interface_Proj
             }
             else
             {
-                MessageBox.Show("Файл не знайдено: " + filePath);
+                MessageBox.Show("Файл не найден: " + filePath);
             }
         }
 

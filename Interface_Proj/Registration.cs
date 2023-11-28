@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Interface_Proj
 {
@@ -18,6 +19,8 @@ namespace Interface_Proj
         public IRegistrationForm2()
         {
             InitializeComponent();
+
+            toolTip1.SetToolTip(IRegistrationHelpBut, "Вам необхідно ввести Ваш логін та пароль для входу");
         }
 
         private async Task SetFileData(string login)
@@ -28,24 +31,11 @@ namespace Interface_Proj
                 fileData = file.ReadLine()!;
             }
             File.Delete($"{login}.txt");
-        }     
+        }
 
         private async void IComeInBut1_Click(object sender, EventArgs e)
-        {           
+        {
             await handler.DownloadFile("schedule.csv", "ScheduleFolder");
-            /* CleanErrorMessage();
-             if (CheckNameAndPassword() && LoginExit() && PasswordExit() && IPasswordTB1.TextLength == 8)
-             {
-                 IStudentForm1 student = new IStudentForm1();
-                 this.Hide();
-                 student.Show();
-             }
-             else if(CheckNameAndPassword() && LoginExit() && PasswordExit() && IPasswordTB1.TextLength == 9)
-             {
-                 IProfessorForm1 professor = new IProfessorForm1();
-                 this.Hide();
-                 professor.Show();
-             }*/
 
             CleanErrorMessage();
 
@@ -100,27 +90,17 @@ namespace Interface_Proj
             errorProvider1.SetError(IPasswordTB1, "");
         }
 
-        private void IRegistrationForm2_FormClosed(object sender, FormClosedEventArgs e)
-        {
-
-        }
-
         private void IRegistrationForm2_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
-        }
-
-        private void IRegistrationForm2_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void INameTB1_Click(object sender, EventArgs e)
         {
             INameTB1.Clear();
             pictureBox1.BackgroundImage = Properties.Resources.user2;
-            panelN.BackColor = Color.Sienna;
-            INameTB1.ForeColor = Color.Sienna;
+            panelN.BackColor = Color.Navy;
+            INameTB1.ForeColor = Color.DodgerBlue;
 
             pictureBox2.BackgroundImage = Properties.Resources.pass;
             panelP.BackColor = Color.Black;
@@ -132,8 +112,8 @@ namespace Interface_Proj
             IPasswordTB1.Clear();
             IPasswordTB1.PasswordChar = '*';
             pictureBox2.BackgroundImage = Properties.Resources.pass2;
-            panelP.BackColor = Color.Sienna;
-            IPasswordTB1.ForeColor = Color.Sienna;
+            panelP.BackColor = Color.CornflowerBlue;
+            IPasswordTB1.ForeColor = Color.DodgerBlue;
 
             pictureBox1.BackgroundImage = Properties.Resources.user;
             panelN.BackColor = Color.Black;

@@ -38,6 +38,8 @@
             pictureBox2 = new PictureBox();
             panelN = new Panel();
             panelP = new Panel();
+            IRegistrationHelpBut = new Button();
+            toolTip1 = new ToolTip(components);
             ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -72,12 +74,12 @@
             // 
             // IComeInBut1
             // 
-            IComeInBut1.BackColor = Color.AntiqueWhite;
+            IComeInBut1.BackColor = Color.DodgerBlue;
             IComeInBut1.FlatAppearance.BorderSize = 0;
-            IComeInBut1.FlatAppearance.MouseDownBackColor = Color.SandyBrown;
-            IComeInBut1.FlatAppearance.MouseOverBackColor = Color.NavajoWhite;
+            IComeInBut1.FlatAppearance.MouseDownBackColor = SystemColors.HotTrack;
+            IComeInBut1.FlatAppearance.MouseOverBackColor = SystemColors.Highlight;
             IComeInBut1.FlatStyle = FlatStyle.Flat;
-            IComeInBut1.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold, GraphicsUnit.Point);
+            IComeInBut1.Font = new Font("Kievit Offc Pro", 12F, FontStyle.Bold, GraphicsUnit.Point);
             IComeInBut1.ForeColor = Color.Black;
             IComeInBut1.Location = new Point(320, 372);
             IComeInBut1.Name = "IComeInBut1";
@@ -126,12 +128,27 @@
             panelP.Size = new Size(283, 2);
             panelP.TabIndex = 8;
             // 
+            // IRegistrationHelpBut
+            // 
+            IRegistrationHelpBut.FlatAppearance.BorderColor = Color.White;
+            IRegistrationHelpBut.FlatAppearance.BorderSize = 0;
+            IRegistrationHelpBut.FlatAppearance.MouseDownBackColor = Color.White;
+            IRegistrationHelpBut.FlatAppearance.MouseOverBackColor = Color.White;
+            IRegistrationHelpBut.FlatStyle = FlatStyle.Flat;
+            IRegistrationHelpBut.Font = new Font("Tahoma", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            IRegistrationHelpBut.Location = new Point(17, 12);
+            IRegistrationHelpBut.Name = "IRegistrationHelpBut";
+            IRegistrationHelpBut.Size = new Size(35, 42);
+            IRegistrationHelpBut.TabIndex = 9;
+            IRegistrationHelpBut.Text = "?";
+            IRegistrationHelpBut.UseVisualStyleBackColor = true;
+            // 
             // IRegistrationForm2
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.White;
             ClientSize = new Size(878, 544);
+            Controls.Add(IRegistrationHelpBut);
             Controls.Add(panelP);
             Controls.Add(panelN);
             Controls.Add(pictureBox2);
@@ -144,8 +161,6 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Visit Control";
             FormClosing += IRegistrationForm2_FormClosing;
-            FormClosed += IRegistrationForm2_FormClosed;
-            Load += IRegistrationForm2_Load;
             ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
@@ -163,5 +178,7 @@
         private PictureBox pictureBox2;
         private Panel panelN;
         private Panel panelP;
+        private Button IRegistrationHelpBut;
+        private ToolTip toolTip1;
     }
 }

@@ -9,12 +9,12 @@ namespace Interface_Proj
 
         private void IProfessorBut1_Click(object sender, EventArgs e)
         {
-            //IRegistrationForm2 registration = new IRegistrationForm2();
-            //this.Hide();
-            //registration.Show();
-            IProfessorForm1 form = new IProfessorForm1();
+            IRegistrationForm2 registration = new IRegistrationForm2();
             this.Hide();
-            form.Show();
+            registration.Show();
+            //IProfessorForm1 form = new IProfessorForm1();
+            //this.Hide();
+            //form.Show();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -27,6 +27,13 @@ namespace Interface_Proj
         private void IRegistrationForm1_FormClosing(object sender, FormClosingEventArgs e)
         {
 
+        }
+
+        private void ICreatorsBut_Click(object sender, EventArgs e)
+        {
+            ICreatorsForm creators = new ICreatorsForm();
+            this.Hide();
+            creators.Show();
         }
     }
 }

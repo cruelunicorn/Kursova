@@ -14,8 +14,7 @@ using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 
-// RJ5I93D.K6  KKDZ01BDB
-
+// RJ5I93D.K6  KKDZ01BDB 
 
 namespace Interface_Proj
 {
