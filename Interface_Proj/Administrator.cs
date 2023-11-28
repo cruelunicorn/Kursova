@@ -132,7 +132,8 @@ namespace Interface_Proj
 
                     Methods.RemoveStudent(firstWord, secondWord);
 
-                    _ = handler.DeleteStudent(firstWord, secondWord);
+                    handler.DeleteStudent(firstWord, secondWord);
+
                     //to server students upload
                     await handler.UploadFile("students.csv", "StudentsFolder");
 
