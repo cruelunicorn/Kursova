@@ -61,7 +61,7 @@ namespace Interface_Proj
                     try
                     {
                         await handler.UploadFile("students.csv", "StudentsFolder");
-                        await handler.UploadFile(login, "students", $"{firstName} {lastName}", $"password:{password}");
+                        await handler.UploadFile(login, "students", "", $"password:{password}", $"name:{firstName}", $"lastname:{lastName}");
                     }
                     catch (StudentsNotUpLoaded ex)
                     {
@@ -132,6 +132,7 @@ namespace Interface_Proj
 
                     Methods.RemoveStudent(firstWord, secondWord);
 
+                    _ = handler.DeleteStudent(firstWord, secondWord);
                     //to server students upload
                     await handler.UploadFile("students.csv", "StudentsFolder");
 
@@ -241,7 +242,7 @@ namespace Interface_Proj
         {
             //from server files download
             MicrosoftStorageHandler handler = new MicrosoftStorageHandler();
-//            await handler.DownloadFile("schedule.csv", "ScheduleFolder");
+            await handler.DownloadFile("schedule.csv", "ScheduleFolder");
             await handler.DownloadFile("professors.json", "ProfessorsFolder");
             await handler.DownloadFile("students.csv", "StudentsFolder");
 
@@ -427,7 +428,7 @@ namespace Interface_Proj
                     string secondWord = words[1];
                     Methods.AddProfessor(new LoginInfoProfessors { Login = firstWord, Password = secondWord });
 
-                    _ = handler.UploadFile($"{firstWord}.txt", "professors", fileText: "", $"password:{secondWord}");
+                    _ = handler.UploadFile($"{firstWord}", "professors", fileText: "", $"password:{secondWord}");
 
                     //to server professors upload
                     _ = handler.UploadFile("professors.json", "ProfessorsFolder");
@@ -474,7 +475,7 @@ namespace Interface_Proj
 
             //to server professors upload
             _ = handler.UploadFile("professors.json", "ProfessorsFolder");
-            _ = handler.DeleteFile($"{firstWord}.txt", "professors");
+            _ = handler.DeleteFile($"{firstWord}", "professors");
 
             IAdminProfTB.Text = string.Empty;
             IAdminProfLB.Items.Clear();

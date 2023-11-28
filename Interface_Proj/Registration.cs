@@ -58,8 +58,7 @@ namespace Interface_Proj
                 switch (authorizationResult)
                 {
                     case "student authorized":
-                        await SetFileData(name);
-                        IStudentForm1 student = new(fileData);
+                        IStudentForm1 student = new(await handler.GetNameAndLastName(name));
                         Hide();
                         student.Show();
                         break;
