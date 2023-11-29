@@ -43,13 +43,13 @@ namespace Interface_Proj
 
         private void IStudLV_DrawColumnHeader(object sender, DrawListViewColumnHeaderEventArgs e)
         {
-            using (var headerBackgroundBrush = new SolidBrush(Color.DodgerBlue))
+            using (var headerBackgroundBrush = new SolidBrush(Color.FromArgb(11, 76, 163)))
             {
                 e.Graphics.FillRectangle(headerBackgroundBrush, e.Bounds);
             }
 
             //Колір тексту
-            using (Brush brush = new SolidBrush(Color.Black))
+            using (Brush brush = new SolidBrush(Color.LightBlue))
             {
                 e.Graphics.DrawString(e.Header.Text, e.Font, brush, e.Bounds, StringFormat.GenericDefault);
             }

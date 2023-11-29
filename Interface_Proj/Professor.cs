@@ -33,20 +33,22 @@ namespace Interface_Proj
 
             IProfDGV.EnableHeadersVisualStyles = false;
 
-            IProfDGV.ColumnHeadersDefaultCellStyle.BackColor = Color.DodgerBlue; // цвет фона заголовков
-            IProfDGV.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black; // цвет шрифта заголовков
-            IProfDGV.ColumnHeadersDefaultCellStyle.Font = new Font("Kievit Offc Pro", 11, FontStyle.Bold);
+            //Кольори 
+
+            IProfDGV.ColumnHeadersDefaultCellStyle.BackColor = Color.DodgerBlue;
+            IProfDGV.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
+            IProfDGV.ColumnHeadersDefaultCellStyle.Font = new Font("Kievit Offc Pro", 13, FontStyle.Regular);
             IProfDGV.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-            IProfDGV.DefaultCellStyle.BackColor = Color.AliceBlue; // цвет фона
-            IProfDGV.DefaultCellStyle.ForeColor = Color.Black; // цвет текста
+            IProfDGV.DefaultCellStyle.BackColor = Color.AliceBlue;
+            IProfDGV.DefaultCellStyle.ForeColor = Color.Black;
             IProfDGV.DefaultCellStyle.Font = new Font("Kievit Offc Pro", 10, FontStyle.Regular);
             IProfDGV.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-            IProfDGV.DefaultCellStyle.SelectionBackColor = Color.Blue; // выделение
-            IProfDGV.DefaultCellStyle.SelectionForeColor = Color.LightSteelBlue; // цвет выделенного текста
-            IProfDGV.GridColor = Color.LightSkyBlue; // цвет сетки
-            IProfDGV.BackgroundColor = Color.White; // задний цвет
+            IProfDGV.DefaultCellStyle.SelectionBackColor = Color.FromArgb(76, 154, 237);
+            IProfDGV.DefaultCellStyle.SelectionForeColor = Color.White;
+            IProfDGV.GridColor = Color.LightSkyBlue;
+            IProfDGV.BackgroundColor = Color.White;
         }
 
 

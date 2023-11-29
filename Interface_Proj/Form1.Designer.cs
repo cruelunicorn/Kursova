@@ -38,7 +38,6 @@
             // 
             IUserBut1.BackColor = Color.DodgerBlue;
             IUserBut1.FlatAppearance.BorderColor = SystemColors.ActiveCaptionText;
-            IUserBut1.FlatAppearance.BorderSize = 0;
             IUserBut1.FlatAppearance.MouseDownBackColor = SystemColors.HotTrack;
             IUserBut1.FlatAppearance.MouseOverBackColor = SystemColors.Highlight;
             IUserBut1.FlatStyle = FlatStyle.Flat;
@@ -55,7 +54,6 @@
             // IAdministranortBut1
             // 
             IAdministranortBut1.BackColor = Color.DodgerBlue;
-            IAdministranortBut1.FlatAppearance.BorderSize = 0;
             IAdministranortBut1.FlatAppearance.MouseDownBackColor = SystemColors.HotTrack;
             IAdministranortBut1.FlatAppearance.MouseOverBackColor = SystemColors.Highlight;
             IAdministranortBut1.FlatStyle = FlatStyle.Flat;
@@ -95,7 +93,6 @@
             Name = "IRegistrationForm1";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Visit Control";
-            FormClosing += IRegistrationForm1_FormClosing;
             ResumeLayout(false);
         }
 

@@ -67,10 +67,10 @@
             textBox2.BorderStyle = BorderStyle.None;
             textBox2.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point);
             textBox2.ForeColor = Color.Black;
-            textBox2.Location = new Point(234, 229);
+            textBox2.Location = new Point(241, 229);
             textBox2.Multiline = true;
             textBox2.Name = "textBox2";
-            textBox2.Size = new Size(409, 44);
+            textBox2.Size = new Size(396, 44);
             textBox2.TabIndex = 1;
             textBox2.Text = "Обробка вийняткових ситуацій";
             // 
@@ -81,10 +81,10 @@
             textBox3.BorderStyle = BorderStyle.None;
             textBox3.Font = new Font("Tahoma", 9F, FontStyle.Regular, GraphicsUnit.Point);
             textBox3.ForeColor = Color.Black;
-            textBox3.Location = new Point(382, 295);
+            textBox3.Location = new Point(384, 295);
             textBox3.Multiline = true;
             textBox3.Name = "textBox3";
-            textBox3.Size = new Size(113, 27);
+            textBox3.Size = new Size(110, 27);
             textBox3.TabIndex = 2;
             textBox3.Text = "Клочко Д.Р.";
             // 
@@ -95,10 +95,10 @@
             textBox4.BorderStyle = BorderStyle.None;
             textBox4.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point);
             textBox4.ForeColor = Color.Black;
-            textBox4.Location = new Point(330, 346);
+            textBox4.Location = new Point(333, 346);
             textBox4.Multiline = true;
             textBox4.Name = "textBox4";
-            textBox4.Size = new Size(217, 33);
+            textBox4.Size = new Size(212, 33);
             textBox4.TabIndex = 3;
             textBox4.Text = "Робота з даними";
             // 
@@ -109,10 +109,10 @@
             textBox5.BorderStyle = BorderStyle.None;
             textBox5.Font = new Font("Tahoma", 9F, FontStyle.Regular, GraphicsUnit.Point);
             textBox5.ForeColor = Color.Black;
-            textBox5.Location = new Point(376, 182);
+            textBox5.Location = new Point(371, 182);
             textBox5.Multiline = true;
             textBox5.Name = "textBox5";
-            textBox5.Size = new Size(125, 25);
+            textBox5.Size = new Size(135, 25);
             textBox5.TabIndex = 4;
             textBox5.Text = "Катихіна А.М.";
             // 
@@ -123,10 +123,10 @@
             textBox6.BorderStyle = BorderStyle.None;
             textBox6.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point);
             textBox6.ForeColor = Color.Black;
-            textBox6.Location = new Point(358, 122);
+            textBox6.Location = new Point(367, 122);
             textBox6.Multiline = true;
             textBox6.Name = "textBox6";
-            textBox6.Size = new Size(162, 35);
+            textBox6.Size = new Size(144, 35);
             textBox6.TabIndex = 5;
             textBox6.Text = "Алгоритми";
             // 
@@ -137,10 +137,10 @@
             textBox7.BorderStyle = BorderStyle.None;
             textBox7.Font = new Font("Tahoma", 9F, FontStyle.Regular, GraphicsUnit.Point);
             textBox7.ForeColor = Color.Black;
-            textBox7.Location = new Point(382, 402);
+            textBox7.Location = new Point(384, 402);
             textBox7.Multiline = true;
             textBox7.Name = "textBox7";
-            textBox7.Size = new Size(113, 25);
+            textBox7.Size = new Size(110, 25);
             textBox7.TabIndex = 6;
             textBox7.Text = "Нікітіна А.А.";
             // 
@@ -151,10 +151,10 @@
             textBox8.BorderStyle = BorderStyle.None;
             textBox8.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point);
             textBox8.ForeColor = Color.Black;
-            textBox8.Location = new Point(365, 448);
+            textBox8.Location = new Point(368, 448);
             textBox8.Multiline = true;
             textBox8.Name = "textBox8";
-            textBox8.Size = new Size(148, 33);
+            textBox8.Size = new Size(141, 33);
             textBox8.TabIndex = 7;
             textBox8.Text = "Інтерфейс";
             // 
@@ -165,10 +165,10 @@
             textBox9.BorderStyle = BorderStyle.None;
             textBox9.Font = new Font("Tahoma", 9F, FontStyle.Regular, GraphicsUnit.Point);
             textBox9.ForeColor = Color.Black;
-            textBox9.Location = new Point(385, 501);
+            textBox9.Location = new Point(389, 501);
             textBox9.Multiline = true;
             textBox9.Name = "textBox9";
-            textBox9.Size = new Size(107, 31);
+            textBox9.Size = new Size(100, 31);
             textBox9.TabIndex = 8;
             textBox9.Text = "Чорна Ж.І.";
             // 
@@ -188,19 +188,19 @@
             // 
             // tableLayoutPanel1
             // 
+            tableLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tableLayoutPanel1.ColumnCount = 1;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.Controls.Add(textBox1, 0, 0);
             tableLayoutPanel1.Controls.Add(textBox9, 0, 9);
             tableLayoutPanel1.Controls.Add(textBox10, 0, 1);
             tableLayoutPanel1.Controls.Add(textBox8, 0, 8);
-            tableLayoutPanel1.Controls.Add(textBox6, 0, 2);
             tableLayoutPanel1.Controls.Add(textBox7, 0, 7);
             tableLayoutPanel1.Controls.Add(textBox5, 0, 3);
             tableLayoutPanel1.Controls.Add(textBox4, 0, 6);
             tableLayoutPanel1.Controls.Add(textBox2, 0, 4);
             tableLayoutPanel1.Controls.Add(textBox3, 0, 5);
-            tableLayoutPanel1.Dock = DockStyle.Fill;
+            tableLayoutPanel1.Controls.Add(textBox6, 0, 2);
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 10;
