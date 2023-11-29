@@ -242,7 +242,7 @@ namespace Interface_Proj
             {
                 string name = IAdminInfoStudLB.Items[IAdminInfoStudLB.SelectedIndex].ToString()!.Split(';')[0];
                 string lastname = IAdminInfoStudLB.Items[IAdminInfoStudLB.SelectedIndex].ToString()!.Split(';')[1];
-                
+
                 IAdminInfoStudGenTB.Text = await handler.GetLoginAndPasswordByName(name, lastname);
             }
         }

@@ -156,6 +156,7 @@
             Controls.Add(IComeInBut1);
             Controls.Add(IPasswordTB1);
             Controls.Add(INameTB1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "IRegistrationForm2";
             StartPosition = FormStartPosition.CenterScreen;

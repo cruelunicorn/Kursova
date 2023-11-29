@@ -473,6 +473,7 @@
             Controls.Add(tabControl1);
             Font = new Font("Kievit Offc Pro", 10F, FontStyle.Regular, GraphicsUnit.Point);
             ForeColor = Color.Black;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(2);
             Name = "IAdministratorForm1";

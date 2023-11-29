@@ -62,7 +62,7 @@
             IProfDGV.Name = "IProfDGV";
             IProfDGV.RowHeadersWidth = 62;
             IProfDGV.RowTemplate.Height = 33;
-            IProfDGV.Size = new Size(864, 436);
+            IProfDGV.Size = new Size(864, 500);
             IProfDGV.TabIndex = 2;
             // 
             // IProfessorForm1
@@ -70,14 +70,15 @@
             AutoScaleDimensions = new SizeF(10F, 22F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(878, 479);
+            ClientSize = new Size(878, 544);
             Controls.Add(IProfDGV);
             Controls.Add(ISubjCB);
             Font = new Font("Kievit Offc Pro", 8.999999F, FontStyle.Regular, GraphicsUnit.Point);
             ForeColor = Color.Black;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "IProfessorForm1";
-            Text = "Professor";
+            Text = "Visit Control";
             FormClosing += IProfessorForm1_FormClosing;
             Load += IProfessorForm1_Load;
             ((System.ComponentModel.ISupportInitialize)IProfDGV).EndInit();

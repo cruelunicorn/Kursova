@@ -50,9 +50,10 @@
             BackColor = Color.White;
             ClientSize = new Size(878, 544);
             Controls.Add(IStudLV);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "IStudentForm1";
-            StartPosition = FormStartPosition.CenterParent;
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Студент";
             FormClosing += IStudentForm1_FormClosing;
             ResumeLayout(false);

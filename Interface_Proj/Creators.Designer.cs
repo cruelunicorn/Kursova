@@ -238,6 +238,7 @@
             ClientSize = new Size(878, 544);
             Controls.Add(ICreatorsBackBut);
             Controls.Add(tableLayoutPanel1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "ICreatorsForm";
             StartPosition = FormStartPosition.CenterScreen;
