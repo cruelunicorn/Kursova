@@ -47,7 +47,7 @@
             IUserBut1.Name = "IUserBut1";
             IUserBut1.Size = new Size(340, 80);
             IUserBut1.TabIndex = 1;
-            IUserBut1.Text = "Викладач";
+            IUserBut1.Text = "Користувач";
             IUserBut1.UseVisualStyleBackColor = false;
             IUserBut1.Click += IProfessorBut1_Click;
             // 
