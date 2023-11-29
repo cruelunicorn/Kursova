@@ -34,19 +34,20 @@
             // 
             // IStudLV
             // 
+            IStudLV.BackColor = Color.White;
             IStudLV.Dock = DockStyle.Fill;
+            IStudLV.ForeColor = Color.Black;
             IStudLV.Location = new Point(0, 0);
             IStudLV.Name = "IStudLV";
             IStudLV.Size = new Size(878, 544);
             IStudLV.TabIndex = 0;
             IStudLV.UseCompatibleStateImageBehavior = false;
-            IStudLV.ItemActivate += listView1_ItemActivate;
-            IStudLV.SelectedIndexChanged += listView1_SelectedIndexChanged;
             // 
             // IStudentForm1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             ClientSize = new Size(878, 544);
             Controls.Add(IStudLV);
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -54,7 +55,6 @@
             StartPosition = FormStartPosition.CenterParent;
             Text = "Студент";
             FormClosing += IStudentForm1_FormClosing;
-            Load += IStudentForm1_Load;
             ResumeLayout(false);
         }
 

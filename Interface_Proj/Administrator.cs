@@ -103,11 +103,11 @@ namespace Interface_Proj
 
                 try
                 {
-                        List<string> lines = File.ReadAllLines(csvFilePathInfo).ToList();
-                        foreach (string line in lines)
-                        {
-                            IAdminInfoStudLB.Items.Add(line);
-                        }
+                    List<string> lines = File.ReadAllLines(csvFilePathInfo).ToList();
+                    foreach (string line in lines)
+                    {
+                        IAdminInfoStudLB.Items.Add(line);
+                    }
                 }
                 catch (FileNotFoundException ex)
                 {
@@ -138,7 +138,7 @@ namespace Interface_Proj
 
                     IAdminInfoStudTB.Text = string.Empty;
                     // Обновление данных в ListBox
-                        IAdminInfoStudLB.Items.Clear();
+                    IAdminInfoStudLB.Items.Clear();
 
                     //from server students download
                     try
@@ -528,11 +528,6 @@ namespace Interface_Proj
                 return;
             }
             System.Windows.Forms.Application.Exit();
-        }
-
-        private void IAdminSchedLB_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

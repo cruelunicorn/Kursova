@@ -98,12 +98,11 @@ namespace Interface_Proj
         {
             INameTB1.Clear();
             pictureBox1.BackgroundImage = Properties.Resources.user2;
-            panelN.BackColor = Color.Navy;
-            INameTB1.ForeColor = Color.DodgerBlue;
+            panelN.BackColor = Color.DodgerBlue;
+            INameTB1.Font = new Font("Kievit Offc Pro", 12, FontStyle.Regular);
 
             pictureBox2.BackgroundImage = Properties.Resources.pass;
             panelP.BackColor = Color.Black;
-            IPasswordTB1.ForeColor = Color.Black;
         }
 
         private void IPasswordTB1_Click(object sender, EventArgs e)
@@ -111,12 +110,11 @@ namespace Interface_Proj
             IPasswordTB1.Clear();
             IPasswordTB1.PasswordChar = '*';
             pictureBox2.BackgroundImage = Properties.Resources.pass2;
-            panelP.BackColor = Color.CornflowerBlue;
-            IPasswordTB1.ForeColor = Color.DodgerBlue;
+            panelP.BackColor = Color.DodgerBlue;
+            INameTB1.Font = new Font("Kievit Offc Pro", 12, FontStyle.Regular);
 
             pictureBox1.BackgroundImage = Properties.Resources.user;
             panelN.BackColor = Color.Black;
-            INameTB1.ForeColor = Color.Black;
         }
     }
 }

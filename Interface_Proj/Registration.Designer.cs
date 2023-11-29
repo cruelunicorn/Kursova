@@ -49,9 +49,9 @@
             // 
             INameTB1.BackColor = Color.White;
             INameTB1.BorderStyle = BorderStyle.None;
-            INameTB1.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            INameTB1.Font = new Font("Kievit Offc Pro", 12F, FontStyle.Bold, GraphicsUnit.Point);
             INameTB1.ForeColor = Color.Black;
-            INameTB1.Location = new Point(335, 126);
+            INameTB1.Location = new Point(335, 124);
             INameTB1.Multiline = true;
             INameTB1.Name = "INameTB1";
             INameTB1.Size = new Size(242, 35);
@@ -63,8 +63,8 @@
             // 
             IPasswordTB1.BackColor = Color.White;
             IPasswordTB1.BorderStyle = BorderStyle.None;
-            IPasswordTB1.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            IPasswordTB1.Location = new Point(335, 241);
+            IPasswordTB1.Font = new Font("Kievit Offc Pro", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            IPasswordTB1.Location = new Point(335, 244);
             IPasswordTB1.Multiline = true;
             IPasswordTB1.Name = "IPasswordTB1";
             IPasswordTB1.Size = new Size(242, 35);
@@ -75,7 +75,7 @@
             // IComeInBut1
             // 
             IComeInBut1.BackColor = Color.DodgerBlue;
-            IComeInBut1.FlatAppearance.BorderSize = 0;
+            IComeInBut1.FlatAppearance.BorderColor = Color.Black;
             IComeInBut1.FlatAppearance.MouseDownBackColor = SystemColors.HotTrack;
             IComeInBut1.FlatAppearance.MouseOverBackColor = SystemColors.Highlight;
             IComeInBut1.FlatStyle = FlatStyle.Flat;
@@ -105,7 +105,7 @@
             // pictureBox2
             // 
             pictureBox2.BackgroundImage = Properties.Resources.pass;
-            pictureBox2.Location = new Point(294, 232);
+            pictureBox2.Location = new Point(294, 237);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(35, 35);
             pictureBox2.TabIndex = 6;

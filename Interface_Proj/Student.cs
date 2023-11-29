@@ -11,9 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
-//arigajslsr cm5lnag8
-
+//gwquhychvf  1j6lpwrh
 
 namespace Interface_Proj
 {
@@ -40,33 +38,69 @@ namespace Interface_Proj
             // Обробник події до listView1
             IStudLV.MouseDoubleClick += listView1_MouseDoubleClick!;
 
-            // Установка цвета фона и цвета текста для ListView
-            IStudLV.BackColor = Color.AliceBlue;
-            IStudLV.ForeColor = Color.Black;
-
+            IStudLV.OwnerDraw = true;
         }
+
+        private void IStudLV_DrawColumnHeader(object sender, DrawListViewColumnHeaderEventArgs e)
+        {
+            using (var headerBackgroundBrush = new SolidBrush(Color.DodgerBlue))
+            {
+                e.Graphics.FillRectangle(headerBackgroundBrush, e.Bounds);
+            }
+
+            //Колір тексту
+            using (Brush brush = new SolidBrush(Color.Black))
+            {
+                e.Graphics.DrawString(e.Header.Text, e.Font, brush, e.Bounds, StringFormat.GenericDefault);
+            }
+
+            e.DrawDefault = false;
+        }
+
+        private void IStudLV_DrawItem(object sender, DrawListViewItemEventArgs e)
+        {
+            e.DrawDefault = true;
+
+            // Колір текста
+            using (Brush textBrush = new SolidBrush(Color.Black))
+            {
+                // Колір фона
+                using (Brush backgroundBrush = new SolidBrush(Color.AliceBlue))
+                {
+                    e.Graphics.FillRectangle(backgroundBrush, e.Bounds);
+                    // Колір текста
+                    e.Item.ForeColor = Color.Black;
+                    // Колір фона
+                    e.Item.BackColor = Color.AliceBlue;
+                }
+            }
+        }
+
 
         private void LoadDataFromCSV(string filePath)
         {
             if (File.Exists(filePath))
             {
+                IStudLV.DrawColumnHeader += new DrawListViewColumnHeaderEventHandler(IStudLV_DrawColumnHeader);
+               // IStudLV.DrawItem += new DrawListViewItemEventHandler(IStudLV_DrawItem);
+
                 using (var reader = new StreamReader(filePath))
                 {
-                    // Прочитать заголовок (первую строку) и разделить ее на столбцы
+                    // Зчитування першої строки та ділення на стовбці
                     string[] headers = reader.ReadLine()!.Split(';');
 
-                    // Добавить столбцы в ListView с автоматическим размером
+                    // Дадавання стовбчиків ListView з автоматичним розміром
                     foreach (var header in headers)
                     {
                         IStudLV.Columns.Add(header, -2);
                     }
 
-                    // Добавление остальных строк
+                    // Додавання залишившихся строк
                     while (!reader.EndOfStream)
                     {
                         string[] fields = reader.ReadLine()!.Split(';');
 
-                        // Создание ListViewItem и добавление его в IStudLV
+                        // Створення ListViewItem та додавання його в IStudLV
                         ListViewItem item = new ListViewItem(fields);
                         IStudLV.Items.Add(item);
                     }
@@ -77,6 +111,7 @@ namespace Interface_Proj
                 MessageBox.Show("Файл не найден: " + filePath);
             }
         }
+
 
         private async void listView1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
@@ -113,21 +148,6 @@ namespace Interface_Proj
         private void IStudentForm1_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
-        }
-
-        private void IStudentForm1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listView1_ItemActivate(object sender, EventArgs e)
-        {
-
         }
     }
 }

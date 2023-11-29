@@ -14,7 +14,7 @@ using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 
-// RJ5I93D.K6  KKDZ01BDB 
+// FDNYNHATIB  PMDC7GCQK
 
 namespace Interface_Proj
 {
@@ -29,6 +29,24 @@ namespace Interface_Proj
             IProfDGV.AllowUserToDeleteRows = false;
 
             ISubjCB.SelectedIndexChanged += ComboBox1_SelectedIndex;
+
+
+            IProfDGV.EnableHeadersVisualStyles = false;
+
+            IProfDGV.ColumnHeadersDefaultCellStyle.BackColor = Color.DodgerBlue; // цвет фона заголовков
+            IProfDGV.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black; // цвет шрифта заголовков
+            IProfDGV.ColumnHeadersDefaultCellStyle.Font = new Font("Kievit Offc Pro", 11, FontStyle.Bold);
+            IProfDGV.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            IProfDGV.DefaultCellStyle.BackColor = Color.AliceBlue; // цвет фона
+            IProfDGV.DefaultCellStyle.ForeColor = Color.Black; // цвет текста
+            IProfDGV.DefaultCellStyle.Font = new Font("Kievit Offc Pro", 10, FontStyle.Regular);
+            IProfDGV.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            IProfDGV.DefaultCellStyle.SelectionBackColor = Color.Blue; // выделение
+            IProfDGV.DefaultCellStyle.SelectionForeColor = Color.LightSteelBlue; // цвет выделенного текста
+            IProfDGV.GridColor = Color.LightSkyBlue; // цвет сетки
+            IProfDGV.BackgroundColor = Color.White; // задний цвет
         }
 
 
@@ -94,7 +112,7 @@ namespace Interface_Proj
             MicrosoftStorageHandler handler = new();
             await handler.DownloadFile($"{selectedSubject}.json", "AttendanceFolder");
             await handler.DownloadFile("students.csv", "StudentsFolder");
-            
+
             if (selectedSubject != null)
             {
                 // Викликаємо метод для завантаження та виведення вмісту файла
@@ -132,7 +150,7 @@ namespace Interface_Proj
                     IProfDGV.Rows.Add(attPair.NameLastName, attPair.Attendance);
                 }
                 IProfDGV.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-                
+
             }
             else
             {
@@ -201,11 +219,6 @@ namespace Interface_Proj
             {
                 MessageBox.Show($"Файл не знайдено: {filePath1}", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void IProfessorForm1_FormClosed(object sender, FormClosedEventArgs e)
-        {
-
         }
 
         private void IProfessorForm1_FormClosing(object sender, FormClosingEventArgs e)
