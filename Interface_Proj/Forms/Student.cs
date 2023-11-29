@@ -19,7 +19,8 @@ namespace Interface_Proj
     public partial class IStudentForm1 : Form
     {
         private readonly string csvFilePathSched = Path.Combine(Directory.GetCurrentDirectory(), "schedule.csv");
-        private string nameAndLastName;
+        private readonly MicrosoftStorageHandler handler = new();
+        private readonly string nameAndLastName;
         public IStudentForm1(string nameAndLastName)
         {
             InitializeComponent();
@@ -132,7 +133,6 @@ namespace Interface_Proj
                 if (DateTime.Now.ToString("dddd", new CultureInfo("uk-UA")) == test.Item.SubItems[0].Text.ToLower())
                 {
                     string subject = test.Item.SubItems[2].Text;
-                    MicrosoftStorageHandler handler = new();
                     if (await handler.DownloadFile($"{subject}.json", "AttendanceFolder") != "Success") return;
                     var jsonObj = JObject.Parse(File.ReadAllText($"{subject}.json"));
                     if (jsonObj[nameAndLastName] != null)

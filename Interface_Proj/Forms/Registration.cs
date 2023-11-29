@@ -14,7 +14,7 @@ namespace Interface_Proj
 {
     public partial class IRegistrationForm2 : Form
     {
-        MicrosoftStorageHandler handler = new();
+        private readonly MicrosoftStorageHandler handler = new();
         public IRegistrationForm2()
         {
             InitializeComponent();
@@ -24,10 +24,8 @@ namespace Interface_Proj
 
         private async void IComeInBut1_Click(object sender, EventArgs e)
         {
-            await handler.DownloadFile("schedule.csv", "ScheduleFolder");
-
             CleanErrorMessage();
-
+            
             string name = INameTB1.Text;
             string password = IPasswordTB1.Text;
 
@@ -37,6 +35,7 @@ namespace Interface_Proj
                 switch (authorizationResult)
                 {
                     case "student authorized":
+                        await handler.DownloadFile("schedule.csv", "ScheduleFolder");
                         IStudentForm1 student = new(await handler.GetNameAndLastName(name));
                         Hide();
                         student.Show();

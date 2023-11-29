@@ -52,6 +52,8 @@ namespace Interface_Proj
             IProfDGV.BackgroundColor = Color.White;
         }
 
+        private readonly MicrosoftStorageHandler handler = new();
+
 
         private void CBSubj(string filePath)
         {
@@ -96,8 +98,7 @@ namespace Interface_Proj
         {
             try
             {
-                MicrosoftStorageHandler handl = new MicrosoftStorageHandler();
-                await handl.DownloadFile("schedule.csv", "ScheduleFolder");
+                await handler.DownloadFile("schedule.csv", "ScheduleFolder");
 
                 // После успешной загрузки файла, вызываем метод CBSubj
                 CBSubj("schedule.csv");
@@ -113,7 +114,6 @@ namespace Interface_Proj
             // Отримуємо вибраний предмет з ComboBox
             if (ISubjCB.SelectedIndex == -1) return;
             string? selectedSubject = ISubjCB.SelectedItem as string;
-            MicrosoftStorageHandler handler = new();
             await handler.DownloadFile($"{selectedSubject}.json", "AttendanceFolder");
             await handler.DownloadFile("students.csv", "StudentsFolder");
 
