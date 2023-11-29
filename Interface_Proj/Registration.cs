@@ -14,7 +14,6 @@ namespace Interface_Proj
 {
     public partial class IRegistrationForm2 : Form
     {
-        private static string fileData = "";
         MicrosoftStorageHandler handler = new();
         public IRegistrationForm2()
         {

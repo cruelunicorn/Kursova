@@ -51,7 +51,7 @@ namespace Interface_Proj
             //Колір тексту
             using (Brush brush = new SolidBrush(Color.LightBlue))
             {
-                e.Graphics.DrawString(e.Header.Text, e.Font, brush, e.Bounds, StringFormat.GenericDefault);
+                e.Graphics.DrawString(e.Header!.Text, e.Font!, brush, e.Bounds, StringFormat.GenericDefault);
             }
 
             e.DrawDefault = false;
@@ -81,8 +81,8 @@ namespace Interface_Proj
         {
             if (File.Exists(filePath))
             {
-                IStudLV.DrawColumnHeader += new DrawListViewColumnHeaderEventHandler(IStudLV_DrawColumnHeader);
-                IStudLV.DrawItem += new DrawListViewItemEventHandler(IStudLV_DrawItem);
+                IStudLV.DrawColumnHeader += new DrawListViewColumnHeaderEventHandler(IStudLV_DrawColumnHeader!);
+                IStudLV.DrawItem += new DrawListViewItemEventHandler(IStudLV_DrawItem!);
 
                 using (var reader = new StreamReader(filePath))
                 {

@@ -37,11 +37,11 @@ namespace Interface_Proj
         private readonly string csvFilePathInfo = Path.Combine(Directory.GetCurrentDirectory(), "students.csv");
         private readonly string csvFilePathSched = Path.Combine(Directory.GetCurrentDirectory(), "schedule.csv");
         private readonly string jsonFilePathProf = Path.Combine(Directory.GetCurrentDirectory(), "professors.json");
+        private readonly MicrosoftStorageHandler handler = new();
 
         private async void IAdminInfoAddBut_Click(object sender, EventArgs e)
         {
-            string text = "";
-            MicrosoftStorageHandler handler = new MicrosoftStorageHandler();
+            string text;
             if (IAdminInfoStudTB.Text != "" && IAdminInfoStudGenTB.Text != "")
             {
                 text = IAdminInfoStudTB.Text + " " + IAdminInfoStudGenTB.Text;
@@ -121,7 +121,6 @@ namespace Interface_Proj
         {
             if (File.Exists(csvFilePathInfo))
             {
-                MicrosoftStorageHandler handler = new MicrosoftStorageHandler();
                 string text = IAdminInfoStudTB.Text;
                 string[] words = text.Split(new[] { ' ' });
 
@@ -190,54 +189,23 @@ namespace Interface_Proj
             }
         }
 
-        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            /* if (IAdminInfoStudLB.SelectedItem != null)
-             {
-                 string selectedText = IAdminInfoStudLB.SelectedItem.ToString();
-                 string[] words = selectedText.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-
-                 if (words.Length >= 2)
-                 {
-                     string firstWord = words[0];
-                     string secondWord = words[1];
-
-                     Methods.RemoveStudent(firstWord, secondWord);
-                 }
-             }
-             else
-             {
-                 MessageBox.Show("Ви не обрали студента, якого хочете видалити!");
-             }*/
-        }
-
-        private void cleanToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
-
         private void IAdminInfoTB_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                IAdminInfoAddBut_Click(null, null);
+                IAdminInfoAddBut_Click(null!, null!);
             }
-        }
-
-        private void bindingSource1_CurrentChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void IAdminInfoGenerateStudBut_Click(object sender, EventArgs e)
         {
-            string password = HashTable.GeneratePasswordForStudents();
-            string nickname = HashTable.GenerateUsernameForStudents();
+            string password = Generation.GeneratePasswordForStudents();
+            string nickname = Generation.GenerateUsernameForStudents();
             IAdminInfoStudGenTB.Text = $"{nickname} {password}";
         }
 
         private async void IAdminInfoStudLB_SelectedIndexChanged(object sender, EventArgs e)
         {
-            MicrosoftStorageHandler handler = new();
             if (IAdminInfoStudLB.SelectedIndex != 0)
             {
                 string name = IAdminInfoStudLB.Items[IAdminInfoStudLB.SelectedIndex].ToString()!.Split(';')[0];
@@ -250,7 +218,6 @@ namespace Interface_Proj
         private async void IAdministratorForm1_Load(object sender, EventArgs e)
         {
             //from server files download
-            MicrosoftStorageHandler handler = new MicrosoftStorageHandler();
             await handler.DownloadFile("schedule.csv", "ScheduleFolder");
             await handler.DownloadFile("professors.json", "ProfessorsFolder");
             await handler.DownloadFile("students.csv", "StudentsFolder");
@@ -296,14 +263,8 @@ namespace Interface_Proj
             }
         }
 
-        private void methodsBindingSource1_CurrentChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private async void IAdminAddSchedBut_Click(object sender, EventArgs e)
         {
-            MicrosoftStorageHandler handler = new MicrosoftStorageHandler();
             string text = IAdminSchedTB.Text;
             if (text != "")
             {
@@ -367,7 +328,6 @@ namespace Interface_Proj
         {
             if (File.Exists(csvFilePathSched))
             {
-                MicrosoftStorageHandler handler = new MicrosoftStorageHandler();
                 string text = IAdminSchedTB.Text;
                 string[] words = text.Split(new[] { ' ' });
 
@@ -418,14 +378,13 @@ namespace Interface_Proj
 
         private void IAdminProfGenBut_Click(object sender, EventArgs e)
         {
-            string password = HashTable.GeneratePasswordForProfessors();
-            string nickname = HashTable.GenerateUsernameForProfessors();
+            string password = Generation.GeneratePasswordForProfessors();
+            string nickname = Generation.GenerateUsernameForProfessors();
             IAdminProfTB.Text = $"{nickname} {password}";
         }
 
         private async void IAdminProfAddBut_Click(object sender, EventArgs e)
         {
-            MicrosoftStorageHandler handler = new MicrosoftStorageHandler();
             string str = IAdminProfTB.Text;
             if (str != "")
             {
@@ -437,10 +396,10 @@ namespace Interface_Proj
                     string secondWord = words[1];
                     Methods.AddProfessor(new LoginInfoProfessors { Login = firstWord, Password = secondWord });
 
-                    _ = handler.UploadFile($"{firstWord}", "professors", fileText: "", $"password:{secondWord}");
+                    await handler.UploadFile($"{firstWord}", "professors", fileText: "", $"password:{secondWord}");
 
                     //to server professors upload
-                    _ = handler.UploadFile("professors.json", "ProfessorsFolder");
+                    await handler.UploadFile("professors.json", "ProfessorsFolder");
 
                     IAdminProfLB.Items.Add(str);
                     IAdminProfTB.Text = string.Empty;
@@ -475,22 +434,19 @@ namespace Interface_Proj
             }
         }
 
-        private void IAdminProfDeleteBut_Click(object sender, EventArgs e)
+        private async void IAdminProfDeleteBut_Click(object sender, EventArgs e)
         {
-
-            MicrosoftStorageHandler handler = new MicrosoftStorageHandler();
             string firstWord = IAdminProfTB.Text;
             Methods.RemoveProfessor(firstWord);
 
             //to server professors upload
-            _ = handler.UploadFile("professors.json", "ProfessorsFolder");
-            _ = handler.DeleteFile($"{firstWord}", "professors");
+            await handler.UploadFile("professors.json", "ProfessorsFolder");
+            await handler.DeleteFile($"{firstWord}", "professors");
 
             IAdminProfTB.Text = string.Empty;
             IAdminProfLB.Items.Clear();
 
             //from server professors download
-            //            await handler.DownloadFile("professors.json", "ProfessorsFolder");
             try
             {
                 List<string> lines = File.ReadAllLines(jsonFilePathProf).ToList();
@@ -515,7 +471,7 @@ namespace Interface_Proj
             }
             catch (Removing ex)
             {
-                MessageBox.Show($"schedule.csv не видалевся: {ex.Message}");
+                MessageBox.Show($"schedule.csv не видалився: {ex.Message}");
                 return;
             }
             try
@@ -524,7 +480,7 @@ namespace Interface_Proj
             }
             catch (Removing ex)
             {
-                MessageBox.Show($"professors.json не видалевся: {ex.Message}");
+                MessageBox.Show($"professors.json не видалився: {ex.Message}");
                 return;
             }
             try
@@ -533,7 +489,7 @@ namespace Interface_Proj
             }
             catch (Removing ex)
             {
-                MessageBox.Show($"students.csv не видалевся: {ex.Message}");
+                MessageBox.Show($"students.csv не видалився: {ex.Message}");
                 return;
             }
             System.Windows.Forms.Application.Exit();
