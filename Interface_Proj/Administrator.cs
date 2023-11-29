@@ -132,7 +132,7 @@ namespace Interface_Proj
 
                     Methods.RemoveStudent(firstWord, secondWord);
 
-                    handler.DeleteStudent(firstWord, secondWord);
+                    await handler.DeleteStudent(firstWord, secondWord);
 
                     //to server students upload
                     await handler.UploadFile("students.csv", "StudentsFolder");
@@ -235,8 +235,16 @@ namespace Interface_Proj
             IAdminInfoStudGenTB.Text = $"{nickname} {password}";
         }
 
-        private void IAdminInfoStudLB_SelectedIndexChanged(object sender, EventArgs e)
+        private async void IAdminInfoStudLB_SelectedIndexChanged(object sender, EventArgs e)
         {
+            MicrosoftStorageHandler handler = new();
+            if (IAdminInfoStudLB.SelectedIndex != 0)
+            {
+                string name = IAdminInfoStudLB.Items[IAdminInfoStudLB.SelectedIndex].ToString()!.Split(';')[0];
+                string lastname = IAdminInfoStudLB.Items[IAdminInfoStudLB.SelectedIndex].ToString()!.Split(';')[1];
+                
+                IAdminInfoStudGenTB.Text = await handler.GetLoginAndPasswordByName(name, lastname);
+            }
         }
 
         private async void IAdministratorForm1_Load(object sender, EventArgs e)

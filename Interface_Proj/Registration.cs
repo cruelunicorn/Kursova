@@ -47,6 +47,12 @@ namespace Interface_Proj
                         Hide();
                         professor.Show();
                         break;
+                    case "wrong login":
+                        errorProvider1.SetError(INameTB1, "Неправильний логін!");
+                        break;
+                    case "wrong password":
+                        errorProvider1.SetError(IPasswordTB1, "Неправильний пароль!");
+                        break;
                     default:
                         break;
                 }

@@ -122,20 +122,22 @@ namespace Interface_Proj
             return "Success";
         }
 
-        public void DeleteStudent(string name, string lastname)
+        public async Task DeleteStudent(string name, string lastname)
         {
             if (!IsInternetAvailable()) throw new InternetConectionException();
             var blobs = container.GetBlobs(prefix: "students/");
             string encodedName = Convert.ToBase64String(Encoding.UTF8.GetBytes(name));
             string encodedLastName = Convert.ToBase64String(Encoding.UTF8.GetBytes(lastname));
 
-            Parallel.ForEach(blobs, new ParallelOptions { MaxDegreeOfParallelism = 2 }, async blob =>
+            var tasks = blobs.Select(async blob =>
             {
                 BlobClient blobToDelete = container.GetBlobClient(blob.Name);
                 BlobProperties bp = await blobToDelete.GetPropertiesAsync();
                 if (bp.Metadata.ContainsKey("name") && bp.Metadata["name"] == encodedName && bp.Metadata["lastname"] == encodedLastName)
                     _ = blobToDelete.DeleteAsync();
             });
+
+            await Task.WhenAll(tasks);
 
             blobs = container.GetBlobs(prefix: "AttendanceFolder/");
 
@@ -149,6 +151,25 @@ namespace Interface_Proj
                 await UploadFile(fileName, "AttendanceFolder");
                 File.Delete(fileName);
             });
+        }
+
+        public async Task<string> GetLoginAndPasswordByName(string name, string lastname)
+        {
+            string result = "";
+            if (!IsInternetAvailable()) throw new InternetConectionException();
+            var blobs = container.GetBlobs(prefix: "students/");
+            string encodedName = Convert.ToBase64String(Encoding.UTF8.GetBytes(name));
+            string encodedLastName = Convert.ToBase64String(Encoding.UTF8.GetBytes(lastname));
+
+            var tasks = blobs.Select(async blob =>
+            {
+                BlobClient blobToDelete = container.GetBlobClient(blob.Name);
+                BlobProperties bp = await blobToDelete.GetPropertiesAsync();
+                if (bp.Metadata.ContainsKey("name") && bp.Metadata["name"] == encodedName && bp.Metadata["lastname"] == encodedLastName)
+                    result = $"{blobToDelete.Name.Split('/')[1]} {bp.Metadata["password"]}";
+            });
+            await Task.WhenAll(tasks);
+            return result;
         }
 
         private static bool IsInternetAvailable()
