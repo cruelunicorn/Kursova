@@ -256,7 +256,6 @@
             IAdminInfoStudTB.Name = "IAdminInfoStudTB";
             IAdminInfoStudTB.Size = new Size(798, 46);
             IAdminInfoStudTB.TabIndex = 0;
-            IAdminInfoStudTB.KeyUp += IAdminInfoTB_KeyUp;
             // 
             // IAdminInfoStudGenTB
             // 
@@ -326,7 +325,6 @@
             IAdminInfoStudLB.Size = new Size(949, 327);
             IAdminInfoStudLB.TabIndex = 3;
             IAdminInfoStudLB.SelectedIndexChanged += IAdminInfoStudLB_SelectedIndexChanged;
-            IAdminInfoStudLB.MouseUp += IAdminInfoLB_MouseUp;
             // 
             // tabPage3
             // 

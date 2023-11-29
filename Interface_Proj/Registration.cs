@@ -14,7 +14,6 @@ namespace Interface_Proj
 {
     public partial class IRegistrationForm2 : Form
     {
-        private static string fileData = "";
         MicrosoftStorageHandler handler = new();
         public IRegistrationForm2()
         {
@@ -107,7 +106,7 @@ namespace Interface_Proj
             IPasswordTB1.PasswordChar = '*';
             pictureBox2.BackgroundImage = Properties.Resources.pass2;
             panelP.BackColor = Color.DodgerBlue;
-            INameTB1.Font = new Font("Kievit Offc Pro", 12, FontStyle.Regular);
+            IPasswordTB1.Font = new Font("Kievit Offc Pro", 12, FontStyle.Regular);
 
             pictureBox1.BackgroundImage = Properties.Resources.user;
             panelN.BackColor = Color.Black;

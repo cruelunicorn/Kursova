@@ -182,50 +182,8 @@ namespace Interface_Proj
             }
         }
 
-        private void IAdminInfoLB_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                IAdminInfoCMS.Show(IAdminInfoStudLB, e.Location);
-            }
-        }
-
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            /* if (IAdminInfoStudLB.SelectedItem != null)
-             {
-                 string selectedText = IAdminInfoStudLB.SelectedItem.ToString();
-                 string[] words = selectedText.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-
-                 if (words.Length >= 2)
-                 {
-                     string firstWord = words[0];
-                     string secondWord = words[1];
-
-                     Methods.RemoveStudent(firstWord, secondWord);
-                 }
-             }
-             else
-             {
-                 MessageBox.Show("Ви не обрали студента, якого хочете видалити!");
-             }*/
-        }
-
-        private void cleanToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void IAdminInfoTB_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                IAdminInfoAddBut_Click(null, null);
-            }
-        }
-
-        private void bindingSource1_CurrentChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void IAdminInfoGenerateStudBut_Click(object sender, EventArgs e)
@@ -294,11 +252,6 @@ namespace Interface_Proj
                 MessageBox.Show($"List<string> lines2 не знайдений: {ex.Message}");
                 return;
             }
-        }
-
-        private void methodsBindingSource1_CurrentChanged(object sender, EventArgs e)
-        {
-
         }
 
         private async void IAdminAddSchedBut_Click(object sender, EventArgs e)
