@@ -48,15 +48,10 @@ namespace Interface_Proj
             textBox8.TabStop = false;
             textBox9.TabStop = false;
             textBox10.TabStop = false;
-
         }
 
         private void ICreatorsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //foreach (Form form in Application.OpenForms)
-            // {
-            //    form.Close();
-            // }
             Application.Exit();
         }
 

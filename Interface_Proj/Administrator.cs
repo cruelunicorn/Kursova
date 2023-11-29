@@ -181,20 +181,8 @@ namespace Interface_Proj
             }
         }
 
-        private void IAdminInfoLB_MouseUp(object sender, MouseEventArgs e)
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
-            {
-                IAdminInfoCMS.Show(IAdminInfoStudLB, e.Location);
-            }
-        }
-
-        private void IAdminInfoTB_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                IAdminInfoAddBut_Click(null!, null!);
-            }
         }
 
         private void IAdminInfoGenerateStudBut_Click(object sender, EventArgs e)
