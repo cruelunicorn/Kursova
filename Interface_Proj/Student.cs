@@ -82,7 +82,7 @@ namespace Interface_Proj
             if (File.Exists(filePath))
             {
                 IStudLV.DrawColumnHeader += new DrawListViewColumnHeaderEventHandler(IStudLV_DrawColumnHeader);
-               // IStudLV.DrawItem += new DrawListViewItemEventHandler(IStudLV_DrawItem);
+                IStudLV.DrawItem += new DrawListViewItemEventHandler(IStudLV_DrawItem);
 
                 using (var reader = new StreamReader(filePath))
                 {
