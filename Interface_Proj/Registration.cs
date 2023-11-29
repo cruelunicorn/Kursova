@@ -23,16 +23,6 @@ namespace Interface_Proj
             toolTip1.SetToolTip(IRegistrationHelpBut, "Вам необхідно ввести Ваш логін та пароль для входу");
         }
 
-        private async Task SetFileData(string login)
-        {
-            await handler.DownloadFile($"{login}.txt");
-            using (StreamReader file = new($"{login}.txt"))
-            {
-                fileData = file.ReadLine()!;
-            }
-            File.Delete($"{login}.txt");
-        }
-
         private async void IComeInBut1_Click(object sender, EventArgs e)
         {
             await handler.DownloadFile("schedule.csv", "ScheduleFolder");

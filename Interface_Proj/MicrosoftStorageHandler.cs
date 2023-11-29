@@ -3,13 +3,18 @@ using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using Errors;
 using Microsoft.VisualBasic.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace Interface_Proj
 {
@@ -39,7 +44,7 @@ namespace Interface_Proj
 
         /// <summary>Downloads file to debug folder</summary>
         /// <returns>Returns status string</returns>
-        public async Task<string> DownloadFile(string downloadFileName, string folderName = "students")
+        public async Task<string> DownloadFile(string downloadFileName, string folderName = "students", string fileName="")
         {
             if (!IsInternetAvailable()) throw new InternetConectionException();
             BlobClient blob = container.GetBlobClient($"{folderName}/{downloadFileName}");
@@ -117,23 +122,33 @@ namespace Interface_Proj
             return "Success";
         }
 
-        public async Task<string> DeleteStudent(string name, string lastname)
+        public void DeleteStudent(string name, string lastname)
         {
             if (!IsInternetAvailable()) throw new InternetConectionException();
             var blobs = container.GetBlobs(prefix: "students/");
             string encodedName = Convert.ToBase64String(Encoding.UTF8.GetBytes(name));
             string encodedLastName = Convert.ToBase64String(Encoding.UTF8.GetBytes(lastname));
-            foreach (var blob in blobs)
+
+            Parallel.ForEach(blobs, new ParallelOptions { MaxDegreeOfParallelism = 2 }, async blob =>
             {
                 BlobClient blobToDelete = container.GetBlobClient(blob.Name);
                 BlobProperties bp = await blobToDelete.GetPropertiesAsync();
                 if (bp.Metadata.ContainsKey("name") && bp.Metadata["name"] == encodedName && bp.Metadata["lastname"] == encodedLastName)
-                {
-                    await blobToDelete.DeleteAsync();
-                    return "Success";
-                }                
-            }
-            return "not found";
+                    _ = blobToDelete.DeleteAsync();
+            });
+
+            blobs = container.GetBlobs(prefix: "AttendanceFolder/");
+
+            Parallel.ForEach(blobs, new ParallelOptions { MaxDegreeOfParallelism = 2 }, async blob =>
+            {
+                string fileName = blob.Name.Split('/')[1];                
+                await DownloadFile(fileName, "AttendanceFolder");
+                JObject jsonObj = JObject.Parse(File.ReadAllText(fileName));
+                if (jsonObj[$"{name} {lastname}"] != null) jsonObj.Remove($"{name} {lastname}");
+                File.WriteAllText(fileName, jsonObj.ToString());
+                await UploadFile(fileName, "AttendanceFolder");
+                File.Delete(fileName);
+            });
         }
 
         private static bool IsInternetAvailable()
