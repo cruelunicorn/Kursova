@@ -1,6 +1,4 @@
 ﻿using Microsoft.VisualBasic;
-using PasswordLoginGeneration;
-using Errors;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,15 +13,16 @@ using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.LinkLabel;
-using static Errors.InternetConectionException;
-using static Errors.DataHasNotBeenUpdated;
-using static Errors.NameTooLong;
-using static Errors.PasswordTooLong;
-using static Errors.HashPasswordNotFound;
-using static Errors.FailedToDownloadFile;
-using static Errors.StudentsNotUpLoaded;
-using static Errors.CharacterConversion;
-using static Errors.Removing;
+using static Interface_Proj.Classes.InternetConectionException;
+using static Interface_Proj.Classes.DataHasNotBeenUpdated;
+using static Interface_Proj.Classes.NameTooLong;
+using static Interface_Proj.Classes.PasswordTooLong;
+using static Interface_Proj.Classes.HashPasswordNotFound;
+using static Interface_Proj.Classes.FailedToDownloadFile;
+using static Interface_Proj.Classes.StudentsNotUpLoaded;
+using static Interface_Proj.Classes.CharacterConversion;
+using static Interface_Proj.Classes.Removing;
+using Interface_Proj.Classes;
 
 namespace Interface_Proj
 {
@@ -179,10 +178,6 @@ namespace Interface_Proj
             {
                 MessageBox.Show("Файл students.csv не знайдено.");
             }
-        }
-
-        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
-        {
         }
 
         private void IAdminInfoGenerateStudBut_Click(object sender, EventArgs e)

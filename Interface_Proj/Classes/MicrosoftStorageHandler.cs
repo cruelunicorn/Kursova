@@ -1,7 +1,6 @@
 ﻿using Azure.Storage;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
-using Errors;
 using Microsoft.VisualBasic.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -16,7 +15,7 @@ using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Reflection.Metadata.BlobBuilder;
 
-namespace Interface_Proj
+namespace Interface_Proj.Classes
 {
     /// <summary>
     /// Allows you to work with remote storage, download and upload files
@@ -35,7 +34,7 @@ namespace Interface_Proj
             var credentials = new StorageSharedKeyCredential(accountName, accessKey);
             var blobUri = $"https://{accountName}.blob.core.windows.net";
             client = new BlobServiceClient(new Uri(blobUri), credentials);
-            this.container = client.GetBlobContainerClient("files");
+            container = client.GetBlobContainerClient("files");
             if (!Directory.Exists(Path.Combine(documentFolderPath, "StorageFiles")))
                 Directory.CreateDirectory(Path.Combine(documentFolderPath, "StorageFiles"));
             documentFolderPath = Path.Combine(documentFolderPath, "StorageFiles");
@@ -44,7 +43,7 @@ namespace Interface_Proj
 
         /// <summary>Downloads file to debug folder</summary>
         /// <returns>Returns status string</returns>
-        public async Task<string> DownloadFile(string downloadFileName, string folderName = "students", string fileName="")
+        public async Task<string> DownloadFile(string downloadFileName, string folderName = "students", string fileName = "")
         {
             if (!IsInternetAvailable()) throw new InternetConectionException();
             BlobClient blob = container.GetBlobClient($"{folderName}/{downloadFileName}");
@@ -69,8 +68,8 @@ namespace Interface_Proj
                 if (Regex.IsMatch(item.Split(":")[1], @"\p{IsCyrillic}"))
                 {
                     metadataDictionary.Add(item.Split(":")[0],
-                        Convert.ToBase64String(Encoding.UTF8.GetBytes(item.Split(":")[1])));                       
-                }                   
+                        Convert.ToBase64String(Encoding.UTF8.GetBytes(item.Split(":")[1])));
+                }
                 else
                     metadataDictionary.Add(item.Split(":")[0], item.Split(":")[1]);
             }
@@ -143,14 +142,15 @@ namespace Interface_Proj
 
             Parallel.ForEach(blobs, new ParallelOptions { MaxDegreeOfParallelism = 2 }, async blob =>
             {
-                string fileName = blob.Name.Split('/')[1];                
+                string fileName = blob.Name.Split('/')[1];
                 await DownloadFile(fileName, "AttendanceFolder");
                 JObject jsonObj = JObject.Parse(File.ReadAllText(fileName));
-                if (jsonObj[$"{name} {lastname}"] != null) {
+                if (jsonObj[$"{name} {lastname}"] != null)
+                {
                     jsonObj.Remove($"{name} {lastname}");
                     File.WriteAllText(fileName, jsonObj.ToString());
                     await UploadFile(fileName, "AttendanceFolder");
-                }                
+                }
                 File.Delete(fileName);
             });
         }

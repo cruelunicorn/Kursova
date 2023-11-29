@@ -1,4 +1,4 @@
-﻿using PasswordLoginGeneration;
+﻿using Interface_Proj.Classes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
