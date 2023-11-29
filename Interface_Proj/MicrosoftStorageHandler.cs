@@ -146,9 +146,11 @@ namespace Interface_Proj
                 string fileName = blob.Name.Split('/')[1];                
                 await DownloadFile(fileName, "AttendanceFolder");
                 JObject jsonObj = JObject.Parse(File.ReadAllText(fileName));
-                if (jsonObj[$"{name} {lastname}"] != null) jsonObj.Remove($"{name} {lastname}");
-                File.WriteAllText(fileName, jsonObj.ToString());
-                await UploadFile(fileName, "AttendanceFolder");
+                if (jsonObj[$"{name} {lastname}"] != null) {
+                    jsonObj.Remove($"{name} {lastname}");
+                    File.WriteAllText(fileName, jsonObj.ToString());
+                    await UploadFile(fileName, "AttendanceFolder");
+                }                
                 File.Delete(fileName);
             });
         }
