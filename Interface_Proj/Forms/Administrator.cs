@@ -86,22 +86,6 @@ namespace Interface_Proj
                 }
                 IAdminInfoStudLB.Items.Clear();
 
-                ////server students download
-                //try
-                //{
-                //    await handler.DownloadFile("students.csv", "StudentsFolder");
-                //}
-                //catch (FailedToDownloadFile ex)
-                //{
-                //    MessageBox.Show($"Failed to download server students: {ex.Message}");
-                //    return;
-                //}
-                //catch (InternetConectionException ex)
-                //{
-                //    MessageBox.Show($"Ooops, problem with Inet: {ex.Message}");
-                //    return;
-                //}
-
                 try
                 {
                     List<string> lines = File.ReadAllLines(csvFilePathInfo).ToList();
@@ -141,22 +125,6 @@ namespace Interface_Proj
                     // Обновление данных в ListBox
                     IAdminInfoStudLB.Items.Clear();
 
-                    ////from server students download
-                    //try
-                    //{
-                    //    await handler.DownloadFile("students.csv", "StudentsFolder");
-                    //}
-                    //catch (FailedToDownloadFile ex)
-                    //{
-                    //    MessageBox.Show($"Failed to download from server students: {ex.Message}");
-                    //    return;
-                    //}
-                    //catch (InternetConectionException ex)
-                    //{
-                    //    MessageBox.Show($"Ooops, problem with Inet: {ex.Message}");
-                    //    return;
-                    //}
-
                     try
                     {
                         List<string> lines = File.ReadAllLines(csvFilePathInfo).ToList();
@@ -189,14 +157,14 @@ namespace Interface_Proj
             IAdminInfoStudGenTB.Text = $"{nickname} {password}";
         }
 
-        private async void IAdminInfoStudLB_SelectedIndexChanged(object sender, EventArgs e)
+        private void IAdminInfoStudLB_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (IAdminInfoStudLB.SelectedIndex != 0)
             {
                 string name = IAdminInfoStudLB.Items[IAdminInfoStudLB.SelectedIndex].ToString()!.Split(';')[0];
                 string lastname = IAdminInfoStudLB.Items[IAdminInfoStudLB.SelectedIndex].ToString()!.Split(';')[1];
 
-                IAdminInfoStudGenTB.Text = await handler.GetLoginAndPasswordByName(name, lastname);
+                IAdminInfoStudGenTB.Text = handler.GetLoginAndPasswordByName(name, lastname);
             }
         }
 

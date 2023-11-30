@@ -156,22 +156,23 @@ namespace Interface_Proj.Classes
             });
         }
 
-        public async Task<string> GetLoginAndPasswordByName(string name, string lastname)
+        public string GetLoginAndPasswordByName(string name, string lastname)
         {
             string result = "";
             if (!IsInternetAvailable()) throw new InternetConectionException();
-            var blobs = container.GetBlobs(prefix: "students/");
+            var blobs = container.GetBlobs(prefix: "students/", traits: BlobTraits.Metadata);
             string encodedName = Convert.ToBase64String(Encoding.UTF8.GetBytes(name));
             string encodedLastName = Convert.ToBase64String(Encoding.UTF8.GetBytes(lastname));
 
-            var tasks = blobs.Select(async blob =>
+            Parallel.ForEach(blobs, new ParallelOptions { MaxDegreeOfParallelism = 2 }, (blob, loopstate) =>
             {
-                BlobClient blobToDelete = container.GetBlobClient(blob.Name);
-                BlobProperties bp = await blobToDelete.GetPropertiesAsync();
-                if (bp.Metadata.ContainsKey("name") && bp.Metadata["name"] == encodedName && bp.Metadata["lastname"] == encodedLastName)
-                    result = $"{blobToDelete.Name.Split('/')[1]} {bp.Metadata["password"]}";
+                if (blob.Metadata.ContainsKey("name") && blob.Metadata["name"] == encodedName && blob.Metadata["lastname"] == encodedLastName)
+                {
+                    result = $"{blob.Name.Split('/')[1]} {blob.Metadata["password"]}";
+                    loopstate.Break();
+                }
             });
-            await Task.WhenAll(tasks);
+
             return result;
         }
 
