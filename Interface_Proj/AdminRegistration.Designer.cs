@@ -36,9 +36,7 @@
             IAdminComeInBut = new Button();
             IRegistrationHelpBut = new Button();
             IAdminRegHelpTT = new ToolTip(components);
-            errorProvider1 = new ErrorProvider(components);
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             SuspendLayout();
             // 
             // IAdminRegistrationPassTB
@@ -104,13 +102,9 @@
             IRegistrationHelpBut.Text = "?";
             IRegistrationHelpBut.UseVisualStyleBackColor = true;
             // 
-            // errorProvider1
-            // 
-            errorProvider1.ContainerControl = this;
-            // 
             // IAdminRegistrationForm
             // 
-            AutoScaleDimensions = new SizeF(9F, 18F);
+            AutoScaleDimensions = new SizeF(10F, 22F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(878, 544);
@@ -127,7 +121,6 @@
             Text = "Visit Control";
             FormClosed += IAdminRegistrationForm_FormClosed;
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -140,6 +133,5 @@
         private Button IAdminComeInBut;
         private Button IRegistrationHelpBut;
         private ToolTip IAdminRegHelpTT;
-        private ErrorProvider errorProvider1;
     }
 }

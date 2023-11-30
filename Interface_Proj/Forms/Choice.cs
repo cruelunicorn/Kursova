@@ -20,8 +20,6 @@ namespace Interface_Proj
             adminreg.Owner = this;
             this.Hide();  
             adminreg.Show();
-            //IAdminForm adm = new IAdminForm();
-            //adm.Show();
         }
 
         private void ICreatorsBut_Click(object sender, EventArgs e)
