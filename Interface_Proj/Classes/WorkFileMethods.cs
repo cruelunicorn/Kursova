@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using Newtonsoft.Json.Linq;
 using System.Text.Json.Nodes;
+using System.Globalization;
 
 
 public struct Student
@@ -152,7 +153,8 @@ public class Methods
         List<Schedule> schedule = ReadScheduleFromCsv();
         schedule.Add(newSubjects);
 
-        schedule = schedule.OrderBy(s => s.Day).ThenBy(s => s.ID).ToList();
+        schedule = schedule.OrderBy(s => new CultureInfo("uk-UA").DateTimeFormat.DayNames.ToList().
+        IndexOf(s.Day.ToLower().Replace("'", "\u02bc"))).ThenBy(s => s.ID).ToList();
 
         using (var writer = new StreamWriter("schedule.csv"))
         {
