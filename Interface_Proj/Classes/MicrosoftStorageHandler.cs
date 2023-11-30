@@ -121,26 +121,25 @@ namespace Interface_Proj.Classes
             return "Success";
         }
 
-        public async Task DeleteStudent(string name, string lastname)
+        public void DeleteStudent(string name, string lastname)
         {
             if (!IsInternetAvailable()) throw new InternetConectionException();
-            var blobs = container.GetBlobs(prefix: "students/");
+            var blobs = container.GetBlobs(prefix: "students/", traits: BlobTraits.Metadata).ToList();
             string encodedName = Convert.ToBase64String(Encoding.UTF8.GetBytes(name));
             string encodedLastName = Convert.ToBase64String(Encoding.UTF8.GetBytes(lastname));
 
-            var tasks = blobs.Select(async blob =>
+            Parallel.For(0, blobs.Count, new ParallelOptions { MaxDegreeOfParallelism = 2} , (i, loopstate) =>
             {
-                BlobClient blobToDelete = container.GetBlobClient(blob.Name);
-                BlobProperties bp = await blobToDelete.GetPropertiesAsync();
-                if (bp.Metadata.ContainsKey("name") && bp.Metadata["name"] == encodedName && bp.Metadata["lastname"] == encodedLastName)
-                    _ = blobToDelete.DeleteAsync();
+                if (blobs[i].Metadata.ContainsKey("name") && blobs[i].Metadata["name"] == encodedName && blobs[i].Metadata["lastname"] == encodedLastName)
+                {
+                    _ = container.GetBlobClient(blobs[i].Name).DeleteAsync();
+                    loopstate.Break();
+                }
             });
 
-            await Task.WhenAll(tasks);
+            blobs = container.GetBlobs(prefix: "AttendanceFolder/").ToList();
 
-            blobs = container.GetBlobs(prefix: "AttendanceFolder/");
-
-            Parallel.ForEach(blobs, new ParallelOptions { MaxDegreeOfParallelism = 2 }, async blob =>
+            Parallel.ForEach(blobs, new ParallelOptions { MaxDegreeOfParallelism = 2 }, async (blob, loopstate) =>
             {
                 string fileName = blob.Name.Split('/')[1];
                 await DownloadFile(fileName, "AttendanceFolder");
@@ -150,6 +149,8 @@ namespace Interface_Proj.Classes
                     jsonObj.Remove($"{name} {lastname}");
                     File.WriteAllText(fileName, jsonObj.ToString());
                     await UploadFile(fileName, "AttendanceFolder");
+                    File.Delete(fileName);
+                    loopstate.Break();
                 }
                 File.Delete(fileName);
             });

@@ -86,21 +86,21 @@ namespace Interface_Proj
                 }
                 IAdminInfoStudLB.Items.Clear();
 
-                //server students download
-                try
-                {
-                    await handler.DownloadFile("students.csv", "StudentsFolder");
-                }
-                catch (FailedToDownloadFile ex)
-                {
-                    MessageBox.Show($"Failed to download server students: {ex.Message}");
-                    return;
-                }
-                catch (InternetConectionException ex)
-                {
-                    MessageBox.Show($"Ooops, problem with Inet: {ex.Message}");
-                    return;
-                }
+                ////server students download
+                //try
+                //{
+                //    await handler.DownloadFile("students.csv", "StudentsFolder");
+                //}
+                //catch (FailedToDownloadFile ex)
+                //{
+                //    MessageBox.Show($"Failed to download server students: {ex.Message}");
+                //    return;
+                //}
+                //catch (InternetConectionException ex)
+                //{
+                //    MessageBox.Show($"Ooops, problem with Inet: {ex.Message}");
+                //    return;
+                //}
 
                 try
                 {
@@ -132,7 +132,7 @@ namespace Interface_Proj
 
                     Methods.RemoveStudent(firstWord, secondWord);
 
-                    await handler.DeleteStudent(firstWord, secondWord);
+                    handler.DeleteStudent(firstWord, secondWord);
 
                     //to server students upload
                     await handler.UploadFile("students.csv", "StudentsFolder");
@@ -141,21 +141,21 @@ namespace Interface_Proj
                     // Обновление данных в ListBox
                     IAdminInfoStudLB.Items.Clear();
 
-                    //from server students download
-                    try
-                    {
-                        await handler.DownloadFile("students.csv", "StudentsFolder");
-                    }
-                    catch (FailedToDownloadFile ex)
-                    {
-                        MessageBox.Show($"Failed to download from server students: {ex.Message}");
-                        return;
-                    }
-                    catch (InternetConectionException ex)
-                    {
-                        MessageBox.Show($"Ooops, problem with Inet: {ex.Message}");
-                        return;
-                    }
+                    ////from server students download
+                    //try
+                    //{
+                    //    await handler.DownloadFile("students.csv", "StudentsFolder");
+                    //}
+                    //catch (FailedToDownloadFile ex)
+                    //{
+                    //    MessageBox.Show($"Failed to download from server students: {ex.Message}");
+                    //    return;
+                    //}
+                    //catch (InternetConectionException ex)
+                    //{
+                    //    MessageBox.Show($"Ooops, problem with Inet: {ex.Message}");
+                    //    return;
+                    //}
 
                     try
                     {

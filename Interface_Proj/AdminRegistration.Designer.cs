@@ -45,7 +45,7 @@
             // 
             IAdminRegistrationPassTB.BackColor = Color.White;
             IAdminRegistrationPassTB.BorderStyle = BorderStyle.None;
-            IAdminRegistrationPassTB.Font = new Font("Kievit Offc Pro", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            IAdminRegistrationPassTB.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point);
             IAdminRegistrationPassTB.ForeColor = Color.Black;
             IAdminRegistrationPassTB.Location = new Point(322, 164);
             IAdminRegistrationPassTB.Multiline = true;
@@ -80,13 +80,14 @@
             IAdminComeInBut.FlatAppearance.MouseDownBackColor = SystemColors.HotTrack;
             IAdminComeInBut.FlatAppearance.MouseOverBackColor = SystemColors.Highlight;
             IAdminComeInBut.FlatStyle = FlatStyle.Flat;
-            IAdminComeInBut.Font = new Font("Kievit Offc Pro", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            IAdminComeInBut.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point);
             IAdminComeInBut.Location = new Point(306, 325);
             IAdminComeInBut.Name = "IAdminComeInBut";
             IAdminComeInBut.Size = new Size(238, 75);
             IAdminComeInBut.TabIndex = 11;
             IAdminComeInBut.Text = "Увійти";
             IAdminComeInBut.UseVisualStyleBackColor = false;
+            IAdminComeInBut.Click += IAdminComeInBut_Click;
             // 
             // IRegistrationHelpBut
             // 
@@ -95,7 +96,7 @@
             IRegistrationHelpBut.FlatAppearance.MouseDownBackColor = Color.White;
             IRegistrationHelpBut.FlatAppearance.MouseOverBackColor = Color.White;
             IRegistrationHelpBut.FlatStyle = FlatStyle.Flat;
-            IRegistrationHelpBut.Font = new Font("Kievit Offc Pro", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            IRegistrationHelpBut.Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Regular, GraphicsUnit.Point);
             IRegistrationHelpBut.Location = new Point(12, 12);
             IRegistrationHelpBut.Name = "IRegistrationHelpBut";
             IRegistrationHelpBut.Size = new Size(35, 42);
@@ -109,7 +110,7 @@
             // 
             // IAdminRegistrationForm
             // 
-            AutoScaleDimensions = new SizeF(10F, 22F);
+            AutoScaleDimensions = new SizeF(9F, 18F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(878, 544);
@@ -118,13 +119,13 @@
             Controls.Add(pictureBox2);
             Controls.Add(panel);
             Controls.Add(IAdminRegistrationPassTB);
-            Font = new Font("Kievit Offc Pro", 8.999999F, FontStyle.Regular, GraphicsUnit.Point);
+            Font = new Font("Microsoft Sans Serif", 8.999999F, FontStyle.Regular, GraphicsUnit.Point);
             ForeColor = Color.Black;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "IAdminRegistrationForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Visit Control";
-            FormClosing += IAdminRegistrationForm_FormClosing;
+            FormClosed += IAdminRegistrationForm_FormClosed;
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);
