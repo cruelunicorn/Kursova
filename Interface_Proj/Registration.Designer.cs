@@ -39,7 +39,7 @@
             panelN = new Panel();
             panelP = new Panel();
             IRegistrationHelpBut = new Button();
-            toolTip1 = new ToolTip(components);
+            IRegistrationHelpTT = new ToolTip(components);
             ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -135,7 +135,7 @@
             IRegistrationHelpBut.FlatAppearance.MouseDownBackColor = Color.White;
             IRegistrationHelpBut.FlatAppearance.MouseOverBackColor = Color.White;
             IRegistrationHelpBut.FlatStyle = FlatStyle.Flat;
-            IRegistrationHelpBut.Font = new Font("Tahoma", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            IRegistrationHelpBut.Font = new Font("Kievit Offc Pro", 11F, FontStyle.Regular, GraphicsUnit.Point);
             IRegistrationHelpBut.Location = new Point(17, 12);
             IRegistrationHelpBut.Name = "IRegistrationHelpBut";
             IRegistrationHelpBut.Size = new Size(35, 42);
@@ -180,6 +180,6 @@
         private Panel panelN;
         private Panel panelP;
         private Button IRegistrationHelpBut;
-        private ToolTip toolTip1;
+        private ToolTip IRegistrationHelpTT;
     }
 }

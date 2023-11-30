@@ -48,10 +48,13 @@ namespace Interface_Proj
                 e.Graphics.FillRectangle(headerBackgroundBrush, e.Bounds);
             }
 
-            //Колір тексту
+            // Зміна шрифта
+            Font headerFont = new Font("Segoe UI", 10, FontStyle.Bold);
+
+            // Колір тексту
             using (Brush brush = new SolidBrush(Color.LightBlue))
             {
-                e.Graphics.DrawString(e.Header.Text, e.Font, brush, e.Bounds, StringFormat.GenericDefault);
+                e.Graphics.DrawString(e.Header.Text, headerFont, brush, e.Bounds, StringFormat.GenericDefault);
             }
 
             e.DrawDefault = false;
@@ -75,6 +78,7 @@ namespace Interface_Proj
                 }
             }
         }
+
 
 
         private void LoadDataFromCSV(string filePath)

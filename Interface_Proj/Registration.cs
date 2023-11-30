@@ -19,7 +19,7 @@ namespace Interface_Proj
         {
             InitializeComponent();
 
-            toolTip1.SetToolTip(IRegistrationHelpBut, "Вам необхідно ввести Ваш логін та пароль для входу");
+            IRegistrationHelpTT.SetToolTip(IRegistrationHelpBut, "Вам необхідно ввести Ваш логін та пароль для входу");
         }
 
         private async void IComeInBut1_Click(object sender, EventArgs e)

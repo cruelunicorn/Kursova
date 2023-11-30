@@ -1,6 +1,6 @@
 ﻿namespace Interface_Proj
 {
-    partial class IAdministratorForm1
+    partial class IAdminForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IAdministratorForm1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IAdminForm));
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
             tableLayoutPanel2 = new TableLayoutPanel();
@@ -54,6 +54,8 @@
             IAdminProfDeleteBut = new Button();
             IAdminInfoCMS = new ContextMenuStrip(components);
             deleteToolStripMenuItem = new ToolStripMenuItem();
+            IAdminHelpBut = new Button();
+            IAdminHelpTT = new ToolTip(components);
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
@@ -462,19 +464,34 @@
             deleteToolStripMenuItem.Text = "Delete";
             deleteToolStripMenuItem.Click += deleteToolStripMenuItem_Click;
             // 
-            // IAdministratorForm1
+            // IAdminHelpBut
+            // 
+            IAdminHelpBut.FlatAppearance.BorderSize = 0;
+            IAdminHelpBut.FlatAppearance.MouseDownBackColor = Color.White;
+            IAdminHelpBut.FlatAppearance.MouseOverBackColor = Color.White;
+            IAdminHelpBut.FlatStyle = FlatStyle.Flat;
+            IAdminHelpBut.Font = new Font("Kievit Offc Pro", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            IAdminHelpBut.Location = new Point(280, 2);
+            IAdminHelpBut.Name = "IAdminHelpBut";
+            IAdminHelpBut.Size = new Size(32, 28);
+            IAdminHelpBut.TabIndex = 1;
+            IAdminHelpBut.Text = "?";
+            IAdminHelpBut.UseVisualStyleBackColor = true;
+            // 
+            // IAdminForm
             // 
             AutoScaleDimensions = new SizeF(11F, 24F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(966, 522);
+            Controls.Add(IAdminHelpBut);
             Controls.Add(tabControl1);
             Font = new Font("Kievit Offc Pro", 10F, FontStyle.Regular, GraphicsUnit.Point);
             ForeColor = Color.Black;
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(2);
-            Name = "IAdministratorForm1";
+            Name = "IAdminForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Visit Control";
             FormClosing += IAdministratorForm1_FormClosing;
@@ -519,5 +536,7 @@
         private Button IAdminProfGenBut;
         private Button IAdminProfAddBut;
         private Button IAdminProfDeleteBut;
+        private Button IAdminHelpBut;
+        private ToolTip IAdminHelpTT;
     }
 }

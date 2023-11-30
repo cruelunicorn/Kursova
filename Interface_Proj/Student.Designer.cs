@@ -54,7 +54,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "IStudentForm1";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Студент";
+            Text = "Visit Control";
             FormClosing += IStudentForm1_FormClosing;
             ResumeLayout(false);
         }

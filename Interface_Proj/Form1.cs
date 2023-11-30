@@ -16,9 +16,9 @@ namespace Interface_Proj
 
         private void button3_Click(object sender, EventArgs e)
         {
-            IAdministratorForm1 admin = new IAdministratorForm1();
+            IAdminRegistrationForm adminreg = new IAdminRegistrationForm();
             this.Hide();
-            admin.Show();
+            adminreg.Show();
         }
 
         private void ICreatorsBut_Click(object sender, EventArgs e)

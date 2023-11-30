@@ -27,11 +27,13 @@ using static Errors.Removing;
 
 namespace Interface_Proj
 {
-    public partial class IAdministratorForm1 : Form
+    public partial class IAdminForm : Form
     {
-        public IAdministratorForm1()
+        public IAdminForm()
         {
             InitializeComponent();
+
+            IAdminHelpTT.SetToolTip(IAdminHelpBut, "Вам необхідно вибрати вкладку я якою Ви хочете працювати та слідкувати за підказками у разі помилок");
         }
 
         private readonly string csvFilePathInfo = Path.Combine(Directory.GetCurrentDirectory(), "students.csv");
@@ -45,7 +47,7 @@ namespace Interface_Proj
             if (IAdminInfoStudTB.Text != "" && IAdminInfoStudGenTB.Text != "")
             {
                 text = IAdminInfoStudTB.Text + " " + IAdminInfoStudGenTB.Text;
-                string[] fields = text.Split(new[] { ' ' }); //StringSplitOptions.RemoveEmptyEntries);
+                string[] fields = text.Split(new[] { ' ' });
                 if (fields.Length == 7)
                 {
                     string firstName = fields[0];
@@ -260,7 +262,7 @@ namespace Interface_Proj
             string text = IAdminSchedTB.Text;
             if (text != "")
             {
-                string[] fields = text.Split(new[] { ' ' }); //StringSplitOptions.RemoveEmptyEntries);
+                string[] fields = text.Split(new[] { ' ' });
 
                 if (fields.Length == 5)
                 {
@@ -360,7 +362,7 @@ namespace Interface_Proj
                 }
                 else
                 {
-                    MessageBox.Show("Введіть день та предмет в текстовому полі!");
+                    MessageBox.Show("Введіть день, ID, предмет і тип в текстовому полі!");
                 }
             }
             else
