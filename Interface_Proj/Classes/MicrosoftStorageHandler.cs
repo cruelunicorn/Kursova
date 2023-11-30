@@ -7,6 +7,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.NetworkInformation;
 using System.Reflection.Metadata;
 using System.Text;
@@ -47,8 +48,15 @@ namespace Interface_Proj.Classes
         {
             if (!IsInternetAvailable()) throw new InternetConectionException();
             BlobClient blob = container.GetBlobClient($"{folderName}/{downloadFileName}");
-            if (!await blob.ExistsAsync()) { return "File or folder doesn't exist"; }
-            await blob.DownloadToAsync(Path.Combine(debugFolderPath, downloadFileName));
+            if (!await blob.ExistsAsync()) { throw new FailedToDownloadFile("File not found"); }
+            try
+            {
+                await blob.DownloadToAsync(Path.Combine(debugFolderPath, downloadFileName));
+            }
+            catch (Exception ex)
+            {
+                throw new FailedToDownloadFile($"File not download: {ex.Message}");
+            }
             return "Success";
         }
 
@@ -59,7 +67,14 @@ namespace Interface_Proj.Classes
             if (!IsInternetAvailable()) throw new InternetConectionException();
             //if (!uploadFileName.Contains('.')) uploadFileName += ".txt";
             bool exists = File.Exists(uploadFileName);
-            File.AppendAllText(Path.Combine(Directory.GetCurrentDirectory(), uploadFileName), fileText);
+            try
+            {
+                File.AppendAllText(Path.Combine(Directory.GetCurrentDirectory(), uploadFileName), fileText);
+            }
+            catch (Exception ex)
+            {
+                throw new StudentsNotUpLoaded($"Students not uploaded in file: {ex.Message}");
+            }
             BlobClient blob = container.GetBlobClient($"{folderName}/{uploadFileName}");
             await blob.UploadAsync(uploadFileName, true);
             Dictionary<string, string> metadataDictionary = new();
@@ -80,22 +95,34 @@ namespace Interface_Proj.Classes
 
         public async Task<string> CheckAuthorization(string login, string password)
         {
-            if (!IsInternetAvailable()) return "No internet access";
+            if (!IsInternetAvailable()) throw new InternetConectionException();
             BlobClient personBlob = container.GetBlobClient($"students/{login}");
-            if (personBlob.Exists() && personBlob.GetProperties() != null)
+            try
             {
-                BlobProperties bp = await personBlob.GetPropertiesAsync();
-                if (bp.Metadata["password"] == password) return "student authorized";
-                else return "wrong password";
+                if (personBlob.Exists() && personBlob.GetProperties() != null)
+                {
+                    BlobProperties bp = await personBlob.GetPropertiesAsync();
+                    if (bp.Metadata["password"] == password) return "student authorized";
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new StudentPasswordException($"Error occurred during authorization: {ex.Message}");
             }
             personBlob = container.GetBlobClient($"professors/{login}");
-            if (personBlob.Exists() && personBlob.GetProperties() != null)
+            try
             {
-                BlobProperties bp = await personBlob.GetPropertiesAsync();
-                if (bp.Metadata["password"] == password) return "professor authorized";
-                else return "wrong password";
+                if (personBlob.Exists() && personBlob.GetProperties() != null)
+                {
+                    BlobProperties bp = await personBlob.GetPropertiesAsync();
+                    if (bp.Metadata["password"] == password) return "professor authorized";
+                }
             }
-            return "wrong login";
+            catch (Exception ex)
+            {
+                throw new ProfessorPasswordException($"Error occurred during authorization: {ex.Message}");
+            }
+            throw new WrongLoginException("Error occurred during authorization");
         }
 
         public async Task<string> GetNameAndLastName(string login)
@@ -115,9 +142,16 @@ namespace Interface_Proj.Classes
 
         public async Task<string> DeleteFile(string fileName, string folderName)
         {
-            if (!IsInternetAvailable()) return "No internet access";
+            if (!IsInternetAvailable()) throw new InternetConectionException();
             BlobClient fileForDeleting = container.GetBlobClient($"{folderName}/{fileName}");
-            await fileForDeleting.DeleteIfExistsAsync();
+            try
+            {
+                await fileForDeleting.DeleteIfExistsAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new RemovingException($"Failed to delete file: {ex.Message}");
+            }
             return "Success";
         }
 

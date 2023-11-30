@@ -14,14 +14,14 @@ using System.Windows.Forms.VisualStyles;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.LinkLabel;
 using static Interface_Proj.Classes.InternetConectionException;
-using static Interface_Proj.Classes.DataHasNotBeenUpdated;
-using static Interface_Proj.Classes.NameTooLong;
-using static Interface_Proj.Classes.PasswordTooLong;
+using static Interface_Proj.Classes.ProfessorPasswordException;
+using static Interface_Proj.Classes.StudentPasswordException;
+using static Interface_Proj.Classes.WrongLoginException;
 using static Interface_Proj.Classes.HashPasswordNotFound;
 using static Interface_Proj.Classes.FailedToDownloadFile;
 using static Interface_Proj.Classes.StudentsNotUpLoaded;
 using static Interface_Proj.Classes.CharacterConversion;
-using static Interface_Proj.Classes.Removing;
+using static Interface_Proj.Classes.RemovingException;
 using Interface_Proj.Classes;
 
 namespace Interface_Proj
@@ -299,15 +299,8 @@ namespace Interface_Proj
 
                     // Обновление данных в ListBox
                     IAdminSchedTB.Text = string.Empty;
-                    try
-                    {
+
                         IAdminSchedLB.Items.Clear();
-                    }
-                    catch (DataHasNotBeenUpdated ex)
-                    {
-                        MessageBox.Show($"Данні в ListBox не оновилися: {ex.Message}");
-                        return;
-                    }
 
                     //from server schedule download
                     await handler.DownloadFile("shedule.csv", "ProfessorsFolder");
@@ -418,33 +411,9 @@ namespace Interface_Proj
 
         private void IAdministratorForm1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            try
-            {
                 File.Delete("schedule.csv");
-            }
-            catch (Removing ex)
-            {
-                MessageBox.Show($"schedule.csv не видалився: {ex.Message}");
-                return;
-            }
-            try
-            {
                 File.Delete("professors.json");
-            }
-            catch (Removing ex)
-            {
-                MessageBox.Show($"professors.json не видалився: {ex.Message}");
-                return;
-            }
-            try
-            {
                 File.Delete("students.csv");
-            }
-            catch (Removing ex)
-            {
-                MessageBox.Show($"students.csv не видалився: {ex.Message}");
-                return;
-            }
             System.Windows.Forms.Application.Exit();
         }
     }

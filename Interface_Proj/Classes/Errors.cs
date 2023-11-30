@@ -6,20 +6,20 @@ namespace Interface_Proj.Classes
         public InternetConectionException() { }
         public InternetConectionException(string message) : base(message) { }
     }
-    public class DataHasNotBeenUpdated : Exception
+    public class ProfessorPasswordException : Exception
     {
-        public DataHasNotBeenUpdated() { }
-        public DataHasNotBeenUpdated(string message) : base(message) { }
+        public ProfessorPasswordException() { }
+        public ProfessorPasswordException(string message) : base(message) { }
     }
-    public class NameTooLong : Exception
+    public class StudentPasswordException : Exception
     {
-        public NameTooLong() { }
-        public NameTooLong(string message) : base(message) { }
+        public StudentPasswordException() { }
+        public StudentPasswordException(string message) : base(message) { }
     }
-    public class PasswordTooLong : Exception
+    public class WrongLoginException : Exception
     {
-        public PasswordTooLong() { }
-        public PasswordTooLong(string message) : base(message) { }
+        public WrongLoginException () { }
+        public WrongLoginException (string message) : base(message) { }
     }
     public class HashPasswordNotFound : Exception
     {
@@ -41,9 +41,9 @@ namespace Interface_Proj.Classes
         public CharacterConversion() { }
         public CharacterConversion(string message) : base(message) { }
     }
-    public class Removing : Exception
+    public class RemovingException : Exception
     {
-        public Removing() { }
-        public Removing(string message) : base(message) { }
+        public RemovingException() { }
+        public RemovingException(string message) : base(message) { }
     }
 }

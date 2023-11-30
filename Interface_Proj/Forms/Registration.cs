@@ -31,28 +31,42 @@ namespace Interface_Proj
 
             if (CheckNameAndPassword(name, password))
             {
-                string authorizationResult = await handler.CheckAuthorization(name, password);
-                switch (authorizationResult)
+                try
                 {
-                    case "student authorized":
-                        await handler.DownloadFile("schedule.csv", "ScheduleFolder");
-                        IStudentForm1 student = new(await handler.GetNameAndLastName(name));
-                        Hide();
-                        student.Show();
-                        break;
-                    case "professor authorized":
-                        IProfessorForm1 professor = new();
-                        Hide();
-                        professor.Show();
-                        break;
-                    case "wrong login":
-                        errorProvider1.SetError(INameTB1, "Неправильний логін!");
-                        break;
-                    case "wrong password":
-                        errorProvider1.SetError(IPasswordTB1, "Неправильний пароль!");
-                        break;
-                    default:
-                        break;
+                    string authorizationResult = await handler.CheckAuthorization(name, password);
+                    switch (authorizationResult)
+                    {
+                        case "student authorized":
+                            await handler.DownloadFile("schedule.csv", "ScheduleFolder");
+                            IStudentForm1 student = new(await handler.GetNameAndLastName(name));
+                            Hide();
+                            student.Show();
+                            break;
+                        case "professor authorized":
+                            IProfessorForm1 professor = new();
+                            Hide();
+                            professor.Show();
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                catch (WrongLoginException)
+                {
+                    errorProvider1.SetError(INameTB1, "Неправильний логін!");
+                }
+                catch (ProfessorPasswordException)
+                {
+                    errorProvider1.SetError(IPasswordTB1, "Неправильний пароль!");
+                }
+                catch (StudentPasswordException)
+                {
+                    errorProvider1.SetError(IPasswordTB1, "Неправильний пароль!");
+                }
+                catch (InternetConectionException ex)
+                {
+                    MessageBox.Show($"Ooops, problem with Inet: {ex.Message}");
+                    return;
                 }
             }
 
