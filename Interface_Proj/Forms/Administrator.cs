@@ -32,7 +32,7 @@ namespace Interface_Proj
         {
             InitializeComponent();
 
-            IAdminHelpTT.SetToolTip(IAdminHelpBut, "Вам необхідно вибрати вкладку я якою Ви хочете працювати та слідкувати за підказками у разі помилок");
+            IAdminHelpTT.SetToolTip(IAdminHelpBut, "Вам необхідно вибрати вкладку з якою Ви хочете працювати та слідкувати за підказками у разі помилок");
         }
 
         private readonly string csvFilePathInfo = Path.Combine(Directory.GetCurrentDirectory(), "students.csv");
