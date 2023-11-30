@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Interface_Proj.Classes;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,7 +19,8 @@ namespace Interface_Proj
     public partial class IStudentForm1 : Form
     {
         private readonly string csvFilePathSched = Path.Combine(Directory.GetCurrentDirectory(), "schedule.csv");
-        private string nameAndLastName;
+        private readonly MicrosoftStorageHandler handler = new();
+        private readonly string nameAndLastName;
         public IStudentForm1(string nameAndLastName)
         {
             InitializeComponent();
@@ -48,13 +50,10 @@ namespace Interface_Proj
                 e.Graphics.FillRectangle(headerBackgroundBrush, e.Bounds);
             }
 
-            // Зміна шрифта
-            Font headerFont = new Font("Segoe UI", 10, FontStyle.Bold);
-
             // Колір тексту
             using (Brush brush = new SolidBrush(Color.LightBlue))
             {
-                e.Graphics.DrawString(e.Header.Text, headerFont, brush, e.Bounds, StringFormat.GenericDefault);
+                e.Graphics.DrawString(e.Header.Text, e.Font, brush, e.Bounds, StringFormat.GenericDefault);
             }
 
             e.DrawDefault = false;
@@ -85,8 +84,8 @@ namespace Interface_Proj
         {
             if (File.Exists(filePath))
             {
-                IStudLV.DrawColumnHeader += new DrawListViewColumnHeaderEventHandler(IStudLV_DrawColumnHeader);
-                IStudLV.DrawItem += new DrawListViewItemEventHandler(IStudLV_DrawItem);
+                IStudLV.DrawColumnHeader += new DrawListViewColumnHeaderEventHandler(IStudLV_DrawColumnHeader!);
+                IStudLV.DrawItem += new DrawListViewItemEventHandler(IStudLV_DrawItem!);
 
                 using (var reader = new StreamReader(filePath))
                 {
@@ -135,7 +134,6 @@ namespace Interface_Proj
                 if (DateTime.Now.ToString("dddd", new CultureInfo("uk-UA")) == test.Item.SubItems[0].Text.ToLower())
                 {
                     string subject = test.Item.SubItems[2].Text;
-                    MicrosoftStorageHandler handler = new();
                     if (await handler.DownloadFile($"{subject}.json", "AttendanceFolder") != "Success") return;
                     var jsonObj = JObject.Parse(File.ReadAllText($"{subject}.json"));
                     if (jsonObj[nameAndLastName] != null)

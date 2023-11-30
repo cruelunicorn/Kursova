@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Interface_Proj.Classes;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,7 @@ namespace Interface_Proj
             IProfDGV.AllowUserToAddRows = false;
             IProfDGV.AllowUserToDeleteRows = false;
 
-            ISubjCB.SelectedIndexChanged += ComboBox1_SelectedIndex;
+            ISubjCB.SelectedIndexChanged += ComboBox1_SelectedIndex!;
 
 
             IProfDGV.EnableHeadersVisualStyles = false;
@@ -51,6 +52,8 @@ namespace Interface_Proj
             IProfDGV.BackgroundColor = Color.White;
         }
 
+        private readonly MicrosoftStorageHandler handler = new();
+
 
         private void CBSubj(string filePath)
         {
@@ -66,7 +69,7 @@ namespace Interface_Proj
 
                         while (!reader.EndOfStream)
                         {
-                            string line = reader.ReadLine();
+                            string line = reader.ReadLine()!;
                             if (!string.IsNullOrEmpty(line))
                             {
                                 // Розбиваємо рядок за допомогою розділювача ";"
@@ -95,8 +98,7 @@ namespace Interface_Proj
         {
             try
             {
-                MicrosoftStorageHandler handl = new MicrosoftStorageHandler();
-                await handl.DownloadFile("schedule.csv", "ScheduleFolder");
+                await handler.DownloadFile("schedule.csv", "ScheduleFolder");
 
                 // После успешной загрузки файла, вызываем метод CBSubj
                 CBSubj("schedule.csv");
@@ -110,8 +112,8 @@ namespace Interface_Proj
         private async void ComboBox1_SelectedIndex(object sender, EventArgs e)
         {
             // Отримуємо вибраний предмет з ComboBox
-            string selectedSubject = ISubjCB.SelectedItem as string;
-            MicrosoftStorageHandler handler = new();
+            if (ISubjCB.SelectedIndex == -1) return;
+            string? selectedSubject = ISubjCB.SelectedItem as string;
             await handler.DownloadFile($"{selectedSubject}.json", "AttendanceFolder");
             await handler.DownloadFile("students.csv", "StudentsFolder");
 
@@ -145,7 +147,7 @@ namespace Interface_Proj
                     AttendanceInfo attPair = new AttendanceInfo
                     {
                         NameLastName = pair.Key,
-                        Attendance = pair.Value.ToString()
+                        Attendance = pair.Value!.ToString()
                     };
 
                     // Додаємо дані в DataGridView
@@ -200,9 +202,9 @@ namespace Interface_Proj
                 // Оновлюємо інформацію в DataGridView на основі словника
                 foreach (DataGridViewRow row in IProfDGV.Rows)
                 {
-                    string nameLastName = row.Cells["NameLastName"].Value.ToString();
+                    string? nameLastName = row.Cells["NameLastName"].Value.ToString();
 
-                    if (csvData.TryGetValue(nameLastName, out List<string> dataFromCsv))
+                    if (csvData.TryGetValue(nameLastName!, out var dataFromCsv))
                     {
                         // Додаємо дані з файлу CSV в поточний рядок у DataGridView
                         for (int i = 0; i < dataFromCsv.Count; i++)

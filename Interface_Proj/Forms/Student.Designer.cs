@@ -38,20 +38,22 @@
             IStudLV.Dock = DockStyle.Fill;
             IStudLV.ForeColor = Color.Black;
             IStudLV.Location = new Point(0, 0);
+            IStudLV.Margin = new Padding(2, 2, 2, 2);
             IStudLV.Name = "IStudLV";
-            IStudLV.Size = new Size(878, 544);
+            IStudLV.Size = new Size(702, 435);
             IStudLV.TabIndex = 0;
             IStudLV.UseCompatibleStateImageBehavior = false;
             // 
             // IStudentForm1
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(878, 544);
+            ClientSize = new Size(702, 435);
             Controls.Add(IStudLV);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(2, 2, 2, 2);
             Name = "IStudentForm1";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Visit Control";

@@ -7,36 +7,36 @@ using Newtonsoft.Json.Linq;
 using System.Text.Json.Nodes;
 
 
-public class Student
+public struct Student
 {
-    public int ID { get; set; }
-    public string? FirstName { get; set; }
-    public string? LastName { get; set; }
-    public string? Email { get; set; }
-    public string? Group { get; set; }
-    public string? StudentType { get; set; }
+    public int ID;
+    public string FirstName;
+    public string LastName;
+    public string Email;
+    public string Group;
+    public string StudentType;
 }
 
-public class Schedule
+public struct Schedule
 {
-    public string? Day { get; set; }
-    public string? ID { get; set; }
-    public string? Name { get; set; }
-    public string? Type { get; set; }
-    public string? Link { get; set; }
+    public string Day;
+    public string ID;
+    public string Name;
+    public string Type;
+    public string Link;
 }
 
-public class LoginInfo
+public struct LoginInfo
 {
-    public int ID { get; set; }
-    public string? Login { get; set; }
-    public string? Password { get; set; }
+    public int ID;
+    public string Login;
+    public string Password;
 }
 
 public class LoginInfoProfessors
 {
-    public string? Login { get; set; }
-    public string? Password { get; set; }
+    public string? Login;
+    public string? Password;
 }
 
 public struct AttendanceInfo
@@ -45,11 +45,10 @@ public struct AttendanceInfo
     public string Attendance;
 }
 
-
 public class Methods
 {
     
-    //////////////////ReadStudentsFromCsv
+    //ReadStudentsFromCsv
     public static List<Student> ReadStudentsFromCsv()
     {
         string csvFileName = "students.csv";
@@ -90,7 +89,7 @@ public class Methods
         return students;
     }
 
-    /////////////////////ReadSchedule
+    //ReadSchedule
     public static List<Schedule> ReadScheduleFromCsv()
     {
         string csvFileName = "schedule.csv";
@@ -130,7 +129,7 @@ public class Methods
         return schedule;
     }
 
-    /////////////////////ReadAttendance
+    //ReadAttendance
     public static List<AttendanceInfo> ReadAttendance(string fileName)
     {
         List <AttendanceInfo> result = new();
@@ -173,7 +172,7 @@ public class Methods
         Schedule subjectToRemove = schedule.Find(entry => entry.Day == day && entry.ID == id
         && entry.Name == subject && entry.Type == type);
 
-        if (subjectToRemove != null)
+        if (!subjectToRemove.Equals(default(Schedule)))
         {
             schedule.Remove(subjectToRemove);
             using (var writer = new StreamWriter("schedule.csv"))
@@ -245,30 +244,6 @@ public class Methods
         File.WriteAllText("professors.json", json);
     }
 
-    //ProfessorPasswordExist
-    public static bool ProfessorPasswordExist(string Password)
-    {
-        List<LoginInfoProfessors> professors = ReadProfessorsFromJson();
-        var professor = professors.FirstOrDefault(s => s.Password == Password);
-        if (professor != null)
-        {
-            return true;
-        }
-        return false;
-    }
-
-    //ProfessorLoginExist
-    public static bool ProfessorLoginExist(string Login)
-    {
-        List<LoginInfoProfessors> professors = ReadProfessorsFromJson();
-        var professor = professors.FirstOrDefault(s => s.Login == Login);
-        if (professor != null)
-        {
-            return true;
-        }
-        return false;
-    }
-
     /////////////////RemoveProfessor
     public static void RemoveProfessor(string login)
     {
@@ -283,32 +258,11 @@ public class Methods
     {
         List<Student> students = ReadStudentsFromCsv();
         var student = students.FirstOrDefault(s => s.FirstName == firstName && s.LastName == lastName);
-        if (student != null)
+        if (!student.Equals(default(Schedule)))
         {
             return student.ID;
         }
         return -1;
-    }
-    public static bool StudentPasswordExist(string Password)
-    {
-        List<LoginInfo> students = ReadStudentsFromJson();
-        var student = students.FirstOrDefault(s => s.Password == Password);
-        if (student != null)
-        {
-            return true;
-        }
-        return false;
-    }
-
-    public static bool StudentLoginExist(string Login)
-    {
-        List<LoginInfo> students = ReadStudentsFromJson();
-        var student = students.FirstOrDefault(s => s.Login == Login);
-        if (student != null)
-        {
-            return true;
-        }
-        return false;
     }
 
     public static void RemoveStudent(string firstName, string lastName)
@@ -371,33 +325,4 @@ public class Methods
         string json = JsonConvert.SerializeObject(loginInfos, Formatting.Indented);
         File.WriteAllText("students.json", json);
     }
-
-    public static void EditStudent(Student updatedStudent, LoginInfo updatedLoginInfo)
-    {
-        List<Student> students = ReadStudentsFromCsv();
-
-        int studentIndex = students.FindIndex(student => student.ID == updatedStudent.ID);
-        if (studentIndex < 0)
-        {
-            return;
-        }
-        students[studentIndex] = updatedStudent;
-        students = students.OrderBy(student => student.Group).ToList();
-
-        using (var writer = new StreamWriter("students.csv"))
-        {
-            writer.WriteLine("First Name;Last Name;Email;Group;StudentType;ID");
-            foreach (var student in students)
-            {
-                writer.WriteLine($"{student.FirstName};{student.LastName};{student.Email};{student.Group};{student.StudentType};{student.ID}");
-            }
-        }
-
-        List<LoginInfo> loginInfos = ReadStudentsFromJson();
-        int loginInfoIndex = loginInfos.FindIndex(loginInfo => loginInfo.ID == updatedLoginInfo.ID);
-        loginInfos[loginInfoIndex] = updatedLoginInfo;
-        string json = JsonConvert.SerializeObject(loginInfos, Formatting.Indented);
-        File.WriteAllText("students.json", json);
-    }
-
 }

@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Errors
+namespace Interface_Proj.Classes
 {
     public class InternetConectionException : Exception
     {
@@ -33,8 +33,8 @@ namespace Errors
     }
     public class StudentsNotUpLoaded : Exception
     {
-        public StudentsNotUpLoaded () { }
-        public StudentsNotUpLoaded (string message) : base(message) { }
+        public StudentsNotUpLoaded() { }
+        public StudentsNotUpLoaded(string message) : base(message) { }
     }
     public class CharacterConversion : Exception
     {
