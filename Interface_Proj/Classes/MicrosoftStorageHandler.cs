@@ -24,8 +24,6 @@ namespace Interface_Proj.Classes
     {
         private readonly string accountName = "kursovaoop";
         private readonly string accessKey = "iTyPAiN1hZeTu1jHgs7ebHPN4n0/OB+rKMsHposb0rKcHfEqyeIbQWix3PWeLefAbQzDgCA/Z6/D+AStrdbjmg==";
-        private readonly string documentFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-        private readonly string debugFolderPath = Directory.GetCurrentDirectory();
         private readonly BlobServiceClient client;
         private readonly BlobContainerClient container;
 
@@ -35,10 +33,6 @@ namespace Interface_Proj.Classes
             var blobUri = $"https://{accountName}.blob.core.windows.net";
             client = new BlobServiceClient(new Uri(blobUri), credentials);
             container = client.GetBlobContainerClient("files");
-            if (!Directory.Exists(Path.Combine(documentFolderPath, "StorageFiles")))
-                Directory.CreateDirectory(Path.Combine(documentFolderPath, "StorageFiles"));
-            documentFolderPath = Path.Combine(documentFolderPath, "StorageFiles");
-
         }
 
         /// <summary>Downloads file to debug folder</summary>
@@ -48,7 +42,7 @@ namespace Interface_Proj.Classes
             if (!IsInternetAvailable()) throw new InternetConectionException();
             BlobClient blob = container.GetBlobClient($"{folderName}/{downloadFileName}");
             if (!await blob.ExistsAsync()) { return "File or folder doesn't exist"; }
-            await blob.DownloadToAsync(Path.Combine(debugFolderPath, downloadFileName));
+            await blob.DownloadToAsync(downloadFileName);
             return "Success";
         }
 
