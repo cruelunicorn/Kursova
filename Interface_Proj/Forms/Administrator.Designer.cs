@@ -72,7 +72,7 @@
             tabControl1.Controls.Add(tabPage2);
             tabControl1.Controls.Add(tabPage3);
             tabControl1.Dock = DockStyle.Bottom;
-            tabControl1.Font = new Font("Kievit Offc Pro", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            tabControl1.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
             tabControl1.Location = new Point(0, 2);
             tabControl1.Margin = new Padding(2);
             tabControl1.Name = "tabControl1";
@@ -83,11 +83,11 @@
             // tabPage1
             // 
             tabPage1.Controls.Add(tableLayoutPanel2);
-            tabPage1.Location = new Point(4, 33);
+            tabPage1.Location = new Point(4, 29);
             tabPage1.Margin = new Padding(2);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(2);
-            tabPage1.Size = new Size(958, 483);
+            tabPage1.Size = new Size(958, 487);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Розклад";
             tabPage1.UseVisualStyleBackColor = true;
@@ -122,10 +122,10 @@
             IAdminSchedLB.BackColor = Color.AliceBlue;
             tableLayoutPanel2.SetColumnSpan(IAdminSchedLB, 4);
             IAdminSchedLB.Dock = DockStyle.Fill;
-            IAdminSchedLB.Font = new Font("Kievit Offc Pro", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            IAdminSchedLB.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
             IAdminSchedLB.ForeColor = Color.Black;
             IAdminSchedLB.FormattingEnabled = true;
-            IAdminSchedLB.ItemHeight = 24;
+            IAdminSchedLB.ItemHeight = 20;
             IAdminSchedLB.Location = new Point(2, 102);
             IAdminSchedLB.Margin = new Padding(2);
             IAdminSchedLB.Name = "IAdminSchedLB";
@@ -138,7 +138,7 @@
             IAdminSchedTB.BackColor = Color.AliceBlue;
             tableLayoutPanel2.SetColumnSpan(IAdminSchedTB, 3);
             IAdminSchedTB.Dock = DockStyle.Fill;
-            IAdminSchedTB.Font = new Font("Kievit Offc Pro", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            IAdminSchedTB.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
             IAdminSchedTB.ForeColor = Color.Black;
             IAdminSchedTB.Location = new Point(2, 2);
             IAdminSchedTB.Margin = new Padding(2);
@@ -155,7 +155,7 @@
             IAdminAddSchedBut.FlatAppearance.MouseDownBackColor = SystemColors.HotTrack;
             IAdminAddSchedBut.FlatAppearance.MouseOverBackColor = SystemColors.Highlight;
             IAdminAddSchedBut.FlatStyle = FlatStyle.Flat;
-            IAdminAddSchedBut.Font = new Font("Kievit Offc Pro", 8.999999F, FontStyle.Bold, GraphicsUnit.Point);
+            IAdminAddSchedBut.Font = new Font("Microsoft Sans Serif", 8.999999F, FontStyle.Bold, GraphicsUnit.Point);
             IAdminAddSchedBut.ForeColor = Color.WhiteSmoke;
             IAdminAddSchedBut.Location = new Point(809, 2);
             IAdminAddSchedBut.Margin = new Padding(2);
@@ -174,7 +174,7 @@
             IAdminDeleteSchedBut.FlatAppearance.MouseDownBackColor = SystemColors.HotTrack;
             IAdminDeleteSchedBut.FlatAppearance.MouseOverBackColor = SystemColors.Highlight;
             IAdminDeleteSchedBut.FlatStyle = FlatStyle.Flat;
-            IAdminDeleteSchedBut.Font = new Font("Kievit Offc Pro", 8.999999F, FontStyle.Bold, GraphicsUnit.Point);
+            IAdminDeleteSchedBut.Font = new Font("Microsoft Sans Serif", 8.999999F, FontStyle.Bold, GraphicsUnit.Point);
             IAdminDeleteSchedBut.ForeColor = Color.WhiteSmoke;
             IAdminDeleteSchedBut.Location = new Point(809, 52);
             IAdminDeleteSchedBut.Margin = new Padding(2);
@@ -188,11 +188,11 @@
             // tabPage2
             // 
             tabPage2.Controls.Add(IAdminInfoStudTLP);
-            tabPage2.Location = new Point(4, 33);
+            tabPage2.Location = new Point(4, 29);
             tabPage2.Margin = new Padding(2);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(2);
-            tabPage2.Size = new Size(958, 483);
+            tabPage2.Size = new Size(958, 487);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Студенти";
             tabPage2.UseVisualStyleBackColor = true;
@@ -234,7 +234,7 @@
             IAdminInfoAddStudBut.FlatAppearance.MouseDownBackColor = SystemColors.HotTrack;
             IAdminInfoAddStudBut.FlatAppearance.MouseOverBackColor = SystemColors.Highlight;
             IAdminInfoAddStudBut.FlatStyle = FlatStyle.Flat;
-            IAdminInfoAddStudBut.Font = new Font("Kievit Offc Pro", 8.999999F, FontStyle.Bold, GraphicsUnit.Point);
+            IAdminInfoAddStudBut.Font = new Font("Microsoft Sans Serif", 8.999999F, FontStyle.Bold, GraphicsUnit.Point);
             IAdminInfoAddStudBut.ForeColor = Color.WhiteSmoke;
             IAdminInfoAddStudBut.Location = new Point(804, 52);
             IAdminInfoAddStudBut.Margin = new Padding(2);
@@ -250,7 +250,7 @@
             IAdminInfoStudTB.BackColor = Color.AliceBlue;
             IAdminInfoStudTLP.SetColumnSpan(IAdminInfoStudTB, 3);
             IAdminInfoStudTB.Dock = DockStyle.Fill;
-            IAdminInfoStudTB.Font = new Font("Kievit Offc Pro", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            IAdminInfoStudTB.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
             IAdminInfoStudTB.ForeColor = Color.Black;
             IAdminInfoStudTB.Location = new Point(2, 52);
             IAdminInfoStudTB.Margin = new Padding(2);
@@ -264,7 +264,7 @@
             IAdminInfoStudGenTB.BackColor = Color.AliceBlue;
             IAdminInfoStudTLP.SetColumnSpan(IAdminInfoStudGenTB, 3);
             IAdminInfoStudGenTB.Dock = DockStyle.Fill;
-            IAdminInfoStudGenTB.Font = new Font("Kievit Offc Pro", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            IAdminInfoStudGenTB.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
             IAdminInfoStudGenTB.ForeColor = Color.Black;
             IAdminInfoStudGenTB.Location = new Point(2, 2);
             IAdminInfoStudGenTB.Margin = new Padding(2);
@@ -281,14 +281,14 @@
             IAdminInfoGenerateStudBut.FlatAppearance.MouseDownBackColor = SystemColors.HotTrack;
             IAdminInfoGenerateStudBut.FlatAppearance.MouseOverBackColor = SystemColors.Highlight;
             IAdminInfoGenerateStudBut.FlatStyle = FlatStyle.Flat;
-            IAdminInfoGenerateStudBut.Font = new Font("Kievit Offc Pro", 8.999999F, FontStyle.Bold, GraphicsUnit.Point);
+            IAdminInfoGenerateStudBut.Font = new Font("Microsoft Sans Serif", 8.999999F, FontStyle.Bold, GraphicsUnit.Point);
             IAdminInfoGenerateStudBut.ForeColor = Color.WhiteSmoke;
             IAdminInfoGenerateStudBut.Location = new Point(804, 2);
             IAdminInfoGenerateStudBut.Margin = new Padding(2);
             IAdminInfoGenerateStudBut.Name = "IAdminInfoGenerateStudBut";
             IAdminInfoGenerateStudBut.Size = new Size(147, 46);
             IAdminInfoGenerateStudBut.TabIndex = 4;
-            IAdminInfoGenerateStudBut.Text = "Сгенерувати";
+            IAdminInfoGenerateStudBut.Text = "Згенерувати";
             IAdminInfoGenerateStudBut.UseVisualStyleBackColor = false;
             IAdminInfoGenerateStudBut.Click += IAdminInfoGenerateStudBut_Click;
             // 
@@ -300,7 +300,7 @@
             IAdminInfoDeleteStudBut.FlatAppearance.MouseDownBackColor = SystemColors.HotTrack;
             IAdminInfoDeleteStudBut.FlatAppearance.MouseOverBackColor = SystemColors.Highlight;
             IAdminInfoDeleteStudBut.FlatStyle = FlatStyle.Flat;
-            IAdminInfoDeleteStudBut.Font = new Font("Kievit Offc Pro", 8.999999F, FontStyle.Bold, GraphicsUnit.Point);
+            IAdminInfoDeleteStudBut.Font = new Font("Microsoft Sans Serif", 8.999999F, FontStyle.Bold, GraphicsUnit.Point);
             IAdminInfoDeleteStudBut.ForeColor = Color.WhiteSmoke;
             IAdminInfoDeleteStudBut.Location = new Point(804, 102);
             IAdminInfoDeleteStudBut.Margin = new Padding(2);
@@ -316,10 +316,10 @@
             IAdminInfoStudLB.BackColor = Color.AliceBlue;
             IAdminInfoStudTLP.SetColumnSpan(IAdminInfoStudLB, 4);
             IAdminInfoStudLB.Dock = DockStyle.Fill;
-            IAdminInfoStudLB.Font = new Font("Kievit Offc Pro", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            IAdminInfoStudLB.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
             IAdminInfoStudLB.ForeColor = Color.Black;
             IAdminInfoStudLB.FormattingEnabled = true;
-            IAdminInfoStudLB.ItemHeight = 24;
+            IAdminInfoStudLB.ItemHeight = 20;
             IAdminInfoStudLB.Location = new Point(2, 152);
             IAdminInfoStudLB.Margin = new Padding(2);
             IAdminInfoStudLB.Name = "IAdminInfoStudLB";
@@ -331,11 +331,11 @@
             // tabPage3
             // 
             tabPage3.Controls.Add(tableLayoutPanel1);
-            tabPage3.Location = new Point(4, 33);
+            tabPage3.Location = new Point(4, 29);
             tabPage3.Margin = new Padding(2);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new Padding(2);
-            tabPage3.Size = new Size(958, 483);
+            tabPage3.Size = new Size(958, 487);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Викладачі";
             tabPage3.UseVisualStyleBackColor = true;
@@ -353,7 +353,7 @@
             tableLayoutPanel1.Controls.Add(IAdminProfAddBut, 2, 1);
             tableLayoutPanel1.Controls.Add(IAdminProfDeleteBut, 3, 1);
             tableLayoutPanel1.Dock = DockStyle.Top;
-            tableLayoutPanel1.Font = new Font("Kievit Offc Pro", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            tableLayoutPanel1.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
             tableLayoutPanel1.Location = new Point(2, 2);
             tableLayoutPanel1.Margin = new Padding(2);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -368,10 +368,10 @@
             // 
             IAdminProfLB.BackColor = Color.AliceBlue;
             IAdminProfLB.Dock = DockStyle.Fill;
-            IAdminProfLB.Font = new Font("Kievit Offc Pro", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            IAdminProfLB.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
             IAdminProfLB.ForeColor = Color.Black;
             IAdminProfLB.FormattingEnabled = true;
-            IAdminProfLB.ItemHeight = 24;
+            IAdminProfLB.ItemHeight = 20;
             IAdminProfLB.Location = new Point(2, 2);
             IAdminProfLB.Margin = new Padding(2);
             IAdminProfLB.Name = "IAdminProfLB";
@@ -384,7 +384,7 @@
             IAdminProfTB.BackColor = Color.AliceBlue;
             tableLayoutPanel1.SetColumnSpan(IAdminProfTB, 3);
             IAdminProfTB.Dock = DockStyle.Fill;
-            IAdminProfTB.Font = new Font("Kievit Offc Pro", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            IAdminProfTB.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
             IAdminProfTB.ForeColor = Color.Black;
             IAdminProfTB.Location = new Point(509, 2);
             IAdminProfTB.Margin = new Padding(2);
@@ -401,14 +401,14 @@
             IAdminProfGenBut.FlatAppearance.MouseDownBackColor = SystemColors.HotTrack;
             IAdminProfGenBut.FlatAppearance.MouseOverBackColor = SystemColors.Highlight;
             IAdminProfGenBut.FlatStyle = FlatStyle.Flat;
-            IAdminProfGenBut.Font = new Font("Kievit Offc Pro", 8.999999F, FontStyle.Bold, GraphicsUnit.Point);
+            IAdminProfGenBut.Font = new Font("Microsoft Sans Serif", 8.999999F, FontStyle.Bold, GraphicsUnit.Point);
             IAdminProfGenBut.ForeColor = Color.WhiteSmoke;
             IAdminProfGenBut.Location = new Point(509, 49);
             IAdminProfGenBut.Margin = new Padding(2);
             IAdminProfGenBut.Name = "IAdminProfGenBut";
             IAdminProfGenBut.Size = new Size(144, 46);
             IAdminProfGenBut.TabIndex = 2;
-            IAdminProfGenBut.Text = "Сгенерувати";
+            IAdminProfGenBut.Text = "Згенерувати";
             IAdminProfGenBut.UseVisualStyleBackColor = false;
             IAdminProfGenBut.Click += IAdminProfGenBut_Click;
             // 
@@ -420,7 +420,7 @@
             IAdminProfAddBut.FlatAppearance.MouseDownBackColor = SystemColors.HotTrack;
             IAdminProfAddBut.FlatAppearance.MouseOverBackColor = SystemColors.Highlight;
             IAdminProfAddBut.FlatStyle = FlatStyle.Flat;
-            IAdminProfAddBut.Font = new Font("Kievit Offc Pro", 8.999999F, FontStyle.Bold, GraphicsUnit.Point);
+            IAdminProfAddBut.Font = new Font("Microsoft Sans Serif", 8.999999F, FontStyle.Bold, GraphicsUnit.Point);
             IAdminProfAddBut.ForeColor = Color.WhiteSmoke;
             IAdminProfAddBut.Location = new Point(657, 49);
             IAdminProfAddBut.Margin = new Padding(2);
@@ -439,7 +439,7 @@
             IAdminProfDeleteBut.FlatAppearance.MouseDownBackColor = SystemColors.HotTrack;
             IAdminProfDeleteBut.FlatAppearance.MouseOverBackColor = SystemColors.Highlight;
             IAdminProfDeleteBut.FlatStyle = FlatStyle.Flat;
-            IAdminProfDeleteBut.Font = new Font("Kievit Offc Pro", 8.999999F, FontStyle.Bold, GraphicsUnit.Point);
+            IAdminProfDeleteBut.Font = new Font("Microsoft Sans Serif", 8.999999F, FontStyle.Bold, GraphicsUnit.Point);
             IAdminProfDeleteBut.ForeColor = Color.WhiteSmoke;
             IAdminProfDeleteBut.Location = new Point(805, 49);
             IAdminProfDeleteBut.Margin = new Padding(2);
@@ -455,12 +455,12 @@
             IAdminInfoCMS.ImageScalingSize = new Size(24, 24);
             IAdminInfoCMS.Items.AddRange(new ToolStripItem[] { deleteToolStripMenuItem });
             IAdminInfoCMS.Name = "IAdminInfoCMS";
-            IAdminInfoCMS.Size = new Size(135, 36);
+            IAdminInfoCMS.Size = new Size(123, 28);
             // 
             // deleteToolStripMenuItem
             // 
             deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            deleteToolStripMenuItem.Size = new Size(134, 32);
+            deleteToolStripMenuItem.Size = new Size(122, 24);
             deleteToolStripMenuItem.Text = "Delete";
             // 
             // IAdminHelpBut
@@ -469,7 +469,7 @@
             IAdminHelpBut.FlatAppearance.MouseDownBackColor = Color.White;
             IAdminHelpBut.FlatAppearance.MouseOverBackColor = Color.White;
             IAdminHelpBut.FlatStyle = FlatStyle.Flat;
-            IAdminHelpBut.Font = new Font("Kievit Offc Pro", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            IAdminHelpBut.Font = new Font("Microsoft Sans Serif", 11F, FontStyle.Regular, GraphicsUnit.Point);
             IAdminHelpBut.Location = new Point(280, 2);
             IAdminHelpBut.Name = "IAdminHelpBut";
             IAdminHelpBut.Size = new Size(32, 28);
@@ -479,13 +479,13 @@
             // 
             // IAdminForm
             // 
-            AutoScaleDimensions = new SizeF(11F, 24F);
+            AutoScaleDimensions = new SizeF(10F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(966, 522);
             Controls.Add(IAdminHelpBut);
             Controls.Add(tabControl1);
-            Font = new Font("Kievit Offc Pro", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point);
             ForeColor = Color.Black;
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
