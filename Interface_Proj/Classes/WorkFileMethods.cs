@@ -34,10 +34,10 @@ public struct LoginInfo
     public string Password;
 }
 
-public class LoginInfoProfessors
+public struct LoginInfoProfessors
 {
-    public string? Login;
-    public string? Password;
+    public string Login;
+    public string Password;
 }
 
 public struct AttendanceInfo
