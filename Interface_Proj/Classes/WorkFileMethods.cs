@@ -130,23 +130,6 @@ public class Methods
         return schedule;
     }
 
-    //ReadAttendance
-    public static List<AttendanceInfo> ReadAttendance(string fileName)
-    {
-        List <AttendanceInfo> result = new();
-        if (!File.Exists(fileName)) { return result; }
-        JObject jsonObj = JObject.Parse(File.ReadAllText(fileName));
-        AttendanceInfo attPair = new();
-
-        foreach (var pair in jsonObj)
-        {
-            attPair.NameLastName = pair.Key;
-            attPair.Attendance = pair.Value!.ToString();
-            result.Add(attPair);
-        }
-        return result;
-    }
-
     // Add a new Subject.
     public static void AddSubject(Schedule newSubjects)
     {
