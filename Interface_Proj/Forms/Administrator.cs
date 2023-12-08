@@ -302,9 +302,6 @@ namespace Interface_Proj
 
                         IAdminSchedLB.Items.Clear();
 
-                    //from server schedule download
-                    await handler.DownloadFile("shedule.csv", "ProfessorsFolder");
-
                     List<string> lines = File.ReadAllLines(csvFilePathSched).ToList();
                     foreach (string line in lines)
                     {

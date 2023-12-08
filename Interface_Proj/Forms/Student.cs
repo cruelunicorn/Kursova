@@ -53,7 +53,7 @@ namespace Interface_Proj
             // Колір тексту
             using (Brush brush = new SolidBrush(Color.LightBlue))
             {
-                e.Graphics.DrawString(e.Header.Text, e.Font, brush, e.Bounds, StringFormat.GenericDefault);
+                e.Graphics.DrawString(e.Header!.Text, e.Font!, brush, e.Bounds, StringFormat.GenericDefault);
             }
 
             e.DrawDefault = false;
@@ -111,7 +111,7 @@ namespace Interface_Proj
             }
             else
             {
-                MessageBox.Show("Файл не найден: " + filePath);
+                MessageBox.Show("Файл не знайдено: " + filePath);
             }
         }
 
@@ -131,9 +131,32 @@ namespace Interface_Proj
                     UseShellExecute = true
                 });
 
-                if (DateTime.Now.ToString("dddd", new CultureInfo("uk-UA")) == test.Item.SubItems[0].Text.ToLower())
+                if (DateTime.Now.ToString("dddd", new CultureInfo("uk-UA")) != test.Item.SubItems[0].Text.ToLower()) return;
+
+                string subject = test.Item.SubItems[2].Text;
+                bool canVisit = true;
+                if (File.Exists("visits.txt"))
                 {
-                    string subject = test.Item.SubItems[2].Text;
+                    List<string> visits = File.ReadAllLines("visits.txt").ToList();
+                    int index = visits.FindIndex(s => s.Contains(subject));
+                    if (index != -1)
+                    {
+                        if (DateTime.Today > DateTime.ParseExact(visits[index].Split(':')[1], "dd.MM.yyyy", CultureInfo.InvariantCulture))
+                        {
+                            visits[index] = $"{subject}:{DateTime.Today:dd.MM.yyyy}";
+                            File.WriteAllLines("visits.txt", visits);
+                        }
+                        else
+                            canVisit = false;
+                    }
+                    else
+                        File.AppendAllText("visits.txt", $"{subject}:{DateTime.Today:dd.MM.yyyy}\n");
+                }
+                else
+                    File.AppendAllText("visits.txt", $"{subject}:{DateTime.Today:dd.MM.yyyy}\n");
+
+                if (canVisit)
+                {               
                     if (await handler.DownloadFile($"{subject}.json", "AttendanceFolder") != "Success") return;
                     var jsonObj = JObject.Parse(File.ReadAllText($"{subject}.json"));
                     if (jsonObj[nameAndLastName] != null)
