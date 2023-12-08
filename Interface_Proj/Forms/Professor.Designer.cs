@@ -78,6 +78,7 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "IProfessorForm1";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Visit Control";
             FormClosing += IProfessorForm1_FormClosing;
             Load += IProfessorForm1_Load;
